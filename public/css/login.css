@@ -1,0 +1,46 @@
+.form-group-custom {
+  border-bottom: 2px solid #adadad;
+  position: relative;
+  margin: 30px 0;
+}
+
+.form-group-custom input {
+  font-size: 15px;
+  color: #333;
+  border: none;
+  width: 100%;
+  outline: none;
+  background: none;
+  padding: 0 5px;
+  height: 40px;
+}
+
+.form-group-custom span::before {
+  content: attr(data-placeholder);
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  z-index: -1;
+  transition: .5s;
+}
+
+.form-group-custom span::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0px;    
+  width: 0%;
+  height: 2px;  
+  background: linear-gradient(120deg,#e63946,#1d3557);
+  transition: .5s;
+}
+
+.focus + span::before {
+  top: -5px;
+}
+
+.focus + span::after {
+  width: 100%;
+}

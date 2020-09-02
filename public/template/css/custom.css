@@ -1,0 +1,21 @@
+.side-nav-item .feather {
+  	width: 17px;
+  	height: 17px;
+  	stroke: currentColor;
+  	stroke-width: 2;
+  	stroke-linecap: round;
+  	stroke-linejoin: round;
+  	fill: none;
+  	margin: 8px;
+  	margin-top: 1px;
+}
+
+.topbar-right-menu .feather {
+  	margin-top: 20px;
+}
+
+.rightbar-content::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+    display: none;  /* Ocultar scroll */
+}
