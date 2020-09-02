@@ -13,6 +13,6 @@ export default new Router({
 		{path:'/home',name:'home',component:ExampleComponent},
 		{path:'/vue/table',name:'table',component:TableComponent},
 		{path:'/vue/profile',name:'profile',component:ProfileComponent},
-		{path:'/vue/profile/edit',name:'profile',component:ProfileEditComponent},
+		{path:'/vue/profile/edit',name:'profileEdit',component:ProfileEditComponent},
 	]
 })

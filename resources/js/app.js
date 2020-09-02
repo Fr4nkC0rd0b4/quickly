@@ -9,7 +9,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import router from './router';
+import InfiniteLoading from "vue-infinite-loading";
+import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 
+Vue.use(InfiniteLoading, { /* options */ });
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -22,6 +25,8 @@ import router from './router';
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('Infinitiloading', require('vue-infinite-loading'));
+Vue.component('scale-loader', require('vue-spinner/src/ScaleLoader.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
