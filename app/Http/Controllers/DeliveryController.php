@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Delivery;
+use Auth;
 use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
@@ -12,10 +13,22 @@ class DeliveryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $deliveries = Delivery::all();
+        $role_id = Auth::user()->role_id;
         
+        switch ($role_id) {
+            case 'value':
+                # code...
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
+        $deliveries = Delivery::search($request->searching)->paginate(10);
+
         return $deliveries;
     }
 

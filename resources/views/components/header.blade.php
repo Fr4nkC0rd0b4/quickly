@@ -109,7 +109,6 @@
                                         <button class="btn btn-primary" type="submit">Search</button>
                                     </div>
                                 </div>
-             
                             </form>
 
                             <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">

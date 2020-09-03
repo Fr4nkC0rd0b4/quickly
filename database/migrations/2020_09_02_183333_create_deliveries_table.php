@@ -15,12 +15,13 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('deliver')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('deliver')->nullable();
             $table->string('destination_city');
-            $table->string('city_origin');
-            $table->string('address');
-            $table->integer('size')->nullable();
+            $table->string('origin_city');
+            $table->string('shipping_ponit');
+            $table->string('pick_up_point');
+            $table->string('type');
             $table->integer('status');
             $table->timestamps();
 
