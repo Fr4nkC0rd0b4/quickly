@@ -5,7 +5,8 @@
                 <div class="page-title-box">
                     <div class="page-title-right">
                         <div class="form-inline">
-                            <button class="m-1 btn btn-primary ml-1">+</span></button>
+                            <!-- Button trigger modal -->
+                            <button class="m-1 btn btn-primary ml-1" data-toggle="modal" data-target="#createDeliverModal">+</span></button>
                             <div class="input-group">
                                 <input type="search" class="form-control" v-model="searching" @change="search" style="width: 180px" placeholder="Buscar...">
                                 <div class="input-group-append">
@@ -45,22 +46,35 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-md-8">
-                        <div v-for="delivery in deliveries" class="card">
-                            <div class="card-header">{{ delivery.id }}</div>
-
-                            <div class="card-body">
-                                De {{ delivery.origin_city }} a {{ delivery.destination_city }}
-                            </div>
-                            <div class="card-footer">
-                                <button class="btn btn-primary">
-                                    <span data-feather="row"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
                 <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="createDeliverModal" tabindex="-1" role="dialog" aria-labelledby="createDeliverModallLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createDeliverModalLabel">Nuevo Envio</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-group">
+                            <input type="select" name="type" class="form-control">
+                            <input type="text" name="destination_city" class="form-control">
+                            <input type="text" name="origin_city" class="form-control">
+                            <input type="text" name="shipping_point" class="form-control">
+                            <input type="text" name="pick_up_point" class="form-control">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

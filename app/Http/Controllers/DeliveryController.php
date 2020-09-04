@@ -15,19 +15,21 @@ class DeliveryController extends Controller
      */
     public function index(Request $request)
     {
-        $role_id = Auth::user()->role_id;
+        $role = Auth::user()->role->name;
+        $id = Auth::user()->id;
         
-        switch ($role_id) {
-            case 'value':
-                # code...
+        switch ($role) {
+            case 'user':
+                $deliveries = Delivery::where('user_id', $id)->search($request->searching)->paginate(10);
                 break;
-            
+            case 'quicker':
+                $deliveries = Delivery::search($request->searching)->paginate(10);
+                break;
+
             default:
-                # code...
+                $deliveries = Delivery::search($request->searching)->paginate(10);
                 break;
         }
-        
-        $deliveries = Delivery::search($request->searching)->paginate(10);
 
         return $deliveries;
     }

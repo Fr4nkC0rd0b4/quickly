@@ -9,7 +9,7 @@ class Delivery extends Model
     protected $table = 'deliveries';
 
     protected $fillable = [
-    	'user_id', 'deliver', 'destination_city', 'origin_city', 'shipping_ponti', 'pick_up_point', 'type', 'status'
+    	'user_id', 'deliver', 'destination_city', 'origin_city', 'shipping_point', 'pick_up_point', 'type', 'status'
     ];
 
     public function delivery_details()

@@ -1988,6 +1988,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -6759,7 +6767,7 @@ exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base
 
 
 // module
-exports.push([module.i, "\n.v-spinner\n{\n/*\t  font-size: 10px; \n\n    width: 60px;\n    height: 40px;*/\n    /*margin: 25px auto;*/\n    text-align: center;\n}\n@-webkit-keyframes v-scaleStretchDelay\n{\n0%,\n    100%\n    {\n        transform: scaleY(1);\n}\n50%\n    {\n        transform: scaleY(0.4);\n}\n}\n@keyframes v-scaleStretchDelay\n{\n0%,\n    100%\n    {\n        transform: scaleY(1);\n}\n50%\n    {\n        transform: scaleY(0.4);\n}\n}\n", ""]);
+exports.push([module.i, "\n.v-spinner\n{\n/*\t  font-size: 10px; \n\n    width: 60px;\n    height: 40px;*/\n    /*margin: 25px auto;*/\n    text-align: center;\n}\n@-webkit-keyframes v-scaleStretchDelay\n{\n0%\n    {\n       -webkit-animation-name: inherit;\n       -webkit-animation-duration: inherit;\n       -webkit-animation-iteration-count: inherit;\n       -webkit-animation-direction: inherit;\n},\n    100%\n    {\n        transform: scaleY(1);\n}\n50%\n    {\n        transform: scaleY(0.4);\n}\n}\n@keyframes v-scaleStretchDelay\n{\n0%\n    {\n       -webkit-animation-name: inherit;\n       -webkit-animation-duration: inherit;\n       -webkit-animation-iteration-count: inherit;\n       -webkit-animation-direction: inherit;\n},\n    100%\n    {\n        transform: scaleY(1);\n}\n50%\n    {\n        transform: scaleY(0.4);\n}\n}\n", ""]);
 
 // exports
 
@@ -38641,7 +38649,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   }
-
 });
 
 
@@ -38727,9 +38734,17 @@ var render = function() {
         _c("div", { staticClass: "page-title-box" }, [
           _c("div", { staticClass: "page-title-right" }, [
             _c("div", { staticClass: "form-inline" }, [
-              _c("button", { staticClass: "m-1 btn btn-primary ml-1" }, [
-                _vm._v("+")
-              ]),
+              _c(
+                "button",
+                {
+                  staticClass: "m-1 btn btn-primary ml-1",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#createDeliverModal"
+                  }
+                },
+                [_vm._v("+")]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "input-group" }, [
                 _c("input", {
@@ -38874,7 +38889,9 @@ var render = function() {
         ],
         1
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _vm._m(2)
   ])
 }
 var staticRenderFns = [
@@ -38893,6 +38910,82 @@ var staticRenderFns = [
     return _c("button", { staticClass: "btn btn-primary ml-1" }, [
       _c("span", { attrs: { "data-feather": "loader" } })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "createDeliverModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "createDeliverModallLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "createDeliverModalLabel" }
+                  },
+                  [_vm._v("Modal title")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm._v("\n                    ...\n                ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Save changes")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
