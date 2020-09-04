@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card border-info">
-                <img src="{{ asset('img/logo-dark.png') }}" class="card-img-top" alt="...">
+                <img src="{{ asset('storage/'.setting('site.logo_dark')) }}" class="card-img-top" alt="logo">
                 <div class="dropdown-divider"></div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

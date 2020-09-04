@@ -30,6 +30,7 @@ Route::get('vue/{any?}/{any1?}',function($any){
 Route::post('/profile/update', 'ProfileController@update');
 
 Route::get('/delivery/index', 'DeliveryController@index');
+Route::post('/delivery/store', 'DeliveryController@store');
 
 //Rutas de consola de administración Voyager
 Route::group(['prefix' => 'admin'], function () {

@@ -83,7 +83,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Quickie
+                    {{ setting('site.title') }}
                 </div>
 
                 <div class="links">

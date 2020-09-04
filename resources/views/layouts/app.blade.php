@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="img/favicon.ico">
+    <link rel="icon" type="image/png" href="{{ setting('site.favion') }}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ setting('site.title', ' - Login') }}</title>
+    <title>{{ setting('site.title') }}</title>
 
     <!-- Data User Sesion-->
     <meta name="user" content="{{ Auth::user() }}">

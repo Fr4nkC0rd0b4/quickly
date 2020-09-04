@@ -1,29 +1,7 @@
 <template>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="page-title-box">
-                    <div class="page-title-right">
-                        <div class="form-inline">
-                            <!-- Button trigger modal -->
-                            <button class="m-1 btn btn-primary ml-1" data-toggle="modal" data-target="#createDeliverModal">+</span></button>
-                            <div class="input-group">
-                                <input type="search" class="form-control" v-model="searching" @change="search" style="width: 180px" placeholder="Buscar...">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-primary border-primary text-white" @click="searching">
-                                        <span data-feather="search"></span>
-                                    </span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary ml-2"><span data-feather="list"></span></button>
-                            <button class="btn btn-primary ml-1"><span data-feather="loader"></span></button>
-                        </div>
-                    </div>
-                    <h4 class="page-title">Dashboard</h4>
-                </div>
-            </div>
-        </div>
-        <!-- end page title -->
+        <header-component></header-component>
+        
         <div class="row justify-content-center">
             <div class="container">
                 <div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
@@ -48,33 +26,6 @@
                     </div>
                 </div>
                 <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="createDeliverModal" tabindex="-1" role="dialog" aria-labelledby="createDeliverModallLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createDeliverModalLabel">Nuevo Envio</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-group">
-                            <input type="select" name="type" class="form-control">
-                            <input type="text" name="destination_city" class="form-control">
-                            <input type="text" name="origin_city" class="form-control">
-                            <input type="text" name="shipping_point" class="form-control">
-                            <input type="text" name="pick_up_point" class="form-control">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -116,6 +67,7 @@
                         this.page += 1;
                         this.deliveries = solve.data.data;
                     }else {
+                        this.deliveries = solve.data.data;
                         $state.complete();
                     }
                 });

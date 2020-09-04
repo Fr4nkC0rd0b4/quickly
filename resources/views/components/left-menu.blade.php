@@ -21,19 +21,19 @@
     <router-link to="/home">
     <a href="#" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="{{ asset('img/logo.png') }}" alt="" height="16">
+            <img src="{{ asset('storage/'.setting('site.logo')) }}" alt="" height="16">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('img/logo_sm.png') }}" alt="" height="16">
+            <img src="{{ asset('storage/'.setting('site.logo_sm')) }}" alt="" height="16">
         </span>
     </a>
     <!-- LOGO DARK -->
     <a href="#" class="logo text-center logo-dark">
         <span class="logo-lg">
-            <img src="{{ asset('img/logo-dark.png') }}" alt="" height="16">
+            <img src="{{ asset('storage/'.setting('site.logo_dark')) }}" alt="" height="16">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('img/logo_sm_dark.png') }}" alt="" height="16">
+            <img src="{{ asset('storage/'.setting('site.logo_sm_dark')) }}" alt="" height="16">
         </span>
     </a>
     </router-link>

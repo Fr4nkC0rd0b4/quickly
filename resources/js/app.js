@@ -11,8 +11,11 @@ window.Vue = require('vue');
 import router from './router';
 import InfiniteLoading from "vue-infinite-loading";
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
+import VueFormWizard from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 
 Vue.use(InfiniteLoading, { /* options */ });
+Vue.use(VueFormWizard)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -24,7 +27,7 @@ Vue.use(InfiniteLoading, { /* options */ });
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('delivery-component', require('./components/DeliveryComponent.vue').default);
+Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('Infinitiloading', require('vue-infinite-loading'));
 Vue.component('scale-loader', require('vue-spinner/src/ScaleLoader.vue').default);
 
