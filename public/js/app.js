@@ -2124,9 +2124,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -2135,7 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
     onComplete: function onComplete() {
       var form = document.querySelector('form');
       var data = new FormData(form);
-      axios.post('delivery/store', data).then(function () {
+      axios.post('/delivery/store', data).then(function () {
         alert('enviado');
       })["catch"](function () {
         alert('no enviado');
@@ -39247,11 +39244,7 @@ var render = function() {
                   "tab-content",
                   { attrs: { title: "Información adicional" } },
                   [_vm._v("\n\t\t\t        Segundo paso\n\t\t\t    ")]
-                ),
-                _vm._v(" "),
-                _c("tab-content", { attrs: { title: "Verificación" } }, [
-                  _vm._v("\n\t\t\t        Tercer paso\n\t\t\t    ")
-                ])
+                )
               ],
               1
             )
