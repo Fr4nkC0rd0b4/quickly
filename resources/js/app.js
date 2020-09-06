@@ -13,9 +13,11 @@ import InfiniteLoading from "vue-infinite-loading";
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import Vuelidate from 'vuelidate'
 
 Vue.use(InfiniteLoading, { /* options */ });
 Vue.use(VueFormWizard)
+Vue.use(Vuelidate)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
