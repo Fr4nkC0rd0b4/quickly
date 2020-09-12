@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <header-component></header-component>
+        <header-component title="Dashboard"></header-component>
         
         <div class="row justify-content-center">
             <div class="container">

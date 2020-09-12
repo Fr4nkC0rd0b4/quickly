@@ -18,9 +18,17 @@
                         <button class="btn btn-primary ml-1"><span data-feather="loader"></span></button>
                     </div>
                 </div>
-                <h4 class="page-title">Dashboard</h4>
+                <h4 class="page-title">{{ title }}</h4>
             </div>
         </div>
     </div>
     
 </template>
+
+<script>
+    export default {
+        props: {
+            title: ''
+        }
+    }
+</script>
