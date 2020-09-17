@@ -1,12 +1,14 @@
 <template>
-	<div class="container">
+	<div class="container-fluid">
+        <header-component title="Editar perfil"></header-component>
+
         <div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
         {{result.message}}
             <button type="button" @click="result={message:'',alert:''}" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
     		<div class="col-lg-6">
     			<div class="card">
     				<div class="card-body">

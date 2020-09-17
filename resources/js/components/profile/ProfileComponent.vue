@@ -1,5 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
+        <header-component title="Perfil"></header-component>
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">

@@ -1,6 +1,7 @@
 <template>
+    
     <div class="row">
-        <div class="col">
+        <div class="col-12">
             <div class="page-title-box">
                 <div class="page-title-right">
                     <div class="form-inline">

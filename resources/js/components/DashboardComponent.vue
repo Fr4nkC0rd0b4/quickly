@@ -2,14 +2,14 @@
     <div class="container-fluid">
         <header-component title="Dashboard"></header-component>
         
-        <div class="row justify-content-center">
-            <div class="container">
-                <div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
-                    {{result.message}}
-                    <button type="button" @click="result={message:'',alert:''}" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+        <div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
+            {{result.message}}
+            <button type="button" @click="result={message:'',alert:''}" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-12">
                 <div class="row justify-content-center">
                     <div v-for="delivery in deliveries" class="col-xl-6">
                         <div class="ribbon-box card">
@@ -29,6 +29,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
