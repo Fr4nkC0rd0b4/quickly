@@ -61,7 +61,7 @@
         },
         data(){
             return{
-                result:{message:'',alert:''}
+                result: {message:'',alert:''}
             }
         },
         methods: {

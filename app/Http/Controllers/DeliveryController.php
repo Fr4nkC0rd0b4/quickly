@@ -20,14 +20,14 @@ class DeliveryController extends Controller
         
         switch ($role) {
             case 'user':
-                $deliveries = Delivery::where('user_id', $id)->search($request->searching)->paginate(10);
+                $deliveries = Delivery::where('user_id', $id)->search($request->searching)->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'quicker':
-                $deliveries = Delivery::search($request->searching)->paginate(10);
+                $deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->paginate(10);
                 break;
 
             default:
-                $deliveries = Delivery::search($request->searching)->paginate(10);
+                $deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->paginate(10);
                 break;
         }
 
@@ -52,7 +52,17 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $delivery = new Delivery();
+
+        $delivery->user_id = Auth::user()->id;
+        $delivery->destination_city = $request->destination_city;
+        $delivery->origin_city = $request->origin_city;
+        $delivery->shipping_point = $request->shipping_point;
+        $delivery->pick_up_point = $request->pick_up_point;
+        $delivery->type = $request->type;
+        $delivery->status = 0;
+        $delivery->save();
     }
 
     /**
