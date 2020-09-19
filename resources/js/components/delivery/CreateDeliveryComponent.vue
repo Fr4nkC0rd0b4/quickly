@@ -14,12 +14,13 @@
 					<form-wizard title="" subtitle="" color="#727cf5" @on-complete="submitForm">
 					    <tab-content title="Información inicial" :before-change="validateFirstTab">
 				    		<div class="row">
+					      		<input name="user_id" type="hidden" v-bind:value="user.id">
 						      	<b-form-group class="col" id="input-group" label="Ciudad origen:" label-for="origin-city">
 						        	<b-form-input
 						          		id="origin-city"
 						          		name="origin_city"
-						          		v-model="$v.firstForm.origin.$model"
-						          		:state="validateState('firstForm','origin')"
+						          		v-model="$v.firstForm.origin_city.$model"
+						          		:state="validateState('firstForm','origin_city')"
 						          		aria-describedby="input-live-feedback"
 						        	></b-form-input>
 
@@ -32,8 +33,8 @@
 						        	<b-form-input
 						          		id="destination-city"
 						          		name="destination_city"
-						          		v-model="$v.firstForm.destination.$model"
-						          		:state="validateState('firstForm','destination')"
+						          		v-model="$v.firstForm.destination_city.$model"
+						          		:state="validateState('firstForm','destination_city')"
 						          		aria-describedby="input-1-live-feedback"
 						        	></b-form-input>
 
@@ -49,7 +50,14 @@
 						          		id="shipping-point"
 						          		name="shipping_point"
 						        		placeholder="Dirección"
+						        		v-model="$v.firstForm.shipping_point.$model"
+						          		:state="validateState('firstForm','shipping_point')"
+						          		aria-describedby="input-2-live-feedback"
 						        	></b-form-input>
+
+						        	<b-form-invalid-feedback id="input-2-live-feedback">
+						        		Este campo es requerido.
+						        	</b-form-invalid-feedback>
 						      	</b-form-group>
 
 						      	<b-form-group class="col" id="input-group-3" label="Punto de recogida:" label-for="pick-up-pint">
@@ -57,7 +65,14 @@
 						          		id="pick-up-pint"
 						          		name="pick_up_point"
 						          		placeholder="Dirección"
+						          		v-model="$v.firstForm.pick_up_point.$model"
+						          		:state="validateState('firstForm','pick_up_point')"
+						          		aria-describedby="input-3-live-feedback"
 						        	></b-form-input>
+
+						        	<b-form-invalid-feedback id="input-3-live-feedback">
+						        		Este campo es requerido.
+						        	</b-form-invalid-feedback>
 						      	</b-form-group>
 						    </div>
 
@@ -126,6 +141,7 @@
 					        		<b-form-input
 					        			id="package-size"
 					        			name="size"
+					        			type="number"
 					        			v-model="$v.secondForm.size.$model"
 					        			:state="validateState('secondForm','size')"
 					        			aria-describedby="input-size-feedback"
@@ -140,6 +156,7 @@
 					        		<b-form-input
 					        			id="declared-value"
 					        			name="declared_value"
+					        			type="number"
 					        			v-model="$v.secondForm.declared_value.$model"
 					        			:state="validateState('secondForm','declared_value')"
 					        			aria-describedby="input-declared_value-feedback"
@@ -183,16 +200,23 @@
 	import { validationMixin } from "vuelidate";
 	import { required, minLength, decimal } from "vuelidate/lib/validators";
 
+	let user = document.head.querySelector('meta[name="user"]');
+
 	export default {
 	  	mixins: [validationMixin],
+	  	computed: {
+            user(){
+                return JSON.parse(user.content);
+            }
+        },
 	  	data() {
 	    	return {
 	    		result: {message:'',alert:''},
 	      		firstForm: {
-	        		origin: null,
-	        		destination: null,
-	        		shipping: null,
-	        		pick_up: null,
+	        		origin_city: null,
+	        		destination_city: null,
+	        		shipping_point: null,
+	        		pick_up_point: null,
 	        		type: null
 	      		},
 	      		secondForm: {
@@ -213,56 +237,45 @@
 	  	},
 	  	validations: {
 		    firstForm: {
-	      		origin: {
-		        	required
-	    		},
-	    		destination: {
-	    			required
-	    		},
-	    		type: {
-	    			required
-	    		}
+	      		origin_city: { required },
+	    		destination_city: { required },
+	    		shipping_point: { required },
+	    		pick_up_point: { required },
+	    		type: { required }
 	   		},
 	   		secondForm: {
-	   			hight: {
-	   				required,
-	   				decimal
-	   			},
-   				width: {
-	   				required,
-	   				decimal
-	   			},
-	   			long: {
-	   				required,
-	   				decimal
-	   			},
-	   			size: {
-	   				required,
-	   				decimal
-	   			},
-	   			declared_value: {
-	   				required,
-	   				decimal
-	   			}
+	   			hight: { required, decimal },
+   				width: { required, decimal },
+	   			long: { required, decimal },
+	   			size: { required },
+	   			declared_value: { required }
 	   		},
 	   		thirdForm: {
-	   			terms: {
-	   				required
-	   			}
+	   			terms: { required }
 	   		}
 	  	},
 	  	methods: {
-	  		/*resetForm() {
-		      	this.secondForm = {
+	  		resetForm() {
+		      	this.firstForm = {
+			        origin_city: null,
+					destination_city: null,
+					shipping_point: null,
+					pick_up_point: null,
+					type: null
+		      	};
+            	this.secondForm = {
 			        hight: null,
 					width: null,
 					long: null
+		      	};
+		      	this.thirdForm = {
+			        terms: null
 		      	};
 
 		      	this.$nextTick(() => {
 			        this.$validator.reset();
 		      	});
-		    },*/
+		    },
 		    validateState(formTab, name) {
 		    	if (formTab == 'firstForm') {
 	      			const { $dirty, $error } = this.$v.firstForm[name];
@@ -325,12 +338,12 @@
                 axios.post('/delivery/store', data
                     ).then(function(){
                         vm.result={message:'Perfil actualizado correctamente',alert:'alert-success'}
+                        //vm.resetForm()
                     })
                     .catch(function(){
                         vm.result={message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger'}
                     }
                 );
-		    	alert("Formulario envíado con éxito :)");
 		    }
 		}
 	};

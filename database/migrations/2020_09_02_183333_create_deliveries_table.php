@@ -22,7 +22,7 @@ class CreateDeliveriesTable extends Migration
             $table->string('shipping_ponit');
             $table->string('pick_up_point');
             $table->string('type');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
