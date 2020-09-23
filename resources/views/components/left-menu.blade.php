@@ -1,11 +1,11 @@
 @php
-    $rol = auth()->user()->role->name=='developer'?'developfront':auth()->user()->role->name;
+    $rol = auth()->user()->role->name=='admin'?'adminfront':auth()->user()->role->name;
     if (menu($rol,'_json')) {
         // $r=menu($rol,'_json');
         $roles=[$rol];
         $rols=auth()->user()->roles;
         foreach ($rols as $key => $rol_) {
-            $roles[]=$rol_->name=='developer'?'adevolpfront':$rol_->name;
+            $roles[]=$rol_->name=='admin'?'adminfront':$rol_->name;
         }
         $menus_rol=collect();
         foreach ($roles as $key => $value) {

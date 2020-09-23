@@ -1,6 +1,7 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container-fluid">
+        <header-component title="Table"></header-component>
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <table id="scroll-vertical-datatable" class="table dt-responsive nowrap">

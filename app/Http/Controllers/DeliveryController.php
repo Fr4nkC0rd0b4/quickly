@@ -32,6 +32,11 @@ class DeliveryController extends Controller
                 break;
         }
 
+        foreach ($deliveries as $key => $value) {
+            $value->delivery_details;
+            $value->user;
+        }
+
         return $deliveries;
     }
 
@@ -57,32 +62,19 @@ class DeliveryController extends Controller
         $user_id = Auth::user()->id;
         $delivery = new Delivery();
 
-        /*$delivery->user_id = Auth::user()->id;
-        $delivery->destination_city = $request->destination_city;
-        $delivery->origin_city = $request->origin_city;
-        $delivery->shipping_point = $request->shipping_point;
-        $delivery->pick_up_point = $request->pick_up_point;
-        $delivery->type = $request->type;
-        $delivery->status = 0;
-        $delivery->save();*/
-
+        $delivery->user_id = $user_id;
         $delivery->fill($request->all());
-
         $result = $delivery->save();
 
         if ($result) {
             $delivery_id = Delivery::select('id')->where('user_id', $user_id)->get();
-            $father_delivery = $delivery_id->last();
+            $delivery_father = $delivery_id->last();
 
-            $deliveri_details = new Delivery_details();
+            $delivery_details = new Delivery_details();
 
-            $deliveri_details->fill($request->all());
-
-            $deliveri_details->save();
-
-            if ($deliveri_details) {
-                return "Guardado el detalle";
-            }
+            $delivery_details->delivery_id = $delivery_father->id;
+            $delivery_details->fill($request->all());
+            $delivery_details->save();
         }
     }
 

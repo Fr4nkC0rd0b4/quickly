@@ -14,12 +14,19 @@ class Delivery extends Model
 
     public function delivery_details()
     {
-    	return $this->hasManny(Delivery_details::class);
+    	return $this->hasOne(Delivery_details::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeSearch($query, $value)
     {
         return $query->where('id', 'LIKE', "%$value%")
-                     ->orWhere('user_id', 'LIKE', "%$value%");
+                     ->orWhere('user_id', 'LIKE', "%$value%")
+                     ->orWhere('origin_city', 'LIKE', "%$value%")
+                     ->orWhere('destination_city', 'LIKE', "%$value%");
     }
 }

@@ -14,7 +14,6 @@
 					<form-wizard title="" subtitle="" color="#727cf5" @on-complete="submitForm">
 					    <tab-content title="Información inicial" :before-change="validateFirstTab">
 				    		<div class="row">
-					      		<input name="user_id" type="hidden" v-bind:value="user.id">
 						      	<b-form-group class="col" id="input-group" label="Ciudad origen:" label-for="origin-city">
 						        	<b-form-input
 						          		id="origin-city"
@@ -137,11 +136,10 @@
 					        </div>
 
 					        <div class="row">
-					        	<b-form-group class="col" id="input-group-4" label="Peso:" label-for="package_size">
+					        	<b-form-group class="col" id="input-group-4" label="Peso:" label-for="size-package">
 					        		<b-form-input
-					        			id="package-size"
+					        			id="size-package"
 					        			name="size"
-					        			type="number"
 					        			v-model="$v.secondForm.size.$model"
 					        			:state="validateState('secondForm','size')"
 					        			aria-describedby="input-size-feedback"
@@ -156,7 +154,6 @@
 					        		<b-form-input
 					        			id="declared-value"
 					        			name="declared_value"
-					        			type="number"
 					        			v-model="$v.secondForm.declared_value.$model"
 					        			:state="validateState('secondForm','declared_value')"
 					        			aria-describedby="input-declared_value-feedback"
@@ -188,6 +185,9 @@
 							    </b-form-group>
 						  	</div>
 					    </tab-content>
+					    <button v-if="loading" slot="finish" class="btn btn-primary">
+					    	<scale-loader :loading="loading" :height="height"></scale-loader>
+					    </button>
 					</form-wizard>
 				</form>
 			</div>
@@ -200,18 +200,13 @@
 	import { validationMixin } from "vuelidate";
 	import { required, minLength, decimal } from "vuelidate/lib/validators";
 
-	let user = document.head.querySelector('meta[name="user"]');
-
 	export default {
 	  	mixins: [validationMixin],
-	  	computed: {
-            user(){
-                return JSON.parse(user.content);
-            }
-        },
 	  	data() {
 	    	return {
-	    		result: {message:'',alert:''},
+	    		result: { message:'',alert:'' },
+	    		loading: false,
+                height: '10px',
 	      		firstForm: {
 	        		origin_city: null,
 	        		destination_city: null,
@@ -247,8 +242,8 @@
 	   			hight: { required, decimal },
    				width: { required, decimal },
 	   			long: { required, decimal },
-	   			size: { required },
-	   			declared_value: { required }
+	   			size: { required, decimal },
+	   			declared_value: { required, decimal }
 	   		},
 	   		thirdForm: {
 	   			terms: { required }
@@ -266,7 +261,9 @@
             	this.secondForm = {
 			        hight: null,
 					width: null,
-					long: null
+					long: null,
+					size: null,
+					declared_value: null
 		      	};
 		      	this.thirdForm = {
 			        terms: null
@@ -299,11 +296,9 @@
 		      	}
 
 		      	if (this.firstForm.type == 'Document') {
-		      		this.secondForm = {
-				        hight: 0,
-						width: 0,
-						long: 0
-			      	};
+			      	this.secondForm.hight = 0;
+			      	this.secondForm.width = 0;
+			      	this.secondForm.long = 0;
 		      	}
 
 		      	return sw;
@@ -333,15 +328,16 @@
 		      	return sw;
 		    },
 		    submitForm() {
+		    	this.loading = true
 		    	let vm = this
                 let data = $('#form').serialize()
                 axios.post('/delivery/store', data
                     ).then(function(){
-                        vm.result={message:'Perfil actualizado correctamente',alert:'alert-success'}
-                        //vm.resetForm()
+                        vm.$router.push('/home');
                     })
                     .catch(function(){
-                        vm.result={message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger'}
+                    	vm.loading = false
+                        vm.result = { message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger' }
                     }
                 );
 		    }

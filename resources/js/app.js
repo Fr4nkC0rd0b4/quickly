@@ -12,7 +12,7 @@ import router from './router';
 import InfiniteLoading from "vue-infinite-loading";
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 import VueFormWizard from 'vue-form-wizard'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
 
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
@@ -21,6 +21,7 @@ Vue.use(InfiniteLoading, { /* options */ });
 Vue.use(VueFormWizard)
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
+Vue.use(IconsPlugin)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
