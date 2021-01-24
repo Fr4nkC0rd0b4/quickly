@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Delivery;
-use App\Delivery_details;
+use App\Delivery_detail;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -33,11 +33,11 @@ class DeliveryController extends Controller
         }
 
         foreach ($deliveries as $key => $value) {
-            $value->delivery_details;
+            $value->delivery_detail;
             $value->user;
         }
 
-        return $deliveries;
+        return json_encode($deliveries);
     }
 
     /**
@@ -70,11 +70,12 @@ class DeliveryController extends Controller
             $delivery_id = Delivery::select('id')->where('user_id', $user_id)->get();
             $delivery_father = $delivery_id->last();
 
-            $delivery_details = new Delivery_details();
+            $delivery_detail = new Delivery_detail();
 
-            $delivery_details->delivery_id = $delivery_father->id;
-            $delivery_details->fill($request->all());
-            $delivery_details->save();
+            $delivery_detail->delivery_id = $delivery_father->id;
+            $delivery_detail->final_offer = $request->initial_offer;
+            $delivery_detail->fill($request->all());
+            $delivery_detail->save();
         }
     }
 
@@ -107,9 +108,9 @@ class DeliveryController extends Controller
      * @param  \App\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Delivery $delivery)
+    public function update(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

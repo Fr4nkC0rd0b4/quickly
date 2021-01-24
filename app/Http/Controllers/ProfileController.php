@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+	public function index(Request $request)
+	{
+		$user = User::where('id', $request->id)->get();
+		$info = ([
+			'locations' => [],
+			'payment_methods' => []
+		]);
+		foreach ($user as $key => $value) {
+			$info['locations'] = $value->location;
+			$info['payment_methods'] = $value->payment_method;
+		}
+
+		return json_encode($info);
+	}
+
     public function update(Request $request)
     {
         $user = User::find($request->id);

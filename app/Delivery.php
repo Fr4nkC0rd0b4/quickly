@@ -9,12 +9,12 @@ class Delivery extends Model
     protected $table = 'deliveries';
 
     protected $fillable = [
-    	'user_id', 'deliver', 'destination_city', 'origin_city', 'shipping_point', 'pick_up_point', 'type', 'status'
+    	'user_id', 'deliver', 'destination_city', 'origin_city', 'place_of_delivery', 'pick_up_place', 'type', 'status'
     ];
 
-    public function delivery_details()
+    public function delivery_detail()
     {
-    	return $this->hasOne(Delivery_details::class);
+    	return $this->hasOne(Delivery_detail::class);
     }
 
     public function user()

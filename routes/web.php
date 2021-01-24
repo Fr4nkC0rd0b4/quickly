@@ -27,10 +27,12 @@ Route::get('vue/{any?}/{any1?}',function($any){
 })->where('vue', '.*')->name('rutas.vue')->middleware('auth');
 
 //Rutas de Perfil
-Route::post('/profile/update', 'ProfileController@update');
+Route::post('/account/profile/update', 'ProfileController@update')->name('profile.update');
 
-Route::get('/delivery/index', 'DeliveryController@index');
-Route::post('/delivery/store', 'DeliveryController@store');
+Route::get('/account/profile/{id}', 'ProfileController@index');
+
+//Rutas de envios
+Route::resource('/delivery', 'DeliveryController');
 
 //Rutas de consola de administración Voyager
 Route::group(['prefix' => 'admin'], function () {

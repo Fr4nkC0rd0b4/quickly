@@ -10,7 +10,7 @@
                             <div class="col-sm-8">
                                 <div class="media">
                                     <span class="float-left m-2 mr-4">
-                                        <img :src="/storage/+user.avatar" alt="user.name" class="rounded-circle img-thumbnail" style="height: 100px;">
+                                        <img :src="/storage/+user.avatar" :alt="user.name" class="rounded-circle img-thumbnail" style="height: 100px;">
                                     </span>
                                     <div class="media-body">
                                         <h4 class="mt-1 mb-1">{{ user.name }}</h4>
@@ -28,14 +28,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <!-- <div class="col-sm-4">
                                 <div class="text-center mt-sm-0 mt-3 text-sm-right">
                                     <router-link to="/vue/profile/edit" type="button" class="btn btn-primary">
                                         <b-icon-pencil-square></b-icon-pencil-square>
                                         Editar Perfil
                                     </router-link>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -43,24 +43,26 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title mt-0 mb-3">Info del Quickero</h4>
-                        <p class="text-muted font-13">Hye, I’m Michael Franklin residing in this beautiful world. I create websites and mobile apps with great UX and UI design. I have done work with big companies like Nokia, Google and Yahoo. Meet me or Contact me for any queries. One Extra line for filling space. Fill as many you want.</p>
-                        <hr>
+                        <h4 class="header-title mt-0 mb-3">
+                            Mis Datos Personales
+                            <router-link to="/vue/profile/edit" type="button" class="btn btn-primary">
+                                <b-icon-pencil-square></b-icon-pencil-square>
+                            </router-link>
+                        </h4>
+                        <!-- <p class="text-muted font-13">Hye, I’m Michael Franklin residing in this beautiful world. I create websites and mobile apps with great UX and UI design. I have done work with big companies like Nokia, Google and Yahoo. Meet me or Contact me for any queries. One Extra line for filling space. Fill as many you want.</p>
+                        <hr> -->
                         <div class="text-left">
                             <p class="text-muted">
                                 <strong>Nombre :</strong> <span class="ml-2">{{ user.name }}</span>
+                            </p>
+                            <p class="text-muted">
+                                <strong>Cédula :</strong> <span class="ml-2">{{ user.dni }}</span>
                             </p>
                             <p class="text-muted">
                                 <strong>Celular :</strong><span class="ml-2">(+12) 123 1234 567</span>
                             </p>
                             <p class="text-muted">
                                 <strong>Email :</strong> <span class="ml-2">{{ user.email }}</span>
-                            </p>
-                            <p class="text-muted">
-                                <strong>Ubicación :</strong> <span class="ml-2">USA</span>
-                            </p>
-                            <p class="text-muted">
-                                <strong>Idiomas :</strong><span class="ml-2"> English, German, Spanish </span>
                             </p>
                             <p class="text-muted mb-0">
                                 <strong>Otras redes :</strong>
@@ -73,6 +75,62 @@
                                 <a class="d-inline-block ml-2 text-muted" title="" data-placement="top" data-toggle="tooltip" href="/" data-original-title="Instagram">
                                     <span data-feather="instagram"></span>
                                 </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title mt-0 mb-3">
+                            Mis Direcciones
+                            <router-link to="/vue/locations/edit" type="button" class="btn btn-primary">
+                                <b-icon-pencil-square></b-icon-pencil-square>
+                            </router-link>
+                        </h4>
+                        <div class="text-left">
+                            <p v-for="location in info.locations" class="text-muted">
+                                <span v-if="location.is_main === 1" class="ml-2">
+                                    <strong>
+                                        {{ location.country }},
+                                        {{ location.state }},
+                                        {{ location.city }},
+                                        {{ location.address }},
+                                        {{ location.neighborhood }}
+                                    </strong>
+                                </span>
+                                <span v-if="location.is_main != 1" class="ml-2">
+                                    {{ location.country }},
+                                    {{ location.state }},
+                                    {{ location.city }},
+                                    {{ location.address }},
+                                    {{ location.neighborhood }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title mt-0 mb-3">
+                            Mis Metodos de Pago
+                            <router-link :to="{path:'/vue/${this.info.payment}/edit', params:{payment: this.info.payment_methods}}" type="button" class="btn btn-primary">
+                                <b-icon-pencil-square></b-icon-pencil-square>
+                            </router-link>
+                        </h4>
+                        <div class="text-left">
+                            <p v-for="payment in info.payment_methods" class="text-muted">
+                                <span class="ml-2">
+                                    {{ payment.name_owner }},
+                                    {{ payment.last_name_owner }},
+                                    {{ payment.card_type }},
+                                    {{ payment.card_number }},
+                                    {{ payment.expiration_month }}
+                                    {{ payment.expiration_year }}
+                                </span>
                             </p>
                         </div>
                     </div>
@@ -92,7 +150,24 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            this.getUserInfo();
+        },
+        data() {
+            return {
+                info: []
+            }
+        },
+        methods: {
+            getUserInfo() {
+                axios.get('/account/profile/' + this.user.id
+                    ).then(solve => {
+                        this.info = solve.data;
+                        console.log('Cargado')
+                    }).catch(solve => {
+                        console.log("no cargado")
+                    }
+                );
+            }
         }
     }
 </script>

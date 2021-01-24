@@ -14,7 +14,7 @@
 					<form-wizard title="" subtitle="" color="#727cf5" @on-complete="submitForm">
 					    <tab-content title="Información inicial" :before-change="validateFirstTab">
 				    		<div class="row">
-						      	<b-form-group class="col" id="input-group" label="Ciudad origen:" label-for="origin-city">
+						      	<b-form-group class="col-sm" id="input-group" label="Ciudad origen:" label-for="origin-city">
 						        	<b-form-input
 						          		id="origin-city"
 						          		name="origin_city"
@@ -28,7 +28,7 @@
 						        	</b-form-invalid-feedback>
 						      	</b-form-group>
 
-						      	<b-form-group class="col" id="input-group-1" label="Ciudad destino:" label-for="destination-city">
+						      	<b-form-group class="col-sm" id="input-group-1" label="Ciudad destino:" label-for="destination-city">
 						        	<b-form-input
 						          		id="destination-city"
 						          		name="destination_city"
@@ -44,13 +44,13 @@
 						    </div>
 
 						    <div class="row">
-						      	<b-form-group class="col" id="input-group-2" label="Punto de entrega:" label-for="shipping-point">
+						      	<b-form-group class="col-sm" id="input-group-2" label="Punto de entrega:" label-for="place_of_delivery">
 						        	<b-form-input
-						          		id="shipping-point"
-						          		name="shipping_point"
+						          		id="place_of_delivery"
+						          		name="place_of_delivery"
 						        		placeholder="Dirección"
-						        		v-model="$v.firstForm.shipping_point.$model"
-						          		:state="validateState('firstForm','shipping_point')"
+						        		v-model="$v.firstForm.place_of_delivery.$model"
+						          		:state="validateState('firstForm','place_of_delivery')"
 						          		aria-describedby="input-2-live-feedback"
 						        	></b-form-input>
 
@@ -59,13 +59,13 @@
 						        	</b-form-invalid-feedback>
 						      	</b-form-group>
 
-						      	<b-form-group class="col" id="input-group-3" label="Punto de recogida:" label-for="pick-up-pint">
+						      	<b-form-group class="col-sm" id="input-group-3" label="Punto de recogida:" label-for="pick-up-place">
 						        	<b-form-input
-						          		id="pick-up-pint"
-						          		name="pick_up_point"
+						          		id="pick-up-place"
+						          		name="pick_up_place"
 						          		placeholder="Dirección"
-						          		v-model="$v.firstForm.pick_up_point.$model"
-						          		:state="validateState('firstForm','pick_up_point')"
+						          		v-model="$v.firstForm.pick_up_place.$model"
+						          		:state="validateState('firstForm','pick_up_place')"
 						          		aria-describedby="input-3-live-feedback"
 						        	></b-form-input>
 
@@ -92,7 +92,7 @@
 					    </tab-content>
 					    <tab-content title="Información adicional" :before-change="validateSecondTab">
 					        <div class="row" v-if="firstForm.type == 'Package'">
-					        	<b-form-group class="col" id="input-group-5" label="Alto:" label-for="hight-package">
+					        	<b-form-group class="col-sm" id="input-group-5" label="Alto:" label-for="hight-package">
 					        		<b-form-input
 					        			id="hight-package"
 					        			name="hight"
@@ -106,7 +106,7 @@
 						        	</b-form-invalid-feedback>
 					        	</b-form-group>
 					        
-					        	<b-form-group class="col" id="input-group-6" label="Ancho:" label-for="width-package">
+					        	<b-form-group class="col-sm" id="input-group-6" label="Ancho:" label-for="width-package">
 					        		<b-form-input
 					        			id="width-package"
 					        			name="width"
@@ -120,7 +120,7 @@
 						        	</b-form-invalid-feedback>
 					        	</b-form-group>
 
-					        	<b-form-group class="col" id="input-group-7" label="Largo:" label-for="long-package">
+					        	<b-form-group class="col-sm" id="input-group-7" label="Largo:" label-for="long-package">
 					        		<b-form-input
 					        			id="long-package"
 					        			name="long"
@@ -136,7 +136,7 @@
 					        </div>
 
 					        <div class="row">
-					        	<b-form-group class="col" id="input-group-4" label="Peso:" label-for="size-package">
+					        	<b-form-group class="col-sm" id="input-group-4" label="Peso:" label-for="size-package">
 					        		<b-form-input
 					        			id="size-package"
 					        			name="size"
@@ -150,24 +150,24 @@
 						        	</b-form-invalid-feedback>
 					        	</b-form-group>
 
-					        	<b-form-group class="col" id="input-group-8" label="Valor declarado:" label-for="declared-value">
+					        	<b-form-group class="col-sm" id="input-group-8" label="Valor declarado:" label-for="initial-offer">
 					        		<b-form-input
-					        			id="declared-value"
-					        			name="declared_value"
-					        			v-model="$v.secondForm.declared_value.$model"
-					        			:state="validateState('secondForm','declared_value')"
-					        			aria-describedby="input-declared_value-feedback"
+					        			id="initial-offer"
+					        			name="initial_offer"
+					        			v-model="$v.secondForm.initial_offer.$model"
+					        			:state="validateState('secondForm','initial_offer')"
+					        			aria-describedby="input-initial_offer-feedback"
 					        		></b-form-input>
 
-					        		<b-form-invalid-feedback id="input-declared_value-feedback">
+					        		<b-form-invalid-feedback id="input-initial_offer-feedback">
 						        		Este campo es requerido y debe ser númerico, ejemplo: 1 ó 1,2
 						        	</b-form-invalid-feedback>
 					        	</b-form-group>
 					        </div>
 					    </tab-content>
-					    <tab-content title="Verificación" :before-change="validateThirdTab">
+					    <!-- <tab-content title="Verificación" :before-change="validateThirdTab">
 					    	<div class="row">
-					    		<b-form-group class="col" label-form="checkbox-1">
+					    		<b-form-group class="col-sm" label-form="checkbox-1">
 							    	<b-form-checkbox
 							      		id="checkbox-1"
 							      		value="accepted"
@@ -184,7 +184,7 @@
 							        </b-form-invalid-feedback>
 							    </b-form-group>
 						  	</div>
-					    </tab-content>
+					    </tab-content> -->
 					    <button v-if="loading" slot="finish" class="btn btn-primary">
 					    	<scale-loader :loading="loading" :height="height"></scale-loader>
 					    </button>
@@ -210,8 +210,8 @@
 	      		firstForm: {
 	        		origin_city: null,
 	        		destination_city: null,
-	        		shipping_point: null,
-	        		pick_up_point: null,
+	        		place_of_delivery: null,
+	        		pick_up_place: null,
 	        		type: null
 	      		},
 	      		secondForm: {
@@ -219,7 +219,7 @@
 	        		width: null,
 	        		long: null,
 	      			size: null,
-	        		declared_value: null
+	        		initial_offer: null
 	      		},
 	      		thirdForm: {
 	      			terms: null
@@ -234,8 +234,8 @@
 		    firstForm: {
 	      		origin_city: { required },
 	    		destination_city: { required },
-	    		shipping_point: { required },
-	    		pick_up_point: { required },
+	    		place_of_delivery: { required },
+	    		pick_up_place: { required },
 	    		type: { required }
 	   		},
 	   		secondForm: {
@@ -243,7 +243,7 @@
    				width: { required, decimal },
 	   			long: { required, decimal },
 	   			size: { required, decimal },
-	   			declared_value: { required, decimal }
+	   			initial_offer: { required, decimal }
 	   		},
 	   		thirdForm: {
 	   			terms: { required }
@@ -254,8 +254,8 @@
 		      	this.firstForm = {
 			        origin_city: null,
 					destination_city: null,
-					shipping_point: null,
-					pick_up_point: null,
+					place_of_delivery: null,
+					pick_up_place: null,
 					type: null
 		      	};
             	this.secondForm = {
@@ -263,7 +263,7 @@
 					width: null,
 					long: null,
 					size: null,
-					declared_value: null
+					initial_offer: null
 		      	};
 		      	this.thirdForm = {
 			        terms: null
@@ -331,7 +331,7 @@
 		    	this.loading = true
 		    	let vm = this
                 let data = $('#form').serialize()
-                axios.post('/delivery/store', data
+                axios.post('/delivery', data
                     ).then(function(){
                         vm.$router.push('/home');
                     })

@@ -11,7 +11,7 @@
                     <form method="POST" action="{{ route('register') }}" class="form-group">
                         @csrf
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="role">{{ __('Registrarme como') }}</label>
                             <select name="role_id" id="role" class="form-control">
                                 <option value="0"></option>
@@ -19,7 +19,7 @@
                                     <option value="{{$role->id}}">{{ $role->display_name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="name">{{ __('Nombre:') }}</label>

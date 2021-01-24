@@ -37,6 +37,16 @@ class User extends \TCG\Voyager\Models\User
         'email_verified_at' => 'datetime',
     ];
 
+    public function payment_method()
+    {
+        return $this->hasMany(Payment_method::class);
+    }
+
+    public function location()
+    {
+        return $this->hasMany(Location::class);
+    }
+
     public function delivery()
     {
         return $this->hasMany(Delivery::class);

@@ -3,7 +3,7 @@
         <header-component title="Editar perfil"></header-component>
 
         <div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
-        {{result.message}}
+        {{ result.message }}
             <button type="button" @click="result={message:'',alert:''}" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -13,18 +13,22 @@
     			<div class="card">
     				<div class="card-body">
     					<form method="POST" id="form">
-                            <input type="hidden" name="id" v-bind:value="user.id">
+                            <input type="hidden" name="id" :value="user.id">
     						<div class="form-group">
     							<label for="name" class="">Nombres</label>
-    							<input name="name" required type="text" class="is-untouched is-pristine av-invalid form-control" v-bind:value="user.name">
+    							<input name="name" required type="text" class="is-untouched is-pristine av-invalid form-control" :value="user.name">
     						</div>
+                            <div class="form-group">
+                                <label for="dni" class="">Cédula</label>
+                                <input name="dni" required type="text" class="is-untouched is-pristine av-invalid form-control" :value="user.dni">
+                            </div>
     						<div class="form-group">
     							<label for="email" class="">Correo</label>
     							<div class="input-group">
     								<div class="input-group-prepend">
     									<span class="input-group-text">@</span>
     								</div>
-    								<input placeholder="Correo" name="email" required id="email" type="text" class="is-untouched is-pristine av-invalid form-control" v-bind:value="user.email">
+    								<input placeholder="Correo" name="email" required id="email" type="text" class="is-untouched is-pristine av-invalid form-control" :value="user.email">
     								<div class="valid-feedback">Por favor escoga un nombre de usuario.</div>
     							</div>
     						</div>
@@ -56,9 +60,6 @@
                 return JSON.parse(user.content);
             }
         },
-        mounted() {
-            console.log('Component mounted.')
-        },
         data(){
             return{
                 result: {message:'',alert:''}
@@ -66,14 +67,13 @@
         },
         methods: {
             updateProfile: function() {
-                let vm = this
                 let data = $('#form').serialize()
                 axios.post('/profile/update', data
                     ).then(function(){
-                        vm.result={message:'Perfil actualizado correctamente',alert:'alert-success'}
+                        this.result={message:'Perfil actualizado correctamente',alert:'alert-success'}
                     })
                     .catch(function(){
-                        vm.result={message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger'}
+                        this.result={message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger'}
                     }
                 );
             }
