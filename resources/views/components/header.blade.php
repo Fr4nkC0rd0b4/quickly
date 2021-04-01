@@ -63,7 +63,7 @@
                                     </div>
 
                                     <!-- item-->
-                                    <router-link to="/vue/profile" class="dropdown-item notify-item">
+                                    <router-link to="/spa/account/profile" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle mr-1"></i>
                                         <span>Mi Cuenta</span>
                                     </router-link>

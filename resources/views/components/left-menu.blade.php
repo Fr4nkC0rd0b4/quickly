@@ -19,23 +19,23 @@
 <div class="left-side-menu mm-show">
     <!-- LOGO -->
     <router-link to="/home">
-    <a href="#" class="logo text-center logo-light">
-        <span class="logo-lg">
-            <img src="{{ asset('storage/'.setting('site.logo')) }}" alt="" height="16">
-        </span>
-        <span class="logo-sm">
-            <img src="{{ asset('storage/'.setting('site.logo_sm')) }}" alt="" height="16">
-        </span>
-    </a>
-    <!-- LOGO DARK -->
-    <a href="#" class="logo text-center logo-dark">
-        <span class="logo-lg">
-            <img src="{{ asset('storage/'.setting('site.logo_dark')) }}" alt="" height="16">
-        </span>
-        <span class="logo-sm">
-            <img src="{{ asset('storage/'.setting('site.logo_sm_dark')) }}" alt="" height="16">
-        </span>
-    </a>
+        <a href="#" class="logo text-center logo-light">
+            <span class="logo-lg">
+                <img src="{{ asset('storage/'.setting('site.logo')) }}" alt="" height="16">
+            </span>
+            <span class="logo-sm">
+                <img src="{{ asset('storage/'.setting('site.logo_sm')) }}" alt="" height="16">
+            </span>
+        </a>
+        <!-- LOGO DARK -->
+        <a href="#" class="logo text-center logo-dark">
+            <span class="logo-lg">
+                <img src="{{ asset('storage/'.setting('site.logo_dark')) }}" alt="" height="16">
+            </span>
+            <span class="logo-sm">
+                <img src="{{ asset('storage/'.setting('site.logo_sm_dark')) }}" alt="" height="16">
+            </span>
+        </a>
     </router-link>
     <div class="h-100 mm-active" id="left-side-menu-container" {{-- style="overflow: auto;" --}} data-simplebar="init">
         <div id="simplebar-wrapper" style="margin: 0px;">
@@ -68,7 +68,7 @@
                                                             @endif
                                                         </a>
                                                     </router-link>
-                                                @elseif (substr($menu_item->link(), 0,5)=='/vue/')
+                                                @elseif (substr($menu_item->link(), 0,5)=='/spa/')
                                                     <router-link to="{{$menu_item->link()!==''?$menu_item->link():''}}">
                                                         <a href="#" class="side-nav-link">
                                                             @if($menu_item->icon_class != null)
@@ -96,7 +96,7 @@
                                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false" style="height: 0px;">
                                                         @foreach ($menu_item->children as $menu_hijo)
                                                             <li>
-                                                                @if (substr($menu_hijo->link(), 0,5)=='/vue/')
+                                                                @if (substr($menu_hijo->link(), 0,5)=='/spa/')
                                                                     <router-link to="{{$menu_hijo->link()}}">
                                                                         {{$menu_hijo->title}}
                                                                     </router-link>

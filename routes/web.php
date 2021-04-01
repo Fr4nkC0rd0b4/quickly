@@ -17,14 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//Rutas de consola de administración Voyager
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 //Rutas vue
-Route::get('vue/{any?}/{any1?}',function($any){
+/*Route::get('vue/{any?}/{any1?}', function($any){
 	return view('home');
-})->where('vue', '.*')->name('rutas.vue')->middleware('auth');
+})->where('vue', '.*')->name('rutas.vue')->middleware('auth', 'verified');*/
 
 //Rutas de Perfil
 Route::post('/account/profile/update', 'ProfileController@update')->name('profile.update');
@@ -34,7 +39,12 @@ Route::get('/account/profile/{id}', 'ProfileController@index');
 //Rutas de envios
 Route::resource('/delivery', 'DeliveryController');
 
-//Rutas de consola de administración Voyager
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+//Rutas vue
+Route::get('/spa/{any?}/{any1?}/{any2?}/{any13?}', function ($any) {
+	return view('home');
+})->where('spa', '.*')->name('rutas.vue')->middleware('auth', 'verified');
+
+//Rutas para completar información del registro
+Route::get('/test/{any?}/{any1?}', function ($any) {
+	return view('auth.register-complete');
 });

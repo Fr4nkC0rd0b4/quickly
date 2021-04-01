@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Delivery;
-use App\Delivery_detail;
+use App\DeliveryDetail;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -33,11 +33,11 @@ class DeliveryController extends Controller
         }
 
         foreach ($deliveries as $key => $value) {
-            $value->delivery_detail;
+            $value->detail;
             $value->user;
         }
 
-        return json_encode($deliveries);
+        return response()->json($deliveries);
     }
 
     /**
@@ -70,12 +70,12 @@ class DeliveryController extends Controller
             $delivery_id = Delivery::select('id')->where('user_id', $user_id)->get();
             $delivery_father = $delivery_id->last();
 
-            $delivery_detail = new Delivery_detail();
+            $detail = new DeliveryDetail();
 
-            $delivery_detail->delivery_id = $delivery_father->id;
-            $delivery_detail->final_offer = $request->initial_offer;
-            $delivery_detail->fill($request->all());
-            $delivery_detail->save();
+            $detail->delivery_id = $delivery_father->id;
+            $detail->final_offer = $request->initial_offer;
+            $detail->fill($request->all());
+            $detail->save();
         }
     }
 
@@ -110,7 +110,18 @@ class DeliveryController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request->all());
+        $delivery_detail = DeliveryDetail::find($request->id);
+        $delivery_detail->final_offer = $request->final_offer;
+        $save = $delivery_detail->save();
+
+        if ($save) {
+            $delivery = Delivery::find($delivery_detail->delivery_id);
+
+            $delivery->delivery_man = Auth::user()->id;
+            $delivery->status = 1;
+            $delivery->save();
+        }
+
     }
 
     /**

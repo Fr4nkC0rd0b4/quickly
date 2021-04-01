@@ -12,9 +12,9 @@ class Delivery extends Model
     	'user_id', 'deliver', 'destination_city', 'origin_city', 'place_of_delivery', 'pick_up_place', 'type', 'status'
     ];
 
-    public function delivery_detail()
+    public function detail()
     {
-    	return $this->hasOne(Delivery_detail::class);
+    	return $this->hasOne(DeliveryDetail::class);
     }
 
     public function user()

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Location;
+use App\PaymentMethod;
 
 class ProfileController extends Controller
 {
@@ -26,12 +28,19 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = User::find($request->id);
-
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->fill($request->except('password'));
         $user->password = Hash::make($request->password);
+        $save = $user->save();
 
-        $user->save();
+        if ($save) {
+        	$location = Location::where('user_id', $request->id)->get();
+        	dd($location);
+        	$location->fill($request->all());
+        	$location->save();
 
+        	$payment_method = PaymentMethod::where('user_id', $request->id)->get();
+        	$payment_method->fill($request->all());
+        	$payment_method->save();
+        }
     }
 }

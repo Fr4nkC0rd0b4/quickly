@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role_id' => ['integer']
         ]);
     }
 
@@ -67,8 +68,24 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role_id' => $data['role_id'],
             'password' => Hash::make($data['password']),
+            'role_id' => $data['role_id']
         ]);
+    }
+
+    protected function redirectTo() {
+        $rol = auth()->user()->role_id;
+
+        $redirectTo = '';
+
+        if ($rol == 2) {
+            $redirectTo = '/test/register/user';
+        } else if ($rol == 3) {
+            $redirectTo = '/test/register/quickero';
+        } else {
+            $redirectTo = '/homes';
+        }
+
+        return $redirectTo;
     }
 }

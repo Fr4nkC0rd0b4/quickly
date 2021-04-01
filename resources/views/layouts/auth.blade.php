@@ -10,6 +10,9 @@
 
     <title>{{ setting('site.title', ' - Login') }}</title>
 
+    <!-- Data User Sesion-->
+    <meta name="user" content="{{ Auth::user() ? Auth::user() : '' }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

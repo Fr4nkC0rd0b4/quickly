@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends \TCG\Voyager\Models\User
+class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -16,7 +16,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'role_id', 'name', 'email', 'password',
+        'role_id', 'name', 'dni', 'email', 'password',
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends \TCG\Voyager\Models\User
 
     public function payment_method()
     {
-        return $this->hasMany(Payment_method::class);
+        return $this->hasMany(PaymentMethod::class);
     }
 
     public function location()
