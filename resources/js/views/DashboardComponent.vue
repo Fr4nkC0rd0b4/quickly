@@ -22,7 +22,7 @@
                                     {{ delivery.detail.content?delivery.detail.content : delivery.type }}
                                 </h5>
                                 <div class="ribbon-content">
-                                    <p class="mb-0">De {{ delivery.origin_city }} a {{ delivery.destination_city }}.</p>
+                                    <p class="mb-0">De {{ delivery.origin }} a {{ delivery.destination }}.</p>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                     <div class="col">Origen:</div>
                     <div class="col-sm">
                         <b-badge pill variant="info">
-                            {{ details.place_of_delivery }} - {{ details.origin_city }}
+                            {{ details.pick_up_point }} - {{ details.origin }}
                         </b-badge>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     <div class="col">Destino:</div>
                     <div class="col-sm">
                         <b-badge pill variant="info">
-                            {{ details.pick_up_place }} - {{ details.destination_city }}
+                            {{ details.delivery_point }} - {{ details.destination }}
                         </b-badge>
                     </div>
                 </div>

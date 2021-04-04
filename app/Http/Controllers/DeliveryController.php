@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Delivery;
 use App\DeliveryDetail;
+use App\City;
 use Auth;
-use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
@@ -58,7 +59,7 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         $user_id = Auth::user()->id;
         $delivery = new Delivery();
 
@@ -133,5 +134,16 @@ class DeliveryController extends Controller
     public function destroy(Delivery $delivery)
     {
         //
+    }
+
+    public function city()
+    {
+        $cities = City::all();
+
+        foreach ($cities as $value) {
+           $value->departament;
+        }
+
+        return response()->json($cities);
     }
 }

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import DashboardComponent from './views/DashboardComponent.vue'
 import CreateDeliveryComponent from './views/delivery/CreateDeliveryComponent.vue'
 import TableComponent from './components/TableComponent.vue'
+import TestComponent from './components/TestComponent.vue'
 import ProfileComponent from './views/profile/ProfileComponent.vue'
 import ProfileEditComponent from './views/profile/ProfileEditComponent.vue'
 import UserForm from './views/register/UserForm.vue'
@@ -41,6 +42,11 @@ export default new Router({
 			path:'/test/register/user',
 			name:'register.complete.user',
 			component:UserForm
+		},
+		{
+			path:'/test/map',
+			name:'test.map',
+			component:TestComponent
 		}
 	]
 })

@@ -9,7 +9,7 @@ class Delivery extends Model
     protected $table = 'deliveries';
 
     protected $fillable = [
-    	'user_id', 'deliver', 'destination_city', 'origin_city', 'place_of_delivery', 'pick_up_place', 'type', 'status'
+    	'user_id', 'deliver', 'origin', 'destination', 'place_of_delivery', 'pick_up_place', 'type', 'status'
     ];
 
     public function detail()
@@ -26,7 +26,7 @@ class Delivery extends Model
     {
         return $query->where('id', 'LIKE', "%$value%")
                      ->orWhere('user_id', 'LIKE', "%$value%")
-                     ->orWhere('origin_city', 'LIKE', "%$value%")
-                     ->orWhere('destination_city', 'LIKE', "%$value%");
+                     ->orWhere('origin', 'LIKE', "%$value%")
+                     ->orWhere('destination', 'LIKE', "%$value%");
     }
 }
