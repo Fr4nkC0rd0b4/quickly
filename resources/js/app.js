@@ -8,15 +8,21 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+//Components
 import router from './router';
 import InfiniteLoading from "vue-infinite-loading";
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 import VueFormWizard from 'vue-form-wizard'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
+import Vue from 'vue'
+import vSelect from 'vue-select'
 
+//CSS of Components
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import 'vue-select/dist/vue-select.css';
 
+//Name Components
 Vue.use(InfiniteLoading, { /* options */ });
 Vue.use(VueFormWizard)
 Vue.use(BootstrapVue)
@@ -36,6 +42,7 @@ Vue.use(IconsPlugin)
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('Infinitiloading', require('vue-infinite-loading'));
 Vue.component('scale-loader', require('vue-spinner/src/ScaleLoader.vue').default);
+Vue.component('v-select', vSelect)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

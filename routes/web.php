@@ -36,6 +36,9 @@ Route::post('/account/profile/update', 'ProfileController@update')->name('profil
 
 Route::get('/account/profile/{id}', 'ProfileController@index');
 
+//Cities and Departaments
+Route::get('/delivery/cities', 'DeliveryController@city')->name('cities.index');
+
 //Rutas de envios
 Route::resource('/delivery', 'DeliveryController');
 

@@ -15,28 +15,38 @@
 					<form-wizard title="" subtitle="" color="#727cf5" @on-complete="submitForm">
 					    <tab-content title="Información inicial" :before-change="validateFirstTab">
 				    		<div class="row">
-						      	<b-form-group class="col-sm" id="input-group" label="Ciudad origen:" label-for="origin-city">
-						        	<b-form-input
-						          		id="origin-city"
-						          		name="origin_city"
-						          		v-model="$v.firstForm.origin_city.$model"
-						          		:state="validateState('firstForm','origin_city')"
+						      	<b-form-group class="col-sm" id="input-group" label="Ciudad origen:" label-for="origin">
+						      		<v-select name="origin" label="name" :options="cities" v-model="firstForm.origin" :reduce="cities => `${cities.name} - ${cities.departament.name}`">
+						      			<template slot="option" slot-scope="option">
+									       	{{ option.name }} - {{option.departament?option.departament.name:''}}
+									   	</template>
+						      		</v-select>
+						        	<!-- <b-form-input
+						          		id="origin"
+						          		name="origin"
+						          		v-model="$v.firstForm.origin.$model"
+						          		:state="validateState('firstForm','origin')"
 						          		aria-describedby="input-live-feedback"
-						        	></b-form-input>
+						        	></b-form-input> -->
 
 						        	<b-form-invalid-feedback id="input-live-feedback">
 						        		Este campo es requerido.
 						        	</b-form-invalid-feedback>
 						      	</b-form-group>
 
-						      	<b-form-group class="col-sm" id="input-group-1" label="Ciudad destino:" label-for="destination-city">
-						        	<b-form-input
-						          		id="destination-city"
-						          		name="destination_city"
-						          		v-model="$v.firstForm.destination_city.$model"
-						          		:state="validateState('firstForm','destination_city')"
+						      	<b-form-group class="col-sm" id="input-group-1" label="Ciudad destino:" label-for="destination">
+						      		<v-select name="destination" label="name" :options="cities" v-model="firstForm.destination" :reduce="cities => `${cities.name} - ${cities.departament.name}`">
+						      			<template slot="option" slot-scope="option">
+									       	{{ option.name }} - {{option.departament?option.departament.name:''}}
+									   	</template>
+						      		</v-select>
+						        	<!-- <b-form-input
+						          		id="destination"
+						          		name="destination"
+						          		v-model="$v.firstForm.destination.$model"
+						          		:state="validateState('firstForm','destination')"
 						          		aria-describedby="input-1-live-feedback"
-						        	></b-form-input>
+						        	></b-form-input> -->
 
 						        	<b-form-invalid-feedback id="input-1-live-feedback">
 						        		Este campo es requerido.
@@ -45,32 +55,32 @@
 						    </div>
 
 						    <div class="row">
-						      	<b-form-group class="col-sm" id="input-group-2" label="Punto de entrega:" label-for="place_of_delivery">
-						        	<b-form-input
-						          		id="place_of_delivery"
-						          		name="place_of_delivery"
-						        		placeholder="Dirección donde recogerán en el paquete"
-						        		v-model="$v.firstForm.place_of_delivery.$model"
-						          		:state="validateState('firstForm','place_of_delivery')"
-						          		aria-describedby="input-2-live-feedback"
-						        	></b-form-input>
-
-						        	<b-form-invalid-feedback id="input-2-live-feedback">
-						        		Este campo es requerido.
-						        	</b-form-invalid-feedback>
-						      	</b-form-group>
-
 						      	<b-form-group class="col-sm" id="input-group-3" label="Punto de recogida:" label-for="pick-up-place">
 						        	<b-form-input
 						          		id="pick-up-place"
-						          		name="pick_up_place"
-						          		placeholder="Dirección donde hará entrega al quickero"
-						          		v-model="$v.firstForm.pick_up_place.$model"
-						          		:state="validateState('firstForm','pick_up_place')"
+						          		name="pick_up_point"
+						          		placeholder="Dirección donde recogeremos su paquete"
+						          		v-model="$v.firstForm.pick_up_point.$model"
+						          		:state="validateState('firstForm','pick_up_point')"
 						          		aria-describedby="input-3-live-feedback"
 						        	></b-form-input>
 
 						        	<b-form-invalid-feedback id="input-3-live-feedback">
+						        		Este campo es requerido.
+						        	</b-form-invalid-feedback>
+						      	</b-form-group>
+
+						      	<b-form-group class="col-sm" id="input-group-2" label="Punto de entrega:" label-for="delivery_point">
+						        	<b-form-input
+						          		id="delivery_point"
+						          		name="delivery_point"
+						        		placeholder="Dirección donde se entregará el paquete"
+						        		v-model="$v.firstForm.delivery_point.$model"
+						          		:state="validateState('firstForm','delivery_point')"
+						          		aria-describedby="input-2-live-feedback"
+						        	></b-form-input>
+
+						        	<b-form-invalid-feedback id="input-2-live-feedback">
 						        		Este campo es requerido.
 						        	</b-form-invalid-feedback>
 						      	</b-form-group>
@@ -217,16 +227,20 @@
 
 	export default {
 	  	mixins: [validationMixin],
+	  	mounted() {
+	  		this.getCities();
+	  	},
 	  	data() {
 	    	return {
+	    		cities: [],
 	    		result: { message:'',alert:'' },
 	    		loading: false,
                 height: '10px',
 	      		firstForm: {
-	        		origin_city: null,
-	        		destination_city: null,
-	        		place_of_delivery: null,
-	        		pick_up_place: null,
+	        		origin: null,
+	        		destination: null,
+	        		delivery_point: null,
+	        		pick_up_point: null,
 	        		type: null
 	      		},
 	      		secondForm: {
@@ -248,10 +262,10 @@
 	  	},
 	  	validations: {
 		    firstForm: {
-	      		origin_city: { required },
-	    		destination_city: { required },
-	    		place_of_delivery: { required },
-	    		pick_up_place: { required },
+	      		origin: { required },
+	    		destination: { required },
+	    		delivery_point: { required },
+	    		pick_up_point: { required },
 	    		type: { required }
 	   		},
 	   		secondForm: {
@@ -267,12 +281,17 @@
 	   		}
 	  	},
 	  	methods: {
+	  		getCities() {
+	  			axios.get('/delivery/cities').then(solve=>{
+	  				this.cities = solve.data
+	  			})
+	  		},
 	  		resetForm() {
 		      	this.firstForm = {
-			        origin_city: null,
-					destination_city: null,
-					place_of_delivery: null,
-					pick_up_place: null,
+			        origin: null,
+					destination: null,
+					delivery_point: null,
+					pick_up_point: null,
 					type: null
 		      	};
             	this.secondForm = {

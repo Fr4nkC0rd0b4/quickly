@@ -17,13 +17,12 @@ class CreateDeliveriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('delivery_man')->nullable();
-            $table->string('destination_city');
-            $table->string('origin_city');
-            $table->string('place_of_delivery');
-            $table->string('pick_up_place');
+            $table->string('origin');
+            $table->string('destination');
+            $table->string('pick_up_point');
+            $table->string('delivery_point');
             $table->string('type');
             $table->integer('status')->default(0);
-            $table->decimal('policy')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
