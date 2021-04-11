@@ -4,6 +4,7 @@ import DashboardComponent from './views/DashboardComponent.vue'
 import CreateDeliveryComponent from './views/delivery/CreateDeliveryComponent.vue'
 import TableComponent from './components/TableComponent.vue'
 import TestComponent from './components/TestComponent.vue'
+import ChatComponent from './components/ChatComponent.vue'
 import ProfileComponent from './views/profile/ProfileComponent.vue'
 import ProfileEditComponent from './views/profile/ProfileEditComponent.vue'
 import UserForm from './views/register/UserForm.vue'
@@ -44,9 +45,9 @@ export default new Router({
 			component:UserForm
 		},
 		{
-			path:'/test/map',
-			name:'test.map',
-			component:TestComponent
+			path:'/test/chat',
+			name:'test.chat',
+			component:ChatComponent
 		}
 	]
 })
