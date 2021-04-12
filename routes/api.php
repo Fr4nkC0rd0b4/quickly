@@ -15,13 +15,15 @@ use App\Delivery;
 |
 */
 
+//Rutas de Autenticación
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Rutas de envios
-Route::resource('/delivery', 'DeliveryController');
+Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
 
+//Rutas de pruebas
 Route::get('/test', function ()
 {
 	$deliveries = Delivery::all();
