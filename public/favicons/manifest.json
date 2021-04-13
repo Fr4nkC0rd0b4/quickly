@@ -2,7 +2,7 @@
  "name": "Quicky",
  "short_name": "Quicky",
  "lang": "es-ES",
- "start_url": "/quicky/public",
+ "start_url": "http://190.144.115.230:10445",
  "background_color": "#2C3E50",
  "theme_color": "#18BC9C",
  "display": "standalone",
