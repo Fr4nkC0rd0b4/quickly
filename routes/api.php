@@ -24,7 +24,7 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@loginApi');
 
 //Rutas de pruebas
-Route::get('/deliveries', function ()
+Route::get('/deliveries', function (Request $request)
 {
 	$deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->get();
 
