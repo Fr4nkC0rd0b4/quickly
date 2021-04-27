@@ -24,9 +24,14 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@loginApi');
 
 //Rutas de pruebas
-Route::get('/test', function ()
+Route::get('/deliveries', function ()
 {
-	$deliveries = Delivery::all();
+	$deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->get();
+
+	 foreach ($deliveries as $key => $value) {
+        $value->detail;
+        $value->user;
+    }
 
     return response()->json($deliveries);
 });
