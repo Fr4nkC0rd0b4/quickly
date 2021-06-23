@@ -3,7 +3,7 @@
 
             <div class="rightbar-title">
                 <a href="javascript: void(0);" class="right-bar-toggle float-right">
-                    <span data-feather="x-circle"></span>
+                    <i class="fa fa-times-circle-o fa-2x"></i>
                 </a>
                 <h5 class="m-0">Settings</h5>
             </div>

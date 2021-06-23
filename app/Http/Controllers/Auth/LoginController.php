@@ -64,4 +64,32 @@ class LoginController extends Controller
 
         return response()->json(['data' => 'User logged out.'], 200);
     }
+
+    /*protected function redirectTo() {
+        $role = auth()->user()->role->name;
+        
+        $redirectTo = '';
+
+        switch ($role) {
+            case 'admin':
+                $redirectTo = '/home';
+                break;
+            case 'tic':
+                $redirectTo = '/admin';
+                break;
+
+            case 'user':
+                $redirectTo = '/spa/travels';
+                break;
+
+            case 'quickero':
+                $redirectTo = '/spa/deliveries';
+                break;
+            default:
+                $redirectTo = '/home';
+                break;
+        }
+
+        return $redirectTo;
+    }*/
 }
