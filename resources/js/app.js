@@ -17,6 +17,8 @@ import Vuelidate from 'vuelidate'
 import Vue from 'vue'
 import vSelect from 'vue-select'
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 //CSS of Components
 import 'vue-select/dist/vue-select.css';
 
@@ -25,6 +27,15 @@ Vue.use(InfiniteLoading, { /* options */ });
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
 Vue.use(IconsPlugin)
+
+Vue.config.productionTip = false
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDIEEDmAIhXWozHWsg-vLXuSWWhyp0zehM',
+    libraries: 'places',
+  }
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

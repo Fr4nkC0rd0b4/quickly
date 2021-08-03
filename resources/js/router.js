@@ -13,6 +13,7 @@ import CreateTravel from './views/travel/Create.vue'
 import Travel from './views/travel/Travel.vue'
 import Profile from './views/profile/Profile.vue'
 import ProfileEdit from './views/profile/Edit.vue'
+import GoogleMap from './views/Maps.vue'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
 			path:'/spa/account/profile/edit',
 			name:'account.profile.edit',
 			component:ProfileEdit
+		},
+		{
+			path:'/spa/maps',
+			name:'maps.google',
+			component:GoogleMap
 		}
 	]
 })
