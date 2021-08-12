@@ -60,11 +60,11 @@
                                                     <router-link to="{{$menu_item->link()!==''?$menu_item->link():''}}">
                                                         <a href="#" class="side-nav-link">
                                                             @if($menu_item->icon_class != null)
-                                                                <span data-feather="{{$menu_item->icon_class}}"></span>
+                                                                <i class="{{$menu_item->icon_class}}"></i>
                                                             @endif
                                                             <span> {{ $menu_item->title }} </span>
                                                             @if ($menu_item->link()=='')
-                                                                {{-- <span data-feather="chevron-right"></span> --}}
+                                                                <i class="fa fa-arrow-down"></i>{{-- <span data-feather="chevron-right"></span> --}}
                                                             @endif
                                                         </a>
                                                     </router-link>
@@ -72,7 +72,7 @@
                                                     <router-link to="{{$menu_item->link()!==''?$menu_item->link():''}}">
                                                         <a href="#" class="side-nav-link">
                                                             @if($menu_item->icon_class != null)
-                                                                <span data-feather="{{$menu_item->icon_class}}"></span>
+                                                                <i class="{{$menu_item->icon_class}}"></i>
                                                             @endif
                                                             <span> {{ $menu_item->title }} </span>
                                                         </a>
@@ -84,11 +84,11 @@
                                                         <a href="{{ $menu_item->link()!==''?$menu_item->link():'javascript: void(0);' }}" class="side-nav-link" aria-expanded="false" {{-- onclick="dropDown()" --}}>
                                                     @endif
                                                         @if($menu_item->icon_class != null)
-                                                            <span data-feather="{{$menu_item->icon_class}}"></span>
+                                                            <i class="{{$menu_item->icon_class}}"></i>
                                                         @endif
                                                         <span>{{ $menu_item->title }}</span>
                                                         @if ($menu_item->link()=='')
-                                                            {{-- <span data-feather="chevron-down"></span> --}}
+                                                            <i class="float-right fa fa-angle-down"></i>
                                                         @endif
                                                     </a>
                                                 @endif

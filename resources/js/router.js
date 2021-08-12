@@ -1,13 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import DashboardComponent from './views/DashboardComponent.vue'
-import CreateDeliveryComponent from './views/delivery/CreateDeliveryComponent.vue'
+
+//Components
+import DashboardComponent from './components/DashboardComponent.vue'
 import TableComponent from './components/TableComponent.vue'
 import TestComponent from './components/TestComponent.vue'
-import ChatComponent from './components/ChatComponent.vue'
-import ProfileComponent from './views/profile/ProfileComponent.vue'
-import ProfileEditComponent from './views/profile/ProfileEditComponent.vue'
-import UserForm from './views/register/UserForm.vue'
+
+//Views
+import CreateDelivery from './views/delivery/Create.vue'
+import Delivery from './views/delivery/Delivery.vue'
+import CreateTravel from './views/travel/Create.vue'
+import Travel from './views/travel/Travel.vue'
+import Profile from './views/profile/Profile.vue'
+import ProfileEdit from './views/profile/Edit.vue'
+import GoogleMap from './views/Maps.vue'
 
 Vue.use(Router)
 
@@ -20,9 +26,24 @@ export default new Router({
 			component:DashboardComponent
 		},
 		{
+			path:'/spa/delivery',
+			name:'delivery',
+			component:Delivery
+		},
+		{
 			path:'/spa/delivery/create',
 			name:'delivery.create',
-			component:CreateDeliveryComponent
+			component:CreateDelivery
+		},
+		{
+			path:'/spa/travel',
+			name:'travel',
+			component:Travel
+		},
+		{
+			path:'/spa/travel/create',
+			name:'travel.create',
+			component:CreateTravel
 		},
 		{
 			path:'/spa/table',
@@ -32,22 +53,17 @@ export default new Router({
 		{
 			path:'/spa/account/profile',
 			name:'account.profile',
-			component:ProfileComponent
+			component:Profile
 		},
 		{
 			path:'/spa/account/profile/edit',
 			name:'account.profile.edit',
-			component:ProfileEditComponent
+			component:ProfileEdit
 		},
 		{
-			path:'/test/register/user',
-			name:'register.complete.user',
-			component:UserForm
-		},
-		{
-			path:'/test/chat',
-			name:'test.chat',
-			component:ChatComponent
+			path:'/spa/maps',
+			name:'maps.google',
+			component:GoogleMap
 		}
 	]
 })
