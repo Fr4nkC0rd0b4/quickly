@@ -45,9 +45,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/favicon-96x96.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/favicon-16x16.png') }}"> --}}
-    <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
+    {{-- <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{ asset('favicons/ms-icon-144x144.png') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('favicons/ms-icon-144x144.png') }}"> --}}
     <meta name="theme-color" content="#ffffff">
 </head>
 <body data-layout-config="{{ Auth::user()->theme }}">
@@ -69,10 +69,5 @@
     {{-- <script type="text/javascript" src="{{ asset('template/scripts/vendor.min.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="{{ asset('template/scripts/app-custom.js') }}"></script>
-    <!-- Icons -->
-    {{-- <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace();
-    </script> --}}
 </body>
 </html>

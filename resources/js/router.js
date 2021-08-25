@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import DashboardComponent from './components/DashboardComponent.vue'
 import TableComponent from './components/TableComponent.vue'
 import TestComponent from './components/TestComponent.vue'
-
+import ChatComponent from './components/ChatComponent.vue'
 //Views
 import CreateDelivery from './views/delivery/Create.vue'
 import Delivery from './views/delivery/Delivery.vue'
@@ -64,6 +64,11 @@ export default new Router({
 			path:'/spa/maps',
 			name:'maps.google',
 			component:GoogleMap
+		},
+		{
+			path:'/spa/chat',
+			name:'chat',
+			component:ChatComponent
 		}
 	]
 })
