@@ -12,7 +12,7 @@ deployment:
     - /bin/cp -R routes/ $DEPLOYPATH
     - /bin/cp -R storage/ $DEPLOYPATH
 #    - /bin/cp -R test/ $DEPLOYPATH
-    - /bin/cp -a vendor/ $DEPLOYPATH
+#    - /bin/cp -a vendor/ $DEPLOYPATH
     - /bin/cp -a artisan $DEPLOYPATH
     - /bin/cp -a composer.json $DEPLOYPATH
     - /bin/cp -a composer.lock $DEPLOYPATH
