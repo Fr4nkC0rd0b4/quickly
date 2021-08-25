@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/uquicklh4x/public_html/quickly.net.co
+    - export DEPLOYPATH=/home/uquicklh4x/public_html/
     - /bin/cp -R app/ $DEPLOYPATH
     - /bin/cp -R bootstrap/ $DEPLOYPATH
     - /bin/cp -R config/ $DEPLOYPATH
