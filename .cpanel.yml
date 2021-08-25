@@ -1,0 +1,23 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/uquicklh4x/public_html/quickly.net.co
+    - /bin/cp -R app/ $DEPLOYPATH
+    - /bin/cp -R bootstrap/ $DEPLOYPATH
+    - /bin/cp -R config/ $DEPLOYPATH
+    - /bin/cp -R database/ $DEPLOYPATH
+    - /bin/cp -R hooks/ $DEPLOYPATH
+    - /bin/cp -R public/ $DEPLOYPATH
+    - /bin/cp -R resources/ $DEPLOYPATH
+    - /bin/cp -R routes/ $DEPLOYPATH
+    - /bin/cp -R storage/ $DEPLOYPATH
+#    - /bin/cp -R test/ $DEPLOYPATH
+    - /bin/cp -a vendor/ $DEPLOYPATH
+    - /bin/cp -a artisan $DEPLOYPATH
+    - /bin/cp -a composer.json $DEPLOYPATH
+    - /bin/cp -a composer.lock $DEPLOYPATH
+    - /bin/cp -a package.json $DEPLOYPATH
+    - /bin/cp -a package-lock.json $DEPLOYPATH
+    - /bin/cp -a server.php $DEPLOYPATH
+    - /bin/cp -a webpack.mix.js $DEPLOYPATH
+    - /bin/bash ./install.sh

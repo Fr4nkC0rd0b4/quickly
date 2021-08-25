@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -38,7 +39,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request) {
+    public function loginApi(Request $request) {
         $this->validateLogin($request);
 
         if ($this->attemptLogin($request)) {
@@ -53,7 +54,7 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    public function logout(Request $request) {
+    public function logoutApi(Request $request) {
         $user = Auth::guard('api')->user();
 
         if ($user) {
@@ -63,4 +64,32 @@ class LoginController extends Controller
 
         return response()->json(['data' => 'User logged out.'], 200);
     }
+
+    /*protected function redirectTo() {
+        $role = auth()->user()->role->name;
+        
+        $redirectTo = '';
+
+        switch ($role) {
+            case 'admin':
+                $redirectTo = '/home';
+                break;
+            case 'tic':
+                $redirectTo = '/admin';
+                break;
+
+            case 'user':
+                $redirectTo = '/spa/travels';
+                break;
+
+            case 'quickero':
+                $redirectTo = '/spa/deliveries';
+                break;
+            default:
+                $redirectTo = '/home';
+                break;
+        }
+
+        return $redirectTo;
+    }*/
 }

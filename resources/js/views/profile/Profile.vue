@@ -78,22 +78,6 @@
                                                 </b-form-invalid-feedback>
                                             </b-form-group>
                                         </div>
-
-                                        <div class="col-md-6">
-                                            <b-form-group class="col-sm" id="password-input" label="Contraseña" label-for="password">
-                                                <b-form-input
-                                                    id="password"
-                                                    name="password"
-                                                    v-model="$v.user.password.$model"
-                                                    :state="validateState('password')"
-                                                    aria-describedby="live-password-feedback"
-                                                ></b-form-input>
-
-                                                <b-form-invalid-feedback id="live-password-feedback">
-                                                    Este campo es requerido.
-                                                </b-form-invalid-feedback>
-                                            </b-form-group>
-                                        </div> <!-- end col -->
                                         
                                         <div class="col-md-6">
                                             <b-form-group class="col-sm" id="dni-input" label="DNI" label-for="dni">
@@ -137,6 +121,7 @@
                                                 </b-form-invalid-feedback>
                                             </b-form-group>
                                         </div>
+                                        
                                         <div class="col-md-6">
                                             <b-form-group class="col-sm" id="password-input" label="Contraseña" label-for="password">
                                                 <b-form-input

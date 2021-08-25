@@ -7,7 +7,7 @@
                     <div class="form-inline">
                         <!-- Button trigger modal -->
                         <router-link v-if="add_link" class="m-1 btn btn-primary ml-1" :to="add_link">
-                            <b-icon-plus></b-icon-plus>
+                            <i class="fa fw fa-plus"></i>
                         </router-link>
                         <div v-if="route" class="input-group">
                             <input type="search" class="form-control" v-model="searching" @change="search" style="width: 180px" placeholder="Buscar...">
@@ -17,8 +17,8 @@
                                 </span>
                             </div>
                         </div>
-                        <button class="btn btn-primary ml-2"><span data-feather="list"></span></button>
-                        <button class="btn btn-primary ml-1"><span data-feather="loader"></span></button>
+                        <button @click="$router.back()" class="btn btn-secondary ml-2"><i class="fa fa-arrow-left"></i></button>
+                        <button class="btn btn-info ml-1"><i class="fa fa-refresh"></i></button>
                     </div>
                 </div>
                 <h4 class="page-title">{{ title }}</h4>

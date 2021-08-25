@@ -19,7 +19,7 @@
                                     {{ delivery.user?delivery.user.name:'' }}
                                 </div>
                                 <h5 class="text-primary float-right mt-0">
-                                    {{ delivery.detail.content?delivery.detail.content : delivery.type }}
+                                    {{ delivery.type ? delivery.type : '' }}
                                 </h5>
                                 <div class="ribbon-content">
                                     <p class="mb-0">De {{ delivery.origin }} a {{ delivery.destination }}.</p>
@@ -172,8 +172,8 @@
 
     export default {
         mounted() {
-            var fecha = "2020-01-20asdjlsd";
-            console.log(fecha.substr(0,10));
+            /*var fecha = "2020-01-20asdjlsd";
+            console.log(fecha.substr(0,10));*/
         },
         data(){
             return {

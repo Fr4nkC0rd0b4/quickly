@@ -3,7 +3,7 @@
                         <ul class="list-unstyled topbar-right-menu float-right mb-0">
                             <li class="dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <span data-feather="bell"></span>
+                                    <i class="mt-3 fa fa-bell-o fa-2x"></i>{{-- <span data-feather="bell"></span> --}}
                                     <span class="noti-icon-badge"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">
@@ -41,7 +41,7 @@
 
                             <li class="notification-list">
                                 <a class="nav-link right-bar-toggle" {{-- onclick="addClass()" --}} href="javascript: void(0);">
-                                    <span data-feather="settings"></span>
+                                    <i class="mt-3 fa fa-cog fa-2x"></i>{{-- <span data-feather="settings"></span> --}}
                                 </a>
                             </li>
 
@@ -98,14 +98,14 @@
 
                         </ul>
                         <button class="button-menu-mobile open-left disable-btn">
-                            <span data-feather="menu"></span>
+                            <i class="fa fa-bars"></i>{{-- <span data-feather="menu"></span> --}}
                         </button>
                         <div class="app-search dropdown d-none d-lg-block">
                             <form>
                                 <div class="input-group">
                                     <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search" {{-- onclick="search()" --}}>
-                                    {{-- <span data-feather="search"></span> --}}
                                     <div class="input-group-append">
+                                    {{-- <i class="fa fa-search"></i> --}}
                                         <button class="btn btn-primary" type="submit">Search</button>
                                     </div>
                                 </div>

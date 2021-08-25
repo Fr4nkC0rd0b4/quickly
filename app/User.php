@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
@@ -25,7 +26,7 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token'
+        'password', 'remember_token', 'api_token', 'settings', 'theme'
     ];
 
     /**
@@ -39,7 +40,7 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 
     public function generateToken()
     {
-        $this->api_token = str_random(60);
+        $this->api_token = Str::random(60);
         $this->save();
 
         return $this->api_token;

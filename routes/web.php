@@ -24,12 +24,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-
-//Rutas vue
-/*Route::get('vue/{any?}/{any1?}', function($any){
-	return view('home');
-})->where('vue', '.*')->name('rutas.vue')->middleware('auth', 'verified');*/
+Route::get('/home/{any?}', 'HomeController@index')->name('home')->middleware('verified');
 
 //Rutas de Perfil
 Route::post('/account/profile/update', 'ProfileController@update')->name('profile.update');
@@ -37,10 +32,16 @@ Route::post('/account/profile/update', 'ProfileController@update')->name('profil
 Route::get('/account/profile/{id}', 'ProfileController@index');
 
 //Cities and Departaments
-Route::get('/delivery/cities', 'DeliveryController@city')->name('cities.index');
+Route::get('/helpers/cities', 'HelperController@cities')->name('cities.index')->middleware('auth');
+
+//Vehicles
+Route::get('/helpers/vehicles/{user}', 'HelperController@vehicles')->name('vehicles.index')->middleware('auth');
 
 //Rutas de envios
 Route::resource('/delivery', 'DeliveryController');
+
+//Rutas de envios
+Route::resource('/travel', 'TravelController');
 
 //Rutas vue
 Route::get('/spa/{any?}/{any1?}/{any2?}/{any13?}', function ($any) {

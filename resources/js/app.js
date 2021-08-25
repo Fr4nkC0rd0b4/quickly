@@ -12,22 +12,30 @@ window.Vue = require('vue');
 import router from './router';
 import InfiniteLoading from "vue-infinite-loading";
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
-import VueFormWizard from 'vue-form-wizard'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
 import Vue from 'vue'
 import vSelect from 'vue-select'
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 //CSS of Components
-import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import 'vue-select/dist/vue-select.css';
 
 //Name Components
 Vue.use(InfiniteLoading, { /* options */ });
-Vue.use(VueFormWizard)
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
 Vue.use(IconsPlugin)
+
+Vue.config.productionTip = false
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDIEEDmAIhXWozHWsg-vLXuSWWhyp0zehM',
+    libraries: 'places',
+  }
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
