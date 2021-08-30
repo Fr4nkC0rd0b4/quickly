@@ -26,7 +26,7 @@ class CreateDeliveriesTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('deliver')->references('id')->on('users');
+            $table->foreign('delivery_man')->references('id')->on('users');
         });
     }
 
