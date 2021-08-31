@@ -8,7 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+// use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -74,25 +75,25 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function registered(Request $request, $user) {
-        $user->generateToken();
+    // public function registered(Request $request, $user) {
+    //     $user->generateToken();
 
-        return response()->json(['data' => $user->toArray()], 201);
-    }
+    //     return response()->json(['data' => $user->toArray()], 201);
+    // }
 
-    protected function redirectTo() {
-        $rol = auth()->user()->role_id;
+    // protected function redirectTo() {
+    //     $rol = auth()->user()->role_id;
 
-        $redirectTo = '';
+    //     $redirectTo = '';
 
-        if ($rol == 2) {
-            $redirectTo = '/test/register/user';
-        } else if ($rol == 3) {
-            $redirectTo = '/test/register/quickero';
-        } else {
-            $redirectTo = '/homes';
-        }
+    //     if ($rol == 2) {
+    //         $redirectTo = '/test/register/user';
+    //     } else if ($rol == 3) {
+    //         $redirectTo = '/test/register/quickero';
+    //     } else {
+    //         $redirectTo = '/homes';
+    //     }
 
-        return $redirectTo;
-    }
+    //     return $redirectTo;
+    // }
 }

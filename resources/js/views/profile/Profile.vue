@@ -127,6 +127,7 @@
                                                 <b-form-input
                                                     id="password"
                                                     name="password"
+                                                    type="password"
                                                     v-model="$v.user.password.$model"
                                                     :state="validateState('password')"
                                                     aria-describedby="live-password-feedback"
