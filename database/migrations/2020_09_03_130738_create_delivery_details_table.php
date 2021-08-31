@@ -22,6 +22,7 @@ class DeliveryDetailsTable extends Migration
             $table->decimal('width')->nullable();
             $table->decimal('initial_offer')->nullable();
             $table->decimal('final_offer')->nullable();
+            $table->string('content')->nullable();
 
             $table->foreign('delivery_id')->references('id')->on('deliveries');
         });
