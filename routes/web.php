@@ -1,6 +1,8 @@
 <?php
 
+use App\Events\NotificationsPushEvent;
 use Illuminate\Support\Facades\Route;
+use App\Delivery;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/test/pusher', function () {
+	// dd(Delivery::find(56));
+	event(new NotificationsPushEvent(Delivery::find(56)));
+	return 'Fired';
 });
 
 //Rutas de consola de administración Voyager

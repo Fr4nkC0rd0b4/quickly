@@ -1,43 +1,8 @@
                     <!-- Topbar Start -->
                     <div class="navbar-custom">
                         <ul class="list-unstyled topbar-right-menu float-right mb-0">
-                            <li class="dropdown notification-list">
-                                <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <i class="mt-3 fa fa-bell-o fa-2x"></i>{{-- <span data-feather="bell"></span> --}}
-                                    <span class="noti-icon-badge"></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">
-
-                                    <!-- item-->
-                                    <div class="dropdown-item noti-title">
-                                        <h5 class="m-0">
-                                            <span class="float-right">
-                                                <a href="#" class="text-dark">
-                                                    <small>Clear All</small>
-                                                </a>
-                                            </span>Notification
-                                        </h5>
-                                    </div>
-
-                                    <div style="max-height: 230px;" data-simplebar>
-                                        <!-- item-->
-                                        <a href="#" class="dropdown-item notify-item">
-                                            <div class="notify-icon bg-primary">
-                                                <i class="mdi mdi-comment-account-outline"></i>
-                                            </div>
-                                            <p class="notify-details">Caleb Flakelar commented on Admin
-                                                <small class="text-muted">1 min ago</small>
-                                            </p>
-                                        </a>
-                                    </div>
-
-                                    <!-- All-->
-                                    <a href="#" class="dropdown-item text-center text-primary notify-item notify-all">
-                                        View All
-                                    </a>
-
-                                </div>
-                            </li>
+                            
+                            <notifications-component user_id="{{ auth()->user()->id }}"></notifications-component>
 
                             <li class="notification-list">
                                 <a class="nav-link right-bar-toggle" {{-- onclick="addClass()" --}} href="javascript: void(0);">

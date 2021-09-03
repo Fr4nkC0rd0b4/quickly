@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import DashboardComponent from './components/DashboardComponent.vue'
 import TableComponent from './components/TableComponent.vue'
 import TestComponent from './components/TestComponent.vue'
-import ChatComponent from './components/ChatComponent.vue'
+// import ChatComponent from './components/ChatComponent.vue'
 //Views
 import CreateDelivery from './views/delivery/Create.vue'
 import Delivery from './views/delivery/Delivery.vue'
@@ -13,7 +13,8 @@ import CreateTravel from './views/travel/Create.vue'
 import Travel from './views/travel/Travel.vue'
 import Profile from './views/profile/Profile.vue'
 import ProfileEdit from './views/profile/Edit.vue'
-import GoogleMap from './views/Maps.vue'
+import NotFoundView from './views/NotFoundView.vue'
+// import GoogleMap from './views/Maps.vue'
 
 Vue.use(Router)
 
@@ -28,8 +29,10 @@ export default new Router({
 		{
 			path:'/spa/delivery',
 			name:'delivery',
-			component:Delivery
+			component:Delivery,
+			props: {status: '', message: ''}
 		},
+		// {path:'/spa/evaluation/:id', name:'evaluation.edit', component:EvaluationEdit},
 		{
 			path:'/spa/delivery/create',
 			name:'delivery.create',
@@ -60,15 +63,19 @@ export default new Router({
 			name:'account.profile.edit',
 			component:ProfileEdit
 		},
-		{
-			path:'/spa/maps',
-			name:'maps.google',
-			component:GoogleMap
-		},
-		{
-			path:'/spa/chat',
-			name:'chat',
-			component:ChatComponent
-		}
+		// {
+		// 	path:'/spa/maps',
+		// 	name:'maps.google',
+		// 	component:GoogleMap
+		// },
+		// {
+		// 	path:'/spa/chat',
+		// 	name:'chat',
+		// 	component:ChatComponent
+		// },
+		{// For not defined routes
+			path: '*', 
+        	component: NotFoundView
+        }
 	]
 })

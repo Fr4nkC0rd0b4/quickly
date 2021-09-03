@@ -6,7 +6,7 @@
                 <div class="page-title-right">
                     <div class="form-inline">
                         <!-- Button trigger modal -->
-                        <router-link v-if="add_link" class="m-1 btn btn-primary ml-1" :to="add_link">
+                        <router-link v-if="add_link" class="m-1 btn btn-primary ml-1" :to="{ name: add_link }">
                             <i class="fa fw fa-plus"></i>
                         </router-link>
                         <div v-if="route" class="input-group">

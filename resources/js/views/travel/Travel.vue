@@ -2,12 +2,6 @@
     <div class="container-fluid">
         <header-component title="Travels" :add_link="add_link" :route="route" @item="travels = $event"></header-component>
         
-        <div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
-            {{result.message}}
-            <button type="button" @click="result={message:'',alert:''}" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
         <div class="row">
             <div class="col-12">
                 <div class="row justify-content-center">
@@ -140,10 +134,10 @@
                 user: '',
                 page: 1,
                 loading: null,
-                result:{ message:'',alert:'' },
+                // result:{ message:'',alert:'' },
                 modalShow: false,
                 details: [],
-                add_link: '/spa/travel/create',
+                add_link: 'travel.create',
                 route: '/travel/',
                 state: null,
                 final_offer: '',
@@ -188,11 +182,15 @@
                 this.$v.final_offer.$touch()
             },*/
             getDeliveries() {
-                axios.get('/delivery/pendings').then(solve=>{
-                    console.log("Cargado")
+                axios.get('/delivery', 'pendings').then(solve => {
                     this.deliveries = solve.data.data
-                }).catch(solve=>{
-                    console.log("No cargado")
+                }).catch(solve => {
+                    toastr.options =
+                        {
+                            "closeButton" : true,
+                            "progressBar" : true
+                        }
+                    toastr.error('Ha ocurrido un error interno, por favor intente de nuevo.');
                 })
             }
         }

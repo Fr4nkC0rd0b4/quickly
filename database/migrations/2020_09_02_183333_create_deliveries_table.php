@@ -15,17 +15,17 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('delivery_man')->nullable();
             $table->string('origin');
             $table->string('destination');
-            $table->string('pick_up_point');
-            $table->string('delivery_point');
+            $table->string('pick_up_point')->nullable();
+            $table->string('delivery_point')->nullable();
             $table->string('type');
-            $table->integer('status')->default(0);
+            $table->foreignId('status_id')->unsigned()->default(1)->constrained();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('delivery_man')->references('id')->on('users');
         });
     }

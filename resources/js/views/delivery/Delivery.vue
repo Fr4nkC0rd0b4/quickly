@@ -2,12 +2,6 @@
     <div class="container-fluid">
         <header-component title="Dashboard" :add_link="add_link" :route="route" @item="deliveries = $event"></header-component>
         
-        <div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
-            {{result.message}}
-            <button type="button" @click="result={message:'',alert:''}" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
         <div class="row">
             <div class="col-12">
                 <div class="row justify-content-center">
@@ -40,7 +34,7 @@
         <b-modal 
             v-model="modalShow"
             centered
-            title="Detalle"
+            :title="'Solicitdu # ' + details.id"
             hide-backdrop
             content-class="shadow"
             no-close-on-backdrop 
@@ -174,17 +168,28 @@
         mounted() {
             /*var fecha = "2020-01-20asdjlsd";
             console.log(fecha.substr(0,10));*/
+            console.log(this.status)
+            console.log(this.message)
+            /*toastr.options =
+                {
+                    "closeButton" : true,
+                    "progressBar" : true
+                }
+            if (this.$route.params.status) {
+                this.$route.params.status == 'error' ? toastr.error(this.$route.params.message) : toastr.success(this.$route.params.message);
+            }*/
         },
+        props: ['status', 'message'],
         data(){
             return {
                 deliveries: [],
                 user: '',
                 page: 1,
                 loading: null,
-                result:{ message:'',alert:'' },
+                // result:{ message:'',alert:'' },
                 modalShow: false,
                 details: [],
-                add_link: '/spa/delivery/create',
+                add_link: 'delivery.create',
                 route: '/delivery/',
                 state: null,
                 final_offer: '',
@@ -234,9 +239,19 @@
                 if (!this.$v.final_offer.$anyError) {
                     axios.put(this.route + '{$delivery}' , {id:id, final_offer:this.final_offer}
                         ).then(solve => {
-                            this.result = { message:'Envio aceptado',alert:'alert-success' }
+                            toastr.options =
+                            {
+                                "closeButton" : true,
+                                "progressBar" : true
+                            }
+                            toastr.success('Solicitud aceptada, click aquí para gestionarla.');
                         }).catch(solve => {
-                            this.result = { message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger' }
+                            toastr.options =
+                            {
+                                "closeButton" : true,
+                                "progressBar" : true
+                            }
+                            toastr.error('Ha ocurrido un error interno, por favor intente de nuevo.');
                         });
                     //console.log(delivery)
                 }

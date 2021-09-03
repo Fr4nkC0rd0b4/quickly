@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(VoyagerDatabaseSeeder::class);
+        $this->call([
+            VoyagerDatabaseSeeder::class,
+            StatusSeeder::class,
+        ]);
     }
 }
