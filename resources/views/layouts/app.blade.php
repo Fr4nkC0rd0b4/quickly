@@ -13,7 +13,7 @@
     <!-- Data User Sesion-->
     <meta name="user" content="{{ Auth::user() }}">
     <!-- URL img page not found -->
-    <meta name="img_page_not_found" content="{{ setting('site.img_page_not_found') }}">
+    <meta name="img_page_not_found" content="{{ setting('site.error_404') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
