@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NotificationsPushEvent;
 use Illuminate\Http\Request;
 use App\Delivery;
 use App\DeliveryDetail;
@@ -119,10 +120,14 @@ class DeliveryController extends Controller
             $delivery = Delivery::find($delivery_detail->delivery_id);
 
             $delivery->delivery_man = Auth::user()->id;
-            $delivery->status = 1;
+            $delivery->status_id = 2;
             $delivery->save();
+            
+            $delivery->detail;
+            // dd($delivery);
+            event(new NotificationsPushEvent($delivery));
         }
-
+        
     }
 
     /**

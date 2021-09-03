@@ -15,7 +15,7 @@ class CreateUserLocationsTable extends Migration
     {
         Schema::create('user_locations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->string('country');
             $table->string('state');
             $table->string('city');
@@ -24,7 +24,7 @@ class CreateUserLocationsTable extends Migration
             $table->integer('is_main')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

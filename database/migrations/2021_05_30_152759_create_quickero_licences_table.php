@@ -15,11 +15,11 @@ class CreateQuickeroLicencesTable extends Migration
     {
         Schema::create('quickero_licences', function (Blueprint $table) {
             $table->string('id', 10)->primary();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->string('driving_license');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

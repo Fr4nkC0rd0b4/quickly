@@ -17,7 +17,7 @@ import Vuelidate from 'vuelidate'
 import Vue from 'vue'
 import vSelect from 'vue-select'
 
-import * as VueGoogleMaps from 'vue2-google-maps'
+// import * as VueGoogleMaps from 'vue2-google-maps'
 
 //CSS of Components
 import 'vue-select/dist/vue-select.css';
@@ -28,14 +28,14 @@ Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
 Vue.use(IconsPlugin)
 
-Vue.config.productionTip = false
+/*Vue.config.productionTip = false
 
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDIEEDmAIhXWozHWsg-vLXuSWWhyp0zehM',
     libraries: 'places',
   }
-});
+});*/
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -47,6 +47,8 @@ Vue.use(VueGoogleMaps, {
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('notifications-component', require('./components/NotificationsComponent.vue').default);
+Vue.component('alerts-component', require('./components/AlertsComponent.vue').default);
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('Infinitiloading', require('vue-infinite-loading'));
 Vue.component('scale-loader', require('vue-spinner/src/ScaleLoader.vue').default);
@@ -61,4 +63,10 @@ Vue.component('v-select', vSelect)
 const app = new Vue({
 	router,
     el: '#app',
+    /*mounted(){
+        window.Echo.channel('delivery-status')
+        .listen('NotificationsPushEvent', (e) => {
+            console.log('OMG realtime')
+        });
+    }*/
 });

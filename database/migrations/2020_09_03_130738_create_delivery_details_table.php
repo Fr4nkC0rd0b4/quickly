@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeliveryDetailsTable extends Migration
+class CreateDeliveryDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,8 @@ class DeliveryDetailsTable extends Migration
     {
         Schema::create('delivery_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('delivery_id');
-            $table->decimal('size');
+            $table->foreignId('delivery_id')->constrained();
+            $table->decimal('size')->nullable();
             $table->decimal('hight')->nullable();
             $table->decimal('long')->nullable();
             $table->decimal('width')->nullable();
@@ -24,7 +24,7 @@ class DeliveryDetailsTable extends Migration
             $table->decimal('final_offer')->nullable();
             $table->string('content')->nullable();
 
-            $table->foreign('delivery_id')->references('id')->on('deliveries');
+            // $table->foreign('delivery_id')->references('id')->on('deliveries');
         });
     }
 

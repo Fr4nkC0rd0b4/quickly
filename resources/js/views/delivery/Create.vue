@@ -1,13 +1,6 @@
 <template>
   	<div class="container-fluid">
 	  	<header-component title="Registrar envío"></header-component>
-
-	  	<div style="text-align: left;" v-if="result.message!=''" :class="result.alert" class="alert alert-dismissible fade show" role="alert">
-        {{result.message}}
-            <button type="button" @click="result={message:'',alert:''}" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
         
 	    <div class="row">
 	    	<div class="col-12">
@@ -150,7 +143,7 @@
 	  	data() {
 	    	return {
 	    		cities: [],
-	    		result: { message:'',alert:'' },
+	    		// result: { message:'',alert:'' },
 	    		loading: false,
                 height: '10px',
 	      		firstTab: {
@@ -269,11 +262,20 @@
                 let data = $('#form').serialize()
                 axios.post('/delivery', data
                     ).then(solve=>{
-                        this.$router.push('/spa/delivery');
+                        this.$router.push({
+                        	name:'delivery',
+                        	params: {status: 'success', message: 'Solicitud registrada con éxtio'}
+                        })
                     })
                     .catch(solve=>{
+                    	toastr.options =
+				            {
+				                "closeButton" : true,
+				                "progressBar" : true
+				            }
+				        toastr.error('Ha ocurrido un error interno, por favor intente de nuevo.');
                     	this.loading = false
-                        this.result = { message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger' }
+                        /*this.result = { message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger' }*/
                     }
                 );
 		    }
