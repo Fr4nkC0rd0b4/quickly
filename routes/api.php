@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Delivery;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,17 +22,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('register', 'Auth\RegisterController@register');
-Route::post('login', 'Auth\LoginController@loginApi');
+Route::post('login', 'AuthController@login');
 
-//Rutas de pruebas
-Route::get('/deliveries', function (Request $request)
-{
-	$deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->get();
+// Protected routes
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/logout', 'AuthController@logout');
 
-	 foreach ($deliveries as $key => $value) {
-        $value->detail;
-        $value->user;
-    }
+    // Deliveries
+    Route::get('/deliveries', function (Request $request) {
+        $deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->get();
 
-    return response()->json($deliveries);
+        foreach ($deliveries as $value) {
+            $value->detail;
+            $value->user;
+        }
+
+        return response()->json($deliveries);
+    });
+
+    Route::get('/test', function () {
+        // User logged
+        return response()->json(Auth::user());
+    });
 });

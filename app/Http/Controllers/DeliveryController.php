@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NotificationsPushEvent;
-use Illuminate\Http\Request;
+use Auth;
 use App\Delivery;
 use App\DeliveryDetail;
-use App\City;
-use Auth;
+use App\User;
+use App\Events\NotificationsPushEvent;
+use App\Notifications\EventNotifications;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class DeliveryController extends Controller
 {
@@ -20,7 +22,7 @@ class DeliveryController extends Controller
     {
         $role = Auth::user()->role->name;
         $id = Auth::user()->id;
-        
+
         switch ($role) {
             case 'user':
                 $deliveries = Delivery::where('user_id', $id)->search($request->searching)->orderBy('id', 'DESC')->paginate(10);
@@ -60,8 +62,8 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $user_id = Auth::user()->id;
+
         $delivery = new Delivery();
 
         $delivery->user_id = $user_id;
@@ -69,16 +71,17 @@ class DeliveryController extends Controller
         $result = $delivery->save();
 
         if ($result) {
-            $delivery_id = Delivery::select('id')->where('user_id', $user_id)->get();
-            $delivery_father = $delivery_id->last();
+            $delivery_id = $delivery->id;
 
             $detail = new DeliveryDetail();
 
-            $detail->delivery_id = $delivery_father->id;
+            $detail->delivery_id = $delivery_id;
             $detail->final_offer = $request->initial_offer;
             $detail->fill($request->all());
             $detail->save();
         }
+
+        $this->setNotification($delivery->id, $delivery->user_id);
     }
 
     /**
@@ -122,12 +125,11 @@ class DeliveryController extends Controller
             $delivery->delivery_man = Auth::user()->id;
             $delivery->status_id = 2;
             $delivery->save();
-            
+
             $delivery->detail;
             // dd($delivery);
             event(new NotificationsPushEvent($delivery));
         }
-        
     }
 
     /**
@@ -140,5 +142,23 @@ class DeliveryController extends Controller
     {
         //
     }
-    
+
+    /**
+     * Store the specified resource from storage.
+     *
+     * @param  Int  $record_id
+     * @return Illuminate\Support\Facades\Notification
+     */
+    private function setNotification($record_id, $user_id)
+    {
+        $esquema = Delivery::all();
+
+        $notification = [
+            'title'     => 'Nueva solicitud de envio.',
+            'record_id' => $record_id,
+            'user_id'   => $user_id,
+        ];
+
+        Notification::send($esquema, new EventNotifications($notification));
+    }
 }

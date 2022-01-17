@@ -1,19 +1,16 @@
 @php
-    $rol = auth()->user()->role->name=='admin'?'adminfront':auth()->user()->role->name;
-    if (menu($rol,'_json')) {
-        // $r=menu($rol,'_json');
-        $roles=[$rol];
-        $rols=auth()->user()->roles;
-        foreach ($rols as $key => $rol_) {
-            $roles[]=$rol_->name=='admin'?'adminfront':$rol_->name;
-        }
-        $menus_rol=collect();
-        foreach ($roles as $key => $value) {
-            $menus_rol=$menus_rol->merge(menu($value,'_json'));
-        }
-    }else{
-        $menus_rol=menu('user','_json');
+    $menu = menu('front', '_json');
+    $menus = Collect();
+    
+    foreach ($menu as $key => $value) {
+        // dd($value->link());
+        $permission = 'browse_' . explode('/', $value->link())[0];
+        
+        // if(Auth::user()->hasPermission($permission)){
+            $menus->push($value);
+        // }
     }
+    // dd($menus);
 @endphp
 <!-- ========== Left Sidebar Start ========== -->
 <div class="left-side-menu mm-show">
@@ -49,8 +46,8 @@
                         <div class="simplebar-content" style="padding: 0px;">
                             <!--- Sidemenu -->
                             <ul class="metismenu side-nav mm-show">
-                                @if ($menus_rol && count($menus_rol)>0)
-                                    @foreach ($menus_rol as $key => $menu_item)
+                                @if ($menus && count($menus)>0)
+                                    @foreach ($menus as $key => $menu_item)
                                         {{-- !head para link titulo principal --}}
                                         @if ($menu_item->link()=='!head')
                                             <li class="side-nav-title side-nav-item">{{ $menu_item->title }}</li>

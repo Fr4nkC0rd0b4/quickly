@@ -166,18 +166,14 @@
 
     export default {
         mounted() {
-            /*var fecha = "2020-01-20asdjlsd";
-            console.log(fecha.substr(0,10));*/
-            console.log(this.status)
-            console.log(this.message)
-            /*toastr.options =
+            toastr.options =
                 {
                     "closeButton" : true,
                     "progressBar" : true
                 }
             if (this.$route.params.status) {
                 this.$route.params.status == 'error' ? toastr.error(this.$route.params.message) : toastr.success(this.$route.params.message);
-            }*/
+            }
         },
         props: ['status', 'message'],
         data(){
@@ -186,7 +182,6 @@
                 user: '',
                 page: 1,
                 loading: null,
-                // result:{ message:'',alert:'' },
                 modalShow: false,
                 details: [],
                 add_link: 'delivery.create',
@@ -202,6 +197,7 @@
             final_offer: { decimal, minLength: minLength(4) }
         },
         methods: {
+
             //Cargo los datos inicialmente usando scroll infinito
             infiniteHandler($state) {
                 this.state = $state;
@@ -253,7 +249,6 @@
                             }
                             toastr.error('Ha ocurrido un error interno, por favor intente de nuevo.');
                         });
-                    //console.log(delivery)
                 }
                 this.closeModal()
             }

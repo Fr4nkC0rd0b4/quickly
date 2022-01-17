@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -11,14 +10,16 @@ class EventNotifications extends Notification
 {
     use Queueable;
 
+    private $notification;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($notification)
     {
-        //
+        $this->notification = $notification;
     }
 
     /**
@@ -29,7 +30,7 @@ class EventNotifications extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -41,9 +42,9 @@ class EventNotifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,7 +56,11 @@ class EventNotifications extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'title' => $this->notification['title'],
+            'description' => $this->notification['description'],
+            'user_id' => $this->notification['user_id'],
+            'quickero_id' => $this->notification['quickero_id'],
+            'quickero_avatar' => $this->notification['quickero_avatar']
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Delivery;
+use App\Notification as NotificationModel;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,15 +15,17 @@ class NotificationsPushEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $delivery;
+    private $notification;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Delivery $delivery)
+    public function __construct($id)
     {
-        $this->delivery = $delivery;
+        // Get notification from model Notification by ID
+        $this->notification = NotificationModel::find($id);
     }
 
     /**
@@ -33,15 +35,18 @@ class NotificationsPushEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // return new PrivateChannel('channel-name');
-        return ['delivery-status.' . $this->delivery->id, 'delivery-status'];
+        return ['notification-status.' . $this->notification->id, 'notification-status'];
     }
 
     public function broadcastWith()
     {
         $extra = [
-            'status_name' => $this->delivery->status
+            'status_name' => $this->notification->status
         ];
-        return array_merge($this->delivery->toArray(), $extra);
+
+        // Se agrega el elemento time, que almacena hace cuanto se recibió la notificación
+        $this->notification->time = $this->notification->time();
+
+        return array_merge($this->notification->toArray(), $extra);
     }
 }

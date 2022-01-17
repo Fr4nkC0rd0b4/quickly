@@ -28,14 +28,6 @@ Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
 Vue.use(IconsPlugin)
 
-/*Vue.config.productionTip = false
-
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyDIEEDmAIhXWozHWsg-vLXuSWWhyp0zehM',
-    libraries: 'places',
-  }
-});*/
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -48,7 +40,6 @@ Vue.use(VueGoogleMaps, {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('notifications-component', require('./components/NotificationsComponent.vue').default);
-Vue.component('alerts-component', require('./components/AlertsComponent.vue').default);
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('Infinitiloading', require('vue-infinite-loading'));
 Vue.component('scale-loader', require('vue-spinner/src/ScaleLoader.vue').default);
@@ -62,11 +53,28 @@ Vue.component('v-select', vSelect)
 
 const app = new Vue({
 	router,
-    el: '#app',
-    /*mounted(){
-        window.Echo.channel('delivery-status')
-        .listen('NotificationsPushEvent', (e) => {
-            console.log('OMG realtime')
-        });
-    }*/
+	el: '#app',
+
+	mounted() {
+		var auth_user = JSON.parse(document.head.querySelector('meta[name="user"]').content);
+
+		window.Echo.channel('notification-status')
+			.listen('NotificationsPushEvent', (notification) => {
+
+				// Se obtiene la data de la notificación en formato JSON
+				var data = JSON.parse(notification.data);
+
+				// Se verifica si el id del usuario logueado es el mismo del receptor de la notificación
+				if (auth_user.id == data.user_id) {
+
+					toastr.options =
+					{
+						"closeButton": true,
+						"progressBar": true
+					}
+					toastr.success(data.title + ' # ' + notification.notifiable_id);
+				}
+			}
+			);
+	},
 });

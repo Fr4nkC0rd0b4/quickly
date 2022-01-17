@@ -204,7 +204,7 @@
 	  	},
 	  	methods: {
 	  		getCities() {
-	  			axios.get('/helpers/cities').then(solve=>{
+	  			axios.get('/helpers/cities').then(solve => {
 	  				this.cities = solve.data
 	  			})
 	  		},

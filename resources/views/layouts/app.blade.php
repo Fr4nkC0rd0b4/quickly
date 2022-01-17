@@ -12,8 +12,9 @@
 
     <!-- Data User Sesion-->
     <meta name="user" content="{{ Auth::user() }}">
+    
     <!-- URL img page not found -->
-    <meta name="img_page_not_found" content="{{ setting('site.img_page_not_found') }}">
+    <meta name="img_page_not_found" content="{{ setting('site.error_404') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -34,6 +35,7 @@
     <link href="{{ asset('template/css/app-dark.css') }}" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">
 
     <meta name="theme-color" content="#ffffff">
+    
     <!-- Styles for toastr notifications -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
@@ -44,7 +46,6 @@
                 <div class="content-page">
                     <div class="content">
                         @include('components.header')
-                        <alerts-component user_id="{{ Auth::user()->id }}"></alerts-component>
                         @yield('content')
                     </div>
                 </div>
