@@ -81,6 +81,8 @@ Route::get('/test/pusher', function () {
 	return 'Fired';
 });
 
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
 //Rutas para completar información del registro
 /* Route::get('/test/{any?}/{any1?}', function ($any) {
 	return view('auth.register-complete');
