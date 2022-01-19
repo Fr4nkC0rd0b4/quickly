@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row justify-content-center">
-                    <div v-for="travel in travels" class="col-xl-6">
+                    <div v-for="travel in travels" :key="travel.id" class="col-xl-6">
                         <div class="ribbon-box card" role="button" @click="openModal(travel)">
                             <div class="card-body">
                                 <div class="ribbon ribbon-primary float-left">
@@ -98,7 +98,7 @@
                     <div class="form-group">
                         <label class="form__label">Asociar a mi solicitud:</label>
                         <select>
-                            <option v-for="delivery in deliveries">{{ delivery.origin }}</option>
+                            <option v-for="delivery in deliveries" :key="delivery.id">{{ delivery.origin }}</option>
                         </select>
                     </div>
 
@@ -121,9 +121,13 @@
 </template>
 
 <script>
+    import InfiniteLoading from 'vue-infinite-loading';
     import { decimal, minLength } from "vuelidate/lib/validators";
 
     export default {
+        components: {
+            InfiniteLoading
+        },
         mounted() {
             this.getDeliveries();
         },
