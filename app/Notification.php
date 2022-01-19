@@ -21,11 +21,11 @@ class Notification extends Model
      * Devuelve hace cuanto tiempo llegó la notificación
      * @return String $time
      */
-    public function time()
+    public function time($created_at)
     {
         $time = 'Hace';
 
-        $date = Carbon::parse($this->created_at);
+        $date = Carbon::parse($created_at);
 
         $now = Carbon::now();
 
@@ -42,9 +42,9 @@ class Notification extends Model
         return $time;
     }
 
-    public function date()
+    public function date($created_at)
     {
-        $date = Carbon::parse($this->created_at)->locale('es');
+        $date = Carbon::parse($created_at)->locale('es');
 
         $date = $date->format('j F Y h:i a');
 

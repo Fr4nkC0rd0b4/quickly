@@ -3,13 +3,13 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                2020 Technovation colombia SAS - technovation.colombia.com
+                                {{ setting('site.footer') }}
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-right footer-links">
-                                    <a href="javascript: void(0);">About</a>
-                                    <a href="javascript: void(0);">Support</a>
-                                    <a href="javascript: void(0);">Contact Us</a>
+                                    <a href="javascript: void(0);">Acerca de nosotros</a>
+                                    <a href="javascript: void(0);">Soporte</a>
+                                    <a href="javascript: void(0);">Contactenos</a>
                                 </div>
                             </div>
                         </div>

@@ -28,7 +28,7 @@
                                 <div class="simplebar-content" style="padding: 0px;">
                                     
                                     <!-- item-->
-                                    <a v-for="notification in notifications" href="javascript:void(0);" class="dropdown-item notify-item" :class="notification.read ? '' : 'not-read'">
+                                    <router-link v-for="notification in notifications" :key="notification.id" :to="notification.url" class="dropdown-item notify-item" :class="notification.read ? '' : 'not-read'">
                                         <div v-if="notification.avatar" class="notify-icon">
                                             <img :src="/storage/+notification.avatar" class="img-fluid rounded-circle" alt="profile-image">
                                         </div>
@@ -38,7 +38,7 @@
                                         <p class="notify-details">{{ notification.title +' '+ notification.text }}
                                             <small class="text-muted">{{ notification.time }}</small>
                                         </p>
-                                    </a>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -91,18 +91,26 @@
                     var detail = JSON.parse(notification.data);
 
                     // Se verifica si el id del usuario logueado es el mismo del receptor de la notificación
-                    if (this.user_id == detail.user_id) {
+                    if (this.user_id == detail.receipter_id) {
 
                         // Se agrega la nueva notificación al modelo notifications
                         this.notifications.unshift({
                             title: detail.title,
                             text: detail.description,
-                            url: '/delivery/' + notification.notifiable_id,
+                            url: '/spa/delivery/' + notification.notifiable_id,
                             time: notification.time,
                             read: notification.read_at,
-                            avatar: detail.quickero_avatar
+                            avatar: detail.sender_avatar
                         });
                         this.count ++;
+
+                        // Se muestra la alerta toastr
+                        toastr.options =
+                        {
+                            "closeButton": true,
+                            "progressBar": true
+                        }
+                        toastr.success(detail.title + ' ' + detail.description);
                     }
                 }
             );
@@ -122,10 +130,10 @@
                             vm.notifications.push({
                                 title: detail.title,
                                 text: detail.description,
-                                url: '/delivery/' + value.notifiable_id,
+                                url: '/spa/delivery/' + value.notifiable_id,
                                 time: value.time,
                                 read: value.read_at,
-                                avatar: detail.quickero_avatar
+                                avatar: detail.sender_avatar
                             });
 
                         });
@@ -141,6 +149,10 @@
                         let response = solve.data;
 
                         if(response == 'done') {
+                            $.each(this.notifications, function(key, value) {
+                                value.read = 1;
+                            });
+
                             this.count = 0;
                         } 
                     }

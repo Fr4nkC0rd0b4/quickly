@@ -63,9 +63,42 @@
 </template>
 
 <script>
+    let auth_user = document.head.querySelector('meta[name="user"]').content;
+
+    import InfiniteLoading from 'vue-infinite-loading';
+
     export default {
+        components: {
+            InfiniteLoading
+        },
+        mounted() {
+            window.Echo.channel('notification-status')
+                .listen('NotificationsPushEvent', (notification) => {
+                    
+                    // Se obtiene la data de la notificación en formato JSON
+                    var detail = JSON.parse(notification.data);
+
+                    // Se verifica si el id del usuario logueado es el mismo del receptor de la notificación
+                    if (this.user_id == detail.receipter_id) {
+
+                        // Se agrega la nueva notificación al modelo notifications
+                        this.notifications.unshift({
+                            title: detail.title,
+                            text: detail.description,
+                            url: '/delivery/' + notification.notifiable_id,
+                            delivery: notification.notifiable_id,
+                            time: notification.time,
+                            date: notification.date,
+                            read: notification.read_at,
+                            avatar: detail.sender_avatar
+                        });
+                    }
+                }
+            );
+        },
         data() {
             return {
+                user_id: JSON.parse(auth_user).id,
                 notifications: [],
                 baseURL: '/notifications/',
                 page: 1,
@@ -98,7 +131,7 @@
                                     time: value.time,
                                     date: value.date,
                                     read: value.read_at,
-                                    avatar: detail.quickero_avatar
+                                    avatar: detail.sender_avatar
                                 });
 
                             });
@@ -116,14 +149,24 @@
             },
 
             markAsRead(id = null) {
-                let fullURL = 
-                axios.get(this.baseURL + 'mark-as-read/' + id).then(
+
+                let fullURL = this.baseURL + 'mark-as-read/';
+
+                if(id) {
+                    fullURL = fullURL + id;
+                }
+
+                axios.get(fullURL).then(
                     solve => {
                         let response = solve.data;
 
                         if(response == 'done') {
+                            $.each(this.notifications, function(key, value) {
+                                value.read = 1;
+                            });
+
                             this.count = 0;
-                        } 
+                        }
                     }
                 )
             }

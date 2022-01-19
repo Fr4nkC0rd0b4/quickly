@@ -14,7 +14,7 @@
     <meta name="user" content="{{ Auth::user() }}">
     
     <!-- URL img page not found -->
-    <meta name="img_page_not_found" content="{{ setting('site.error_404') }}">
+    <meta name="img_page_not_found" content="{{ setting('site.logo') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -39,7 +39,7 @@
     <!-- Styles for toastr notifications -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
-<body data-layout-config="{{ Auth::user()->theme }}">
+<body class="show" data-layout-config="{'leftSideBarTheme':'dark','layoutBoxed':false, 'leftSidebarCondensed':false, 'leftSidebarScrollable':false,'darkMode':false, 'showRightSidebarOnStart': true}" style="visibility: visible;">
     <div id="app">
         <div class="wrapper mm-active">
             @include('components.left-menu')

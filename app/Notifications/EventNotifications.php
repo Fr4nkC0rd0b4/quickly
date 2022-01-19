@@ -58,9 +58,9 @@ class EventNotifications extends Notification
         return [
             'title' => $this->notification['title'],
             'description' => $this->notification['description'],
-            'user_id' => $this->notification['user_id'],
-            'quickero_id' => $this->notification['quickero_id'],
-            'quickero_avatar' => $this->notification['quickero_avatar']
+            'receipter_id' => $this->notification['receipter_id'],
+            'sender_id' => $this->notification['sender_id'],
+            'sender_avatar' => $this->notification['sender_avatar']
         ];
     }
 }

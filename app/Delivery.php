@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -36,5 +37,14 @@ class Delivery extends Model
             ->orWhere('user_id', 'LIKE', "%$value%")
             ->orWhere('origin', 'LIKE', "%$value%")
             ->orWhere('destination', 'LIKE', "%$value%");
+    }
+
+    public function date()
+    {
+        $date = Carbon::parse($this->created_at)->locale('es');
+
+        $date = $date->format('j F Y h:i a');
+
+        return $date;
     }
 }

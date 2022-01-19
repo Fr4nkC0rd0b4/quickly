@@ -8,11 +8,13 @@ use App\DeliveryDetail;
 use App\User;
 use App\Events\NotificationsPushEvent;
 use App\Notifications\EventNotifications;
+use App\Traits\NotificationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
 class DeliveryController extends Controller
 {
+    use NotificationTrait;
     /**
      * Display a listing of the resource.
      *
@@ -36,22 +38,13 @@ class DeliveryController extends Controller
                 break;
         }
 
-        foreach ($deliveries as $key => $value) {
+        foreach ($deliveries as $value) {
             $value->detail;
             $value->user;
+            $value->date = $value->date();
         }
 
         return response()->json($deliveries);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -68,6 +61,7 @@ class DeliveryController extends Controller
 
         $delivery->user_id = $user_id;
         $delivery->fill($request->all());
+
         $result = $delivery->save();
 
         if ($result) {
@@ -81,45 +75,38 @@ class DeliveryController extends Controller
             $detail->save();
         }
 
-        $this->setNotification($delivery->id, $delivery->user_id);
+        $this->sendNotification($delivery);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Delivery  $delivery
-     * @return \Illuminate\Http\Response
+     * @param  Int $id
+     * @return JSON $delivery
      */
-    public function show(Delivery $delivery)
+    public function show($id)
     {
-        //
-    }
+        $delivery = Delivery::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Delivery  $delivery
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Delivery $delivery)
-    {
-        //
+        $delivery->detail;
+        $delivery->user;
+
+        $delivery->date = $delivery->date();
+
+        return response()->json($delivery);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        $delivery_detail = DeliveryDetail::find($request->id);
-        $delivery_detail->final_offer = $request->final_offer;
-        $save = $delivery_detail->save();
 
-        if ($save) {
+
+        /* if ($save) {
             $delivery = Delivery::find($delivery_detail->delivery_id);
 
             $delivery->delivery_man = Auth::user()->id;
@@ -127,9 +114,7 @@ class DeliveryController extends Controller
             $delivery->save();
 
             $delivery->detail;
-            // dd($delivery);
-            event(new NotificationsPushEvent($delivery));
-        }
+        } */
     }
 
     /**
@@ -144,21 +129,38 @@ class DeliveryController extends Controller
     }
 
     /**
-     * Store the specified resource from storage.
-     *
-     * @param  Int  $record_id
-     * @return Illuminate\Support\Facades\Notification
+     * Set the offer shipping rate
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return JSON $response
      */
-    private function setNotification($record_id, $user_id)
+    public function offerShippingRate(Request $request)
     {
-        $esquema = Delivery::all();
+        $response = [];
 
-        $notification = [
-            'title'     => 'Nueva solicitud de envio.',
-            'record_id' => $record_id,
-            'user_id'   => $user_id,
-        ];
+        $delivery_detail = DeliveryDetail::find($request->id);
 
-        Notification::send($esquema, new EventNotifications($notification));
+        $delivery_detail->final_offer = $request->offer;
+
+        if ($delivery_detail->save()) {
+            $response = [
+                'message' => 'Oferta envíada con éxito.'
+            ];
+        } else {
+            $response = [
+                'message' => 'Error al envíar oferta.'
+            ];
+        }
+
+        return response()->json($response, 200);
+    }
+
+    public function declineShippingRate(Request $request)
+    {
+        $delivery_detail = DeliveryDetail::find($request->id);
+
+        $delivery_detail->final_offer = $delivery_detail->inital_offer;
+
+        $delivery_detail->save();
     }
 }

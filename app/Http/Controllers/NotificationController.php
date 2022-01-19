@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Delivery;
+use App\Events\NotificationsPushEvent;
 use App\Notification;
+use App\Notifications\EventNotifications;
+use App\Traits\NotificationTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification as Notifications;
 
 class NotificationController extends Controller
 {
+    use NotificationTrait;
+
+    public function test()
+    {
+        $delivery = Delivery::firstOrFail();
+
+        $this->sendNotification($delivery);
+    }
+
     /**
      * Get all notifications for specific user
      * @return JSON $response
@@ -21,18 +35,18 @@ class NotificationController extends Controller
         $not_reads = 0;
 
         // Se obtienen las notificaciones correspondientes a un usuario según el ID
-        $notifications = Notification::whereJsonContains('data', ['user_id' => $id])->orderBy('created_at', 'DESC')->paginate(15);
+        $notifications = Notification::whereJsonContains('data', ['receipter_id' => $id])->orderBy('created_at', 'DESC')->paginate(15);
 
         // Se cuentan las notificaciones no leídas
-        $not_reads = count(Notification::whereJsonContains('data', ['user_id' => $id])->where('read_at', null)->get());
+        $not_reads = count(Notification::whereJsonContains('data', ['receipter_id' => $id])->where('read_at', null)->get());
 
         foreach ($notifications as $value) {
 
             // Se agrega el elemento time, que almacena hace cuanto se recibió la notificación
-            $value->time = $value->time();
+            $value->time = $value->time($value->created_at);
 
             // Se agrega el elemento date, que almacena la fecha en formato de letras
-            $value->date = $value->date();
+            $value->date = $value->date($value->created_at);
         }
 
         $response = [
@@ -68,7 +82,7 @@ class NotificationController extends Controller
         } else {
 
             // Sino se obtienen todas las notificaciones no leídas
-            $notifications = Notification::whereJsonContains('data', ['user_id' => $user_id])->where('read_at', null)->get();
+            $notifications = Notification::whereJsonContains('data', ['receipter_id' => $user_id])->where('read_at', null)->get();
 
             foreach ($notifications as $value) {
 

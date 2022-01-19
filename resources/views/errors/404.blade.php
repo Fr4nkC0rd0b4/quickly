@@ -9,7 +9,7 @@
                         <!-- Logo -->
                         <div class="card-header pt-4 pb-4 text-center bg-primary">
                             <a href="{{ url('home') }}">
-                                <span><img src="{{ asset('storage/'.setting('site.logo')) }}" alt="" height="18"></span>
+                                <span><img src="{{ asset('storage/' . setting('site.logo')) }}" alt="" height="18"></span>
                             </a>
                         </div>
 
@@ -17,9 +17,12 @@
                             <div class="text-center">
                                 <h1 class="text-error">4<i class="fa fa-frown-o"></i></i>4</h1>
                                 <h4 class="text-uppercase text-danger mt-3">Página no encontrada</h4>
-                                <p class="text-muted mt-3">Parece que te has equivocado de rumbo. No te preocupes ... nos pasa a los mejores. Aquí tienes un pequeño consejo que podría ayudarte a retomar el rumbo.</p>
+                                <p class="text-muted mt-3">Parece que te has equivocado de rumbo. No te preocupes ... nos
+                                    pasa a los mejores. Aquí tienes un pequeño consejo que podría ayudarte a retomar el
+                                    rumbo.</p>
 
-                                <a class="btn btn-info mt-3" href="{{ url('home') }}"><i class="fa fa-reply"></i> Voler al inicio</a>
+                                <a class="btn btn-info mt-3" href="{{ url('home') }}"><i class="fa fa-reply"></i> Voler
+                                    al inicio</a>
                             </div>
                         </div> <!-- end card-body-->
                     </div>
@@ -33,6 +36,6 @@
     <!-- end page -->
 
     <footer class="footer footer-alt">
-        2019 - 2021 Technovations B&C S.A.S - technovations.com
+        {{ setting('site.footer') }}
     </footer>
 @endsection

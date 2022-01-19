@@ -1,12 +1,6 @@
 <?php
 
-use App\Events\NotificationsPushEvent;
 use Illuminate\Support\Facades\Route;
-use App\Delivery;
-use App\User;
-use App\Notification as NotificationModel;
-use App\Notifications\EventNotifications;
-use Illuminate\Support\Facades\Notification;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +38,8 @@ Route::get('/helpers/cities', 'HelperController@cities')->name('cities.index')->
 Route::get('/helpers/vehicles/{user}', 'HelperController@vehicles')->name('vehicles.index')->middleware('auth');
 
 //Rutas de envios
+Route::put('/delivery/offer-shipping-rate', 'DeliveryController@offerShippingRate');
+Route::put('decline-shipping-rate', 'DeliveryController@declineShippingRate');
 Route::resource('/delivery', 'DeliveryController');
 
 //Rutas de viajes
@@ -51,6 +47,9 @@ Route::resource('/travel', 'TravelController');
 
 // Rutas de notificaciones
 Route::prefix('notifications')->group(function () {
+
+	// Test envio de notificaciones
+	Route::get('test', 'NotificationController@test');
 
 	// Obtener notificaciones de un usuario en especifico
 	Route::get('get', 'NotificationController@get');
@@ -64,23 +63,7 @@ Route::get('/spa/{any?}/{any1?}/{any2?}/{any13?}', function ($any) {
 	return view('home');
 })->where('spa', '.*')->name('rutas.vue')->middleware('auth', 'verified');
 
-Route::get('/test/pusher', function () {
-	$delivery = Delivery::find(45);
-
-	$notification = [
-		'title'     		=> $delivery->user->name,
-		'description' 		=> ' ha aceptado hacer tu entrega.',
-		'user_id'   		=> $delivery->user_id,
-		'quickero_id'   	=> $delivery->user->id,
-		'quickero_avatar' 	=> $delivery->user->avatar
-	];
-
-	Notification::send($delivery, new EventNotifications($notification));
-
-	event(new NotificationsPushEvent('b24d38aa-dbb5-4600-8f3c-3cd2483da000'));
-	return 'Fired';
-});
-
+// Log viewer
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 //Rutas para completar información del registro

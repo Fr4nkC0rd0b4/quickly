@@ -5,18 +5,17 @@ import Router from 'vue-router'
 import DashboardComponent from './components/DashboardComponent.vue'
 import TableComponent from './components/TableComponent.vue'
 import TestComponent from './components/TestComponent.vue'
-// import ChatComponent from './components/ChatComponent.vue'
 
 //Views
+import Deliveries from './views/delivery/Deliveries.vue'
 import CreateDelivery from './views/delivery/Create.vue'
-import Delivery from './views/delivery/Delivery.vue'
+import DeliveryShow from './views/delivery/Show.vue'
 import CreateTravel from './views/travel/Create.vue'
 import Travel from './views/travel/Travel.vue'
 import Profile from './views/profile/Profile.vue'
 import ProfileEdit from './views/profile/Edit.vue'
 import NotFoundView from './views/NotFoundView.vue'
 import Notifications from './views/Notifications.vue'
-// import GoogleMap from './views/Maps.vue'
 
 Vue.use(Router)
 
@@ -34,16 +33,20 @@ export default new Router({
 			component: DashboardComponent
 		},
 		{
-			path: '/spa/delivery',
-			name: 'delivery',
-			component: Delivery,
+			path: '/spa/deliveries',
+			name: 'deliveries',
+			component: Deliveries,
 			props: { status: '', message: '' }
 		},
-		// {path:'/spa/evaluation/:id', name:'evaluation.edit', component:EvaluationEdit},
 		{
 			path: '/spa/delivery/create',
 			name: 'delivery.create',
 			component: CreateDelivery
+		},
+		{
+			path: '/spa/delivery/:id',
+			name: 'delivery.show',
+			component: DeliveryShow
 		},
 		{
 			path: '/spa/travel',
@@ -70,11 +73,6 @@ export default new Router({
 			name: 'account.profile.edit',
 			component: ProfileEdit
 		},
-		// {
-		// 	path:'/spa/maps',
-		// 	name:'maps.google',
-		// 	component:GoogleMap
-		// },
 		{
 			path: '/spa/notifications',
 			name: 'notifications',

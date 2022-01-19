@@ -1,18 +1,27 @@
 <template>
-    <div class="row justify-content-center">
-        <div class="col-lg-4">
-            <div class="text-center">
-                <img :src="/storage/+url_img_page" height="90" alt="File not found Image">
+    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="text-center">
+                        <!-- Logo -->
+                        <div class="card-header pt-4 pb-4 text-center bg-primary">
+                            <router-link to="/home">
+                                <img :src="/storage/+url_img_page" height="18" alt="File not found Image">
+                            </router-link>
+                        </div>
 
-                <h1 class="text-error">4<i class="fa fa-frown-o"></i>4</h1>
-                <h4 class="text-uppercase text-danger mt-3">Página no encontrada</h4>
-                <p class="text-muted mt-3">Parece que te has equivocado de rumbo. No te preocupes ... nos pasa a los mejores. Aquí tienes un pequeño consejo que podría ayudarte a retomar el rumbo.</p>
+                        <h1 class="text-error">4<i class="fa fa-frown-o"></i>4</h1>
+                        <h4 class="text-uppercase text-danger mt-3">Página no encontrada</h4>
+                        <p class="text-muted mt-3">Parece que te has equivocado de rumbo. No te preocupes ... nos pasa a los mejores. Aquí tienes un pequeño consejo que podría ayudarte a retomar el rumbo.</p>
 
-                <router-link to="/home" class="btn btn-info mt-3"><i class="mdi mdi-reply"></i> Volver al inicio</router-link>
-            </div> <!-- end /.text-center-->
-        </div> <!-- end col-->
+                        <router-link to="/home" class="btn btn-info mt-3"><i class="mdi mdi-reply"></i> Volver al inicio</router-link>
+                    </div> <!-- end /.text-center-->
+                </div> <!-- end col-->
+            </div>
+            <!-- end row -->
+        </div>
     </div>
-    <!-- end row -->
 </template>
 <script>
     let url_img = document.head.querySelector('meta[name="img_page_not_found"]');

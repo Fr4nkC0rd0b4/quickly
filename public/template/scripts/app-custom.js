@@ -1,19 +1,19 @@
-$(document).ready(function () { 
-    if(screen.width <= 1024 && screen.width > 767) {
+$(document).ready(function () {
+    if (screen.width <= 1024 && screen.width > 767) {
         $(document.body).attr("data-leftbar-compact-mode", 'condensed');
     }
 
     $(window).resize(function (e) {
         e.preventDefault();
-        if(screen.width <= 1024 && screen.width > 767) {
+        if (screen.width <= 1024 && screen.width > 767) {
             $(document.body).attr("data-leftbar-compact-mode", 'condensed');
-        }else if(!$(document.body).attr("data-leftbar-compact-mode")) {
+        } else if (!$(document.body).attr("data-leftbar-compact-mode")) {
             //$(document.body).removeAttr("data-leftbar-compact-mode");
-        }else if(screen.width > 1024) {
+        } else if (screen.width > 1024) {
             $(document.body).removeAttr("data-leftbar-compact-mode");
         }
 
-        if (screen.width <= 767){
+        if (screen.width <= 767) {
             $(document.body).removeAttr("data-leftbar-compact-mode");
         }
     });
@@ -45,7 +45,7 @@ $(document).ready(function () {
             $(document.body).attr("data-leftbar-theme", 'dark');
             $('#dark-style').removeAttr('disabled');
             $('#light-style').attr("disabled", 'disabled');
-        }else{
+        } else {
             $(document.body).removeAttr('data-leftbar-theme');
             $('#light-style').removeAttr('disabled');
             $('#dark-style').attr("disabled", 'disabled');
@@ -56,7 +56,7 @@ $(document).ready(function () {
     $("input[name=theme]").click(function () {
         if ($(this).val() == 'default') {
             $(document.body).removeAttr("data-leftbar-theme");
-        }else{
+        } else {
             $(document.body).attr("data-leftbar-theme", $(this).val());
         }
     });
@@ -68,11 +68,11 @@ $(document).ready(function () {
 
     $("input[name=compact]").click(function () {
         $(document.body).attr("data-leftbar-compact-mode", $(this).val());
-    
+
         if ($(this).val() == 'condensed') {
             $('.simplebar-content-wrapper').css('height', '100%');
             $('.simplebar-content-wrapper').css('overflow', 'hidden');
-        }else{
+        } else {
             $('.simplebar-content-wrapper').css('height', '100%');
             $('.simplebar-content-wrapper').css('overflow', 'hidden scroll');
         }
@@ -91,7 +91,7 @@ $(document).ready(function () {
     $('#top-search').click(function () {
         $('#search-dropdown').toggleClass('d-block');
     });
-    $(document).mouseup(function(e) {
+    $(document).mouseup(function (e) {
         $('#search-dropdown').removeClass('d-block');
     });
 
@@ -107,11 +107,11 @@ $(document).ready(function () {
             $('.side-nav-link').attr('aria-expanded', false);
             $(this).attr('aria-expanded', true);
             $(this).next().removeClass('mm-collapse');
-            
+
             $(this).next().addClass('mm-show');
             $(this).next().addClass('mm-collapse');
             $(this).next().removeAttr('style');
-        }else {
+        } else {
             $(this).parent().removeClass('mm-active');
             $(this).attr('aria-expanded', false);
             $(this).next().removeClass('mm-show');
@@ -130,6 +130,13 @@ $(document).ready(function () {
     //Activar/Desactivar sidebar izquierdo manualmente(Pantallas pequeñas)
     $('.open-left').click(function () {
         $(document.body).toggleClass('sidebar-enable');
+        $(document.body).attr('data-leftbar-compact-mode', function (index, attr) {
+            if (attr == 'condensed') {
+                $(this).removeAttr('data-leftbar-compact-mode');
+            } else {
+                return 'condensed';
+            }
+        });
     });
     /*function changeTheme(element, theme) {
 
@@ -165,9 +172,9 @@ $(document).ready(function () {
                 break;
         }
     }*/
-   /* function search() {
-        $('#search-dropdown').toggleClass('d-block');
-    }*/
+    /* function search() {
+         $('#search-dropdown').toggleClass('d-block');
+     }*/
 
     //Dropdown sidebar menú
     /*function dropDown() {

@@ -126,7 +126,7 @@
 
 <script>
 	import { validationMixin } from "vuelidate";
-	import { required, minLength, decimal } from "vuelidate/lib/validators";
+	import { required, decimal } from "vuelidate/lib/validators";
 
 	import {FormWizard, TabContent} from 'vue-form-wizard'
 	import 'vue-form-wizard/dist/vue-form-wizard.min.css'
@@ -143,7 +143,6 @@
 	  	data() {
 	    	return {
 	    		cities: [],
-	    		// result: { message:'',alert:'' },
 	    		loading: false,
                 height: '10px',
 	      		firstTab: {
@@ -261,21 +260,20 @@
 		    	this.loading = true
                 let data = $('#form').serialize()
                 axios.post('/delivery', data
-                    ).then(solve=>{
+                    ).then(() => {
                         this.$router.push({
-                        	name:'delivery',
+                        	name:'deliveries',
                         	params: {status: 'success', message: 'Solicitud registrada con éxtio'}
                         })
                     })
-                    .catch(solve=>{
+                    .catch(() => {
                     	toastr.options =
 				            {
 				                "closeButton" : true,
 				                "progressBar" : true
 				            }
 				        toastr.error('Ha ocurrido un error interno, por favor intente de nuevo.');
-                    	this.loading = false
-                        /*this.result = { message:'Ha ocurrido un error, por favor intente de nuevo',alert:'alert-danger' }*/
+                    	this.loading = false;
                     }
                 );
 		    }
