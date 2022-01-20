@@ -1,17 +1,21 @@
 $(document).ready(function () {
-    if (screen.width <= 1024 && screen.width > 767) {
+    var screenWidth = screen.width;
+
+    if (screenWidth <= 1028) {
         $(document.body).attr("data-leftbar-compact-mode", 'condensed');
     }
 
     $(window).resize(function (e) {
         e.preventDefault();
-        if (screen.width <= 1024 && screen.width > 767) {
+
+        if (screenWidth <= 1028) {
             $(document.body).attr("data-leftbar-compact-mode", 'condensed');
-        } else if (!$(document.body).attr("data-leftbar-compact-mode")) {
-            //$(document.body).removeAttr("data-leftbar-compact-mode");
+        }
+        /* else if (!$(document.body).attr("data-leftbar-compact-mode")) {
+            // $(document.body).removeAttr("data-leftbar-compact-mode");
         } else if (screen.width > 1024) {
             $(document.body).removeAttr("data-leftbar-compact-mode");
-        }
+        } */
 
         if (screen.width <= 767) {
             $(document.body).removeAttr("data-leftbar-compact-mode");
@@ -27,15 +31,6 @@ $(document).ready(function () {
             $(document.body).removeClass('right-bar-enabled');
         });
     });
-    $('right-bar-toggle').click(function () {
-        $(document.body).removeClass('right-bar-enabled');
-    });
-    /*function addClass() {
-        $(document.body).toggleClass('right-bar-enabled');
-    }
-    function delClass() {
-        $(document.body).removeClass('right-bar-enabled');
-    }*/
 
     //Funciones del tema de visualización
     //Cambiar de tema
@@ -117,77 +112,18 @@ $(document).ready(function () {
             $(this).next().removeClass('mm-show');
             $(this).next().css('height', '0px');
         }
-
-        /*var status =  $(this).attr('aria-expanded');
-        alert(status);
-        if (status == 'false') {
-            $(this).attr('aria-expanded', true);
-        }else{
-            $(this).attr('aria-expanded', false);
-        }*/
     });
 
     //Activar/Desactivar sidebar izquierdo manualmente(Pantallas pequeñas)
     $('.open-left').click(function () {
-        $(document.body).toggleClass('sidebar-enable');
-        $(document.body).attr('data-leftbar-compact-mode', function (index, attr) {
-            if (attr == 'condensed') {
-                $(this).removeAttr('data-leftbar-compact-mode');
-            } else {
-                return 'condensed';
-            }
-        });
+        let body = document.body;
+        $(body).toggleClass('sidebar-enable');
+
+        let mode = $(body).attr('data-leftbar-compact-mode');
+        if (mode) {
+            $(document.body).removeAttr('data-leftbar-compact-mode', 'condensed');
+        } else {
+            $(document.body).attr('data-leftbar-compact-mode', 'condensed');
+        }
     });
-    /*function changeTheme(element, theme) {
-
-        switch(element) {
-            case 'body':
-                if (theme == 'dark') {
-                    $(document.body).attr("data-leftbar-theme", theme);
-                    $('#dark-style').removeAttr('disabled');
-                    $('#light-style').attr("disabled", 'disabled');
-                }else{
-                    $(document.body).removeAttr('data-leftbar-theme');
-                    $('#light-style').removeAttr('disabled');
-                    $('#dark-style').attr("disabled", 'disabled');
-                }
-                break;
-
-            case 'leftbar':
-                if (theme == 'default') {
-                    $(document.body).removeAttr("data-leftbar-theme");
-                }else{
-                    $(document.body).attr("data-leftbar-theme", theme);
-                }
-                break;
-        }
-    }*/
-    /*function changeDesign(element, value) {
-        switch(element) {
-            case 'body':
-                $(document.body).attr("data-layout-mode", value);
-                break;
-            case 'leftbar':
-                $(document.body).attr("data-leftbar-compact-mode", value);
-                break;
-        }
-    }*/
-    /* function search() {
-         $('#search-dropdown').toggleClass('d-block');
-     }*/
-
-    //Dropdown sidebar menú
-    /*function dropDown() {
-        var status =  $('.side-nav-link').attr('aria-expanded');
-
-        if (status == 'false') {
-            $('.side-nav-link').addClass('mm-active');
-            $('.side-nav-link').attr('aria-expanded', true);
-            $('.side-nav-second-level').addClass('mm-show');
-        }else{
-            $('.side-nav-link').removeClass('mm-active');
-            $('.side-nav-link').attr('aria-expanded', false);
-            $('.side-nav-second-level').removeClass('mm-show');
-        }
-    }*/
 });

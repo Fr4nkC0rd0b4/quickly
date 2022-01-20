@@ -13,7 +13,7 @@
     // dd($menus);
 @endphp
 <!-- ========== Left Sidebar Start ========== -->
-<div class="left-side-menu mm-show">
+<div class="left-side-menu mm-show leftside-menu menuitem-active">
     <!-- LOGO -->
     <router-link to="/home">
         <a href="#" class="logo text-center logo-light">
@@ -34,7 +34,7 @@
             </span>
         </a>
     </router-link>
-    <div class="h-100 mm-active" id="left-side-menu-container" {{-- style="overflow: auto;" --}} data-simplebar="init">
+    <div class="h-100 mm-active" id="left-side-menu-container" style="overflow: auto;" data-simplebar="init">
         <div id="simplebar-wrapper" style="margin: 0px;">
             <div class="simplebar-height-auto-observer-wrapper">
                 <div class="simplebar-height-auto-observer"></div>
@@ -48,7 +48,7 @@
                             <ul class="metismenu side-nav mm-show">
                                 @if ($menus && count($menus)>0)
                                     @foreach ($menus as $key => $menu_item)
-                                        {{-- !head para link titulo principal --}}
+                                        <!-- head para link titulo principal -->
                                         @if ($menu_item->link()=='!head')
                                             <li class="side-nav-title side-nav-item">{{ $menu_item->title }}</li>
                                         @else
@@ -61,7 +61,7 @@
                                                             @endif
                                                             <span> {{ $menu_item->title }} </span>
                                                             @if ($menu_item->link()=='')
-                                                                <i class="fa fa-arrow-down"></i>{{-- <span data-feather="chevron-right"></span> --}}
+                                                                <i class="fa fa-chevron-right"></i>
                                                             @endif
                                                         </a>
                                                     </router-link>
@@ -85,7 +85,7 @@
                                                         @endif
                                                         <span>{{ $menu_item->title }}</span>
                                                         @if ($menu_item->link()=='')
-                                                            <i class="float-right fa fa-angle-down"></i>
+                                                            {{-- <i class="float-right fa fa-chevron-right fa-xs"></i> --}}
                                                         @endif
                                                     </a>
                                                 @endif

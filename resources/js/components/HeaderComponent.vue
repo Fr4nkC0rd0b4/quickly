@@ -5,12 +5,10 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <div class="form-inline">
-                        <!-- Button trigger modal -->
-                        <router-link v-if="add_link" class="m-1 btn btn-primary btn-sm ml-1" :to="{ name: add_link }">
-                            <i class="fa fw fa-plus"></i>
-                        </router-link>
+
+                        <!-- Search bar -->
                         <div v-if="route" class="input-group">
-                            <input type="search" class="form-control form-control-sm" v-model="searching" style="width: 180px" placeholder="Buscar...">
+                            <input type="search" class="form-control form-control-sm" v-model="searching" placeholder="Buscar...">
                             <div class="input-group-append">
                                 <span v-if="searching != ''" class="input-group-text bg-primary border-primary text-white cursor-pointer" @click="search">
                                     <i class="fa fa-search"></i>
@@ -20,7 +18,12 @@
                                 </span>
                             </div>
                         </div>
-                        <button @click="$router.back()" class="btn btn-secondary btn-sm ml-2"><i class="fa fa-arrow-left"></i></button>
+
+                        <!-- Buttons -->
+                        <router-link v-if="add_link" class="btn btn-primary btn-sm ml-1" :to="{ name: add_link }">
+                            <i class="fa fw fa-plus"></i>
+                        </router-link>
+                        <button @click="$router.back()" class="btn btn-secondary btn-sm ml-1"><i class="fa fa-arrow-left"></i></button>
                         <button class="btn btn-info btn-sm ml-1" @click="reload()"><i class="fa fa-refresh"></i></button>
                     </div>
                 </div>

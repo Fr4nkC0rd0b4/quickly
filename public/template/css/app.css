@@ -10725,10 +10725,10 @@ body[data-leftbar-theme=dark][data-leftbar-compact-mode=condensed] .side-nav .si
     }
 }
 @media (max-width: 1024px) {
-    .navbar-custom {
+    /* .navbar-custom {
         left: 70px;
         right: 0
-    }
+    } */
     .navbar-custom .app-search {
         display: none
     }

@@ -27,6 +27,7 @@
         "bootstrap-icons": "^1.0.0",
         "bootstrap-vue": "^2.16.0",
         "laravel-echo": "^1.11.2",
+        "metismenu": "^3.0.7",
         "mosha-vue-toastify": "^1.0.21",
         "pusher-js": "^7.0.3",
         "vue-form-wizard": "^0.8.4",
