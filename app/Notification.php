@@ -31,9 +31,9 @@ class Notification extends Model
 
         $diff = $date->diff($now);
 
-        if ($diff->i <= 60) {
+        if ($diff->i <= 60 && $diff->h == 0 && $diff->days == 0) {
             $time .= " $diff->i minuto(s)";
-        } else if ($diff->h <= 24) {
+        } else if ($diff->h <= 24 && $diff->days == 0) {
             $time .= " $diff->h hora(s)";
         } else {
             $time .= " $diff->days día(s)";
