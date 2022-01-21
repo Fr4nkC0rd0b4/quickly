@@ -10064,13 +10064,14 @@ body {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0)
 }
-.side-nav .menu-arrow:before {
+/* .side-nav .menu-arrow:before {
     content: "\F142"
-}
+} */
 .side-nav .badge {
     margin-top: 3px
 }
 .side-nav .side-nav-item.mm-active>a .menu-arrow {
+    top: 15px;
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg)
 }

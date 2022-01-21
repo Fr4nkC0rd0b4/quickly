@@ -5,7 +5,7 @@
         <a href="javascript: void(0);" class="right-bar-toggle float-right">
             <i class="fa fa-times-circle-o fa-2x"></i>
         </a>
-        <h5 class="m-0">Settings</h5>
+        <h5 class="m-0">Ajustes</h5>
     </div>
 
     <div class="rightbar-content h-100" style="overflow: auto;" data-simplebar>
@@ -36,7 +36,7 @@
 
                                 <div class="custom-control custom-switch mb-1">
                                     <input type="radio" class="custom-control-input" name="color-scheme-mode"
-                                        id="dark-mode-check">
+                                        value="dark" id="dark-mode-check">
                                     <label class="custom-control-label" for="dark-mode-check">Dark Mode</label>
                                 </div>
 

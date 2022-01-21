@@ -144,20 +144,16 @@
                             0 < a(t.target).closest(".button-menu-mobile").length ||
                             (a("body").removeClass("right-bar-enabled"), a("body").removeClass("sidebar-enable"));
                     }),
-
-                    console.log(a("input[type=radio][name=width]").val());
-
-                a("input[type=radio][name=width]").change(function () {
-                    switch (a(this).val()) {
-                        case "fluid":
-                            a.App.activateFluid();
-                            break;
-                        case "boxed":
-                            a.App.activateBoxed();
-                    }
-                }),
+                    a("input[type=radio][name=width]").change(function () {
+                        switch (a(this).val()) {
+                            case "fluid":
+                                a.App.activateFluid();
+                                break;
+                            case "boxed":
+                                a.App.activateBoxed();
+                        }
+                    }),
                     a("input[type=radio][name=theme]").change(function () {
-                        alert("Cambio");
                         switch (a(this).val()) {
                             case "default":
                                 a.App.activateDefaultSidebarTheme();

@@ -43,9 +43,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
-<body class="show"
-    data-layout-config="{'leftSideBarTheme':'dark','layoutBoxed':false, 'leftSidebarCondensed':false, 'leftSidebarScrollable':false,'darkMode':false, 'showRightSidebarOnStart': true}"
-    style="visibility: visible;">
+<body data-layout-config="{{ Auth::user()->appTheme() }}" style="visibility: visible;">
     <div id="app">
         <div class="wrapper mm-active">
             @include('components.left-menu')
@@ -58,26 +56,19 @@
             @include('components.footer')
             @include('components.right-menu')
         </div>
-        <!-- END wrapper -->
+        <!-- End wrapper -->
     </div>
 
     <!-- bundle -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-    <script src="https://unpkg.com/metismenu"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="https://unpkg.com/metismenu" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+    <script src="https://momentjs.com/downloads/moment.min.js" defer></script>
 
-    <script type="text/javascript" src="{{ asset('template/scripts/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('template/scripts/app.js') }}" defer></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            console.log("JQUERY IS WORK");
-        });
-    </script>
 </body>
 
 </html>

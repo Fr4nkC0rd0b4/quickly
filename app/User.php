@@ -51,4 +51,9 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
     {
         return $this->hasMany(Delivery::class);
     }
+
+    public function appTheme()
+    {
+        return str_replace('"', '', $this->theme);
+    }
 }
