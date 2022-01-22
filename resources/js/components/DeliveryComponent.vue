@@ -127,13 +127,13 @@
             
             <div class="input-group" :class="{ 'text-danger': $v.offer.$error }">
                 <div class="input-group-append">
-                    <span class="input-group-text bg-danger border-danger text-white cursor-pointer" @click="operation('decrement')">
+                    <span class="input-group-text bg-danger border-danger text-white cursor-pointer" @click="offer >= 1000 ? offer -= 1000 : offer">
                         <i class="fa fa-minus"></i>
                     </span>
                 </div>
-                <input id="offer" type="number" class="form-control form-control-sm" placeholder="Ofertar tarifa" name="offer" v-model.trim="offer" @input="validateState($event.target.value)"/>
+                <input id="offer" type="number" class="form-control form-control-sm" placeholder="Ofertar tarifa" name="offer" v-model.number="offer" @input="validateState($event.target.value)"/>
                 <div class="input-group-append">
-                    <span class="input-group-text bg-success border-success text-white cursor-pointer" @click="operation('increment')">
+                    <span class="input-group-text bg-success border-success text-white cursor-pointer" @click="offer += 1000">
                         <i class="fa fa-plus"></i>
                     </span>
                 </div>
@@ -166,8 +166,7 @@
             }
         },
         methods: {
-            validateState(value) {
-                this.offer = value;
+            validateState() {
                 this.$v.offer.$touch();
             },
             acceptDelivery() {
@@ -205,13 +204,6 @@
                 // Se emite un evento para cerrar la modal
                 this.$emit('loading', false);
                 this.$emit('hideModal');
-            },
-            operation(op) {
-                if(op == 'increment') {
-                    this.offer = parseInt(this.offer + 1000);
-                } else if(op == 'decrement' && this.offer >= 1000){
-                    this.offer = parseInt(this.offer - 1000);
-                }
             }
         }
     }

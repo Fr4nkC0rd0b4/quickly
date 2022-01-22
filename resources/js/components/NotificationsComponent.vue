@@ -102,7 +102,6 @@
                             read: notification.read_at,
                             avatar: detail.sender_avatar
                         });
-                        this.count ++;
 
                         // Se muestra la alerta toastr
                         toastr.options =

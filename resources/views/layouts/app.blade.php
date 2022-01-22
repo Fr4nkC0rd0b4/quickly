@@ -43,7 +43,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
-<body data-layout-config="{{ Auth::user()->appTheme() }}" style="visibility: visible;">
+<body data-layout-config='{{ Auth::user()->theme }}' style="visibility: visible;">
     <div id="app">
         <div class="wrapper mm-active">
             @include('components.left-menu')
@@ -60,7 +60,7 @@
     </div>
 
     <!-- bundle -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
 
     <script src="https://unpkg.com/metismenu" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
@@ -68,7 +68,7 @@
 
     <script type="text/javascript" src="{{ asset('template/scripts/app.js') }}" defer></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" defer></script>
 </body>
 
 </html>

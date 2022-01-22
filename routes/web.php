@@ -56,6 +56,9 @@ Route::prefix('notifications')->group(function () {
 
 	// Marcar como leídas
 	Route::get('mark-as-read/{any?}', 'NotificationController@markAsRead');
+
+	// Eliminar
+	Route::delete('delete/{id}', 'NotificationController@destroy');
 });
 
 //Rutas vue

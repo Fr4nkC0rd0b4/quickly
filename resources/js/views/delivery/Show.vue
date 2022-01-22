@@ -3,11 +3,17 @@
         <header-component title="Detalle de solicitud de envío"></header-component>
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="card" v-if="loadingItem">
+                    <scale-loader :size="'50px'"></scale-loader>
+                </div>
+                <div class="card" v-else>
+                    <div class="card-header">
+                        <h5>Solicitud: {{ delivery.id }}</h5>
+                    </div>
                     <div class="card-body">
 
                         <!-- Delivery Component -->
-                        <delivery-component ref="foo" :delivery="delivery" @loading="loading = $event"></delivery-component>
+                        <delivery-component ref="accept" :delivery="delivery" @loading="loading = $event"></delivery-component>
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -28,32 +34,38 @@
 
 <script>
     import DeliveryComponent from "../../components/DeliveryComponent";
+    import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 
     export default {
         components: {
-            DeliveryComponent
-        },
-        mounted() {
-            this.id = this.$route.params.id;
-            this.getDelivery();
+            DeliveryComponent,
+            ScaleLoader
         },
         data() {
             return {
-                id: null,
                 baseURL: '/delivery/',
                 delivery: {},
-                loading: false
+                loading: false,
+                loadingItem: false,
             }
         },
         methods: {
-            getDelivery() {
-                axios.get(this.baseURL + this.id).then(solve => {
-                    this.delivery = solve.data;
-                });
-            },
             accept() {
-                this.$refs.foo.acceptDelivery();
+                this.$refs.accept.acceptDelivery();
             },
-        }
+        },
+        computed: {
+            getDelivery() {
+                this.loading = false;
+                this.loadingItem = true;
+
+                if(this.$route.name == 'delivery.show') {
+                    axios.get(this.baseURL + this.$route.params.id).then(solve => {
+                        this.delivery = solve.data;
+                        this.loadingItem = false;
+                    });
+                }
+            }
+        },
     }
 </script>

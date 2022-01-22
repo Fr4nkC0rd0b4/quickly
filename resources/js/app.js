@@ -8,22 +8,17 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-//Components
+// Components import
 import router from './router';
-import InfiniteLoading from "vue-infinite-loading";
-import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
 import Vue from 'vue'
 import vSelect from 'vue-select'
 
-// import * as VueGoogleMaps from 'vue2-google-maps'
-
-//CSS of Components
+// Components style
 import 'vue-select/dist/vue-select.css';
 
-//Name Components
-// Vue.use(InfiniteLoading, { /* options */ });
+// Components name
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
 
@@ -40,8 +35,6 @@ Vue.use(Vuelidate)
 
 Vue.component('notifications-component', require('./components/NotificationsComponent.vue').default);
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
-// Vue.component('Infinitiloading', require('vue-infinite-loading'));
-Vue.component('scale-loader', require('vue-spinner/src/ScaleLoader.vue').default);
 Vue.component('v-select', vSelect)
 
 /**

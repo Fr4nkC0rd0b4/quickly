@@ -17,7 +17,7 @@
         <div class="modal-body">
 
             <!-- DeliveryComponent -->
-            <delivery-component ref="foo" :delivery="delivery" @loading="loading = $event" @hideModal="closeModal()"></delivery-component>
+            <delivery-component ref="accept" :delivery="delivery" @loading="loading = $event" @hideModal="closeModal()"></delivery-component>
         </div>
         <template #modal-footer>
             <b-button variant="secondary" class="float-right col-sm" @click="closeModal()">
@@ -50,7 +50,7 @@
         },
         methods: {
             accept() {
-                this.$refs.foo.acceptDelivery();
+                this.$refs.accept.acceptDelivery();
             },
             closeModal() {
                 this.$emit('visibility', false);

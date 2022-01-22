@@ -70,7 +70,8 @@
                 details: [],
                 add_link: 'delivery.create',
                 baseURL: '/delivery/',
-                state: null
+                state: null,
+                config: { 'Content-Type': 'application/json' }
             }
         },
         methods: {
@@ -79,7 +80,8 @@
             infiniteHandler($state) {
                 this.state = $state;
 
-                axios.get(this.baseURL, {params: {page: this.page,searching: this.searching}}
+                axios.get(this.baseURL,
+                    { params: { page: this.page,searching: this.searching }, headers: this.config }
                     ).then(solve => {
                     if (solve.data.data.length > 0) {
                         this.page += 1;
@@ -97,7 +99,6 @@
             },
             openModal(delivery) {
                 this.details = delivery;
-                // this.details.created_at = this.details.created_at.split('T')[0];
                 this.modalShow = !this.modalShow;
             }
         }

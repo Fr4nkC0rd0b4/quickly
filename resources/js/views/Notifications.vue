@@ -19,8 +19,8 @@
                 <div class="table-responsive">
                     <table class="table table-centered table-nowrap table-hover mb-0">
                         <tbody>
-                            <tr v-for="notification in notifications" :class="notification.read ? '' : 'not-read'">
-                                <td>
+                            <tr v-for="(notification, key) in notifications" :key="notification.id" :class="notification.read ? '' : 'not-read'" class="cursor-pointer">
+                                <td @click="delivery(notification.delivery)">
                                     <div class="d-flex align-items-left">
                                         <img class="me-2 rounded-circle" :src="/storage/+notification.avatar" width="40" alt="Generic placeholder image">
                                         <div>
@@ -29,7 +29,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td @click="delivery(notification.delivery)">
                                     <span class="text-muted font-13">Envío ID #</span> <br>
                                     <p class="mb-0">{{ notification.delivery }}</p>
                                 </td>
@@ -40,9 +40,9 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <!-- item-->
-                                            <a href="javascript:void(0);" @click="markAsRead(notification.id)" class="dropdown-item">Marcar como leída</a>
+                                            <a v-if="!notification.read" href="javascript:void(0);" @click="markAsRead(notification.id)" class="dropdown-item">Marcar como leída</a>
                                             <!-- item-->
-                                            <a href="javascript:void(0);" class="dropdown-item">Eliminar</a>
+                                            <a href="javascript:void(0);" @click="destroy(notification.id, key)" class="dropdown-item">Eliminar</a>
                                         </div>
                                     </div>
                                 </td>
@@ -139,7 +139,7 @@
                         } else {
                             $state.complete();
                         }
-                    }).catch(solve => {
+                    }).catch(() => {
                     this.state.error();
                 });
             },
@@ -162,13 +162,28 @@
 
                         if(response == 'done') {
                             $.each(this.notifications, function(key, value) {
-                                value.read = 1;
+                                if(id && id == value.id) {                                    
+                                    value.read = 1;
+                                } else if(!id) {
+                                    value.read = 1;
+                                }
                             });
 
-                            this.count = 0;
                         }
                     }
                 )
+            },
+            destroy(id, index) {
+                axios.delete(this.baseURL + 'delete/' + id).then(
+                    solve => {
+                        if(solve.data.message == 'deleted') {
+                            this.notifications.splice(index, 1);
+                        }
+                    }
+                )
+            },
+            delivery(id) {
+                this.$router.push({ name: 'delivery.show', params: { id: id } });
             }
         }
     };

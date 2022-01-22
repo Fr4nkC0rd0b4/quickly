@@ -2,9 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //Components
-import DashboardComponent from './components/DashboardComponent.vue'
 import TableComponent from './components/TableComponent.vue'
-import TestComponent from './components/TestComponent.vue'
 
 //Views
 import Deliveries from './views/delivery/Deliveries.vue'
@@ -16,6 +14,7 @@ import Profile from './views/profile/Profile.vue'
 import ProfileEdit from './views/profile/Edit.vue'
 import NotFoundView from './views/NotFoundView.vue'
 import Notifications from './views/Notifications.vue'
+import Dashboard from './views/Dashboard.vue'
 
 Vue.use(Router)
 
@@ -30,7 +29,7 @@ export default new Router({
 		{
 			path: '/home',
 			name: 'home',
-			component: DashboardComponent
+			component: Dashboard
 		},
 		{
 			path: '/spa/deliveries',

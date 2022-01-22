@@ -96,4 +96,19 @@ class NotificationController extends Controller
 
         return response()->json(['done'], 200);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Int  $id
+     * @return JSON
+     */
+    public function destroy($id)
+    {
+        $notification = Notification::find($id);
+
+        $notification->delete();
+
+        return response()->json(['message' => 'deleted'], 200);
+    }
 }

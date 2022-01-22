@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Delivery;
 use App\DeliveryDetail;
-use App\User;
-use App\Events\NotificationsPushEvent;
-use App\Notifications\EventNotifications;
 use App\Traits\NotificationTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class DeliveryController extends Controller
 {
     use NotificationTrait;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
