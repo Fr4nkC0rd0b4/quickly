@@ -62,6 +62,8 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
+        $response = [];
+
         $user_id = Auth::user()->id;
 
         $delivery = new Delivery();
@@ -80,9 +82,19 @@ class DeliveryController extends Controller
             $detail->final_offer = $request->initial_offer;
             $detail->fill($request->all());
             $detail->save();
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Solicitud registrada con éxtio.'
+            ];
+        } else {
+            $response = [
+                'status' => 'error',
+                'message' => 'Ha ocurrido un error interno, por favor intente de nuevo.'
+            ];
         }
 
-        $this->sendNotification($delivery);
+        return response()->json($response, 200);
     }
 
     /**

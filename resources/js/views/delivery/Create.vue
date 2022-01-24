@@ -128,14 +128,17 @@
 	import { validationMixin } from "vuelidate";
 	import { required, decimal } from "vuelidate/lib/validators";
 
-	import {FormWizard, TabContent} from 'vue-form-wizard'
-	import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+	import {FormWizard, TabContent} from 'vue-form-wizard';
+	import 'vue-form-wizard/dist/vue-form-wizard.min.css';
+
+    import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 
 	export default {
 	  	mixins: [validationMixin],
 	  	components: {
   			FormWizard,
-  			TabContent
+  			TabContent,
+			ScaleLoader
 		},
 	  	mounted() {
 	  		this.getCities();
@@ -230,9 +233,8 @@
 			        this.$validator.reset();
 		      	});
 		    },
-		    validate(tab) {
+		    validate() {
 		    	let sw = false;
-
 		    	
 		    	switch(this.$refs.wizard.activeTabIndex) {
 		    		case 0:
@@ -244,14 +246,6 @@
 		    			sw = this.$v.secondTab.$invalid ? false : true
 		    		break;
 		    	}
-		    	
-		      	/*if (this.firstTab.type == 'Document') {
-			      	this.secondTab.hight = 0;
-			      	this.secondTab.width = 0;
-			      	this.secondTab.long = 0;
-			      	this.secondTab.content = 0;
-			      	this.secondTab.size = 0;
-		      	}*/
 
 		      	return sw;
 		    },
@@ -260,11 +254,21 @@
 		    	this.loading = true
                 let data = $('#form').serialize()
                 axios.post('/delivery', data
-                    ).then(() => {
-                        this.$router.push({
-                        	name:'deliveries',
-                        	params: {status: 'success', message: 'Solicitud registrada con éxtio'}
-                        })
+                    ).then(solve => {
+						if(solve.data.status == 'success') {
+							this.$router.push({
+								name:'deliveries',
+								params: {status: solve.data.status, message: solve.data.message}
+							});
+						} else {
+							toastr.options =
+				            {
+				                "closeButton" : true,
+				                "progressBar" : true
+				            }
+							toastr.error(solve.data.message);
+							this.loading = false;
+						}
                     })
                     .catch(() => {
                     	toastr.options =

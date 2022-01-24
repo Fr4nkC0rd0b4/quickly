@@ -52,12 +52,12 @@
             ModalDeliveryComponent
         },
         mounted() {
-            toastr.options =
-                {
-                    "closeButton" : true,
-                    "progressBar" : true
-                }
             if (this.$route.params.status) {
+                toastr.options =
+                    {
+                        "closeButton" : true,
+                        "progressBar" : true
+                    }
                 this.$route.params.status == 'error' ? toastr.error(this.$route.params.message) : toastr.success(this.$route.params.message);
             }
         },
