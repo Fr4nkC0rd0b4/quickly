@@ -33,15 +33,16 @@ class DeliveryController extends Controller
         $id = Auth::user()->id;
 
         switch ($role) {
-            case 'user':
-                $deliveries = Delivery::where('user_id', $id)->search($request->searching)->orderBy('id', 'DESC')->paginate(10);
+            case 'admin':
+                $deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->paginate(10);
                 break;
-            case 'quicker':
+
+            case 'quicklero':
                 $deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->paginate(10);
                 break;
 
             default:
-                $deliveries = Delivery::search($request->searching)->orderBy('id', 'DESC')->paginate(10);
+                $deliveries = Delivery::where('user_id', $id)->search($request->searching)->orderBy('id', 'DESC')->paginate(10);
                 break;
         }
 
@@ -90,7 +91,7 @@ class DeliveryController extends Controller
         } else {
             $response = [
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error interno, por favor intente de nuevo.'
+                'message' => 'Error al registrar solicitud, por favor intente mas tarde.'
             ];
         }
 
@@ -123,17 +124,31 @@ class DeliveryController extends Controller
      */
     public function update(Request $request)
     {
+        $response = [];
 
+        $delivery = Delivery::find($request->id);
 
-        /* if ($save) {
-            $delivery = Delivery::find($delivery_detail->delivery_id);
+        if ($delivery->status == 1) {
+            $delivery->fill($request->all());
+            if ($delivery->save()) {
+                $response = [
+                    'status' => 'success',
+                    'message' => 'Solicitud actualizada.'
+                ];
+            } else {
+                $response = [
+                    'status' => 'error',
+                    'message' => 'Ha ocurrido un error al actualizar su solicitud.'
+                ];
+            }
+        } else {
+            $response = [
+                'status' => 'info',
+                'message' => 'No es posible modificar la solicitud una vez ha sido aceptada por un Quicklero.'
+            ];
+        }
 
-            $delivery->delivery_man = Auth::user()->id;
-            $delivery->status_id = 2;
-            $delivery->save();
-
-            $delivery->detail;
-        } */
+        return response()->json($response, 200);
     }
 
     /**
@@ -157,16 +172,18 @@ class DeliveryController extends Controller
     {
         $response = [];
 
-        $delivery_detail = DeliveryDetail::find($request->id);
+        $delivery_detail = Delivery::find($request->id)->detail;
 
         $delivery_detail->final_offer = $request->offer;
 
         if ($delivery_detail->save()) {
             $response = [
+                'status' => 'success',
                 'message' => 'Oferta envíada con éxito.'
             ];
         } else {
             $response = [
+                'status' => 'error',
                 'message' => 'Error al envíar oferta.'
             ];
         }
@@ -174,12 +191,30 @@ class DeliveryController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * Decline offer rate, set the final_offer value to initial_offer
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return JSON $response
+     */
     public function declineShippingRate(Request $request)
     {
-        $delivery_detail = DeliveryDetail::find($request->id);
+        $delivery_detail = Delivery::find($request->id)->detail;
 
         $delivery_detail->final_offer = $delivery_detail->inital_offer;
 
-        $delivery_detail->save();
+        if ($delivery_detail->save()) {
+            $response = [
+                'status' => 'success',
+                'message' => 'Se declinó la oferta.'
+            ];
+        } else {
+            $response = [
+                'status' => 'error',
+                'message' => 'Error al declinar oferta, si el problema persiste por favor contacte a soporte.'
+            ];
+        }
+
+        return response()->json($response, 200);
     }
 }

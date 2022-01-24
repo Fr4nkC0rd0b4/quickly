@@ -155,7 +155,6 @@
         },
         data() {
             return {
-                id: this.$route.params.id,
                 offer: 0,
                 baseURL: '/delivery/',
             }
@@ -175,14 +174,19 @@
                 if (!this.$v.offer.$anyError) {
                     this.$emit('loading', true);
 
-                    axios.put(this.baseURL + 'offer-shipping-rate', { id:this.id, offer:this.offer }
+                    axios.put(this.baseURL + 'offer-shipping-rate', { id:this.delivery.id, offer:this.offer }
                         ).then(solve => {
                             toastr.options =
                             {
                                 "closeButton" : true,
                                 "progressBar" : true
                             }
-                            toastr.success(solve.data.message);
+
+                            if(solve.data.status == 'success') {
+                                toastr.success(solve.data.message);
+                            } else {
+                                toastr.error(solve.data.message);
+                            }
 
                             // Llamado a método de cerrar ventana modal
                             this.closeModal();

@@ -35,9 +35,10 @@
 
 <script>
     import DeliveryComponent from './DeliveryComponent.vue';
+    import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue';
 
     export default {
-        components: { DeliveryComponent },
+        components: { DeliveryComponent, ScaleLoader },
 
         props: {
             delivery: {},
