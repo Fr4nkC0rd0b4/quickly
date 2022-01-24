@@ -8,12 +8,12 @@
                 </div>
                 <div class="card" v-else>
                     <div class="card-header">
-                        <h5>Solicitud: {{ delivery.id }}</h5>
+                        <h5>Solicitud: {{ getDelivery }}</h5>
                     </div>
                     <div class="card-body">
 
                         <!-- Delivery Component -->
-                        <delivery-component ref="accept" :delivery="delivery" @loading="loading = $event"></delivery-component>
+                        <delivery-component v-if="!loadingItem" ref="accept" :delivery="delivery" @loading="loading = $event"></delivery-component>
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -47,6 +47,8 @@
                 delivery: {},
                 loading: false,
                 loadingItem: false,
+                counter: 0,
+                total: 0
             }
         },
         methods: {
@@ -59,13 +61,15 @@
                 this.loading = false;
                 this.loadingItem = true;
 
-                if(this.$route.name == 'delivery.show') {
-                    axios.get(this.baseURL + this.$route.params.id).then(solve => {
-                        this.delivery = solve.data;
-                        this.loadingItem = false;
-                    });
-                }
+                let param = this.$route.params ? this.$route.params.id : '';
+
+                axios.get(this.baseURL + param).then(solve => {
+                    this.delivery = solve.data;
+                    this.loadingItem = false;
+                });
+                
+                return param;
             }
-        },
+        }
     }
 </script>
