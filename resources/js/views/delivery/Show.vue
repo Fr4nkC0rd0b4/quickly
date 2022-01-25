@@ -58,17 +58,19 @@
         },
         computed: {
             getDelivery() {
-                this.loading = false;
-                this.loadingItem = true;
+                if (this.$route.name == 'delivery.show') {
+                    this.loading = false;
+                    this.loadingItem = true;
 
-                let param = this.$route.params ? this.$route.params.id : '';
-
-                axios.get(this.baseURL + param).then(solve => {
-                    this.delivery = solve.data;
-                    this.loadingItem = false;
-                });
+                    let param = this.$route.params ? this.$route.params.id : '';
                 
-                return param;
+                    axios.get(this.baseURL + param).then(solve => {
+                        this.delivery = solve.data;
+                        this.loadingItem = false;
+                    });
+                    
+                    return param;
+                }
             }
         }
     }

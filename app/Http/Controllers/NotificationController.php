@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Delivery;
-use App\Events\NotificationsPushEvent;
 use App\Notification;
-use App\Notifications\EventNotifications;
 use App\Traits\NotificationTrait;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification as Notifications;
 
 class NotificationController extends Controller
 {
@@ -60,10 +56,12 @@ class NotificationController extends Controller
     /**
      * Mark notification as read
      * @param String $id default null
-     * @return Bool
+     * @return JSON $response
      */
     public function markAsRead($id = null)
     {
+        $response = [];
+
         // Se obtiene el ID del usuario logueado
         $user_id = Auth::user()->id;
 
@@ -74,11 +72,24 @@ class NotificationController extends Controller
         if ($id) {
 
             // Si existe, se obtiene la notificación y se actualiza el registro
-            $notification = Notification::find($id);
+            $notification = Notification::where('id', $id)->where('read_at', null)->first();
 
-            $notification->read_at = $now;
+            if ($notification) {
 
-            $notification->save();
+                $notification->read_at = $now;
+
+                $notification->save();
+
+                $response = [
+                    'status' => 'success',
+                    'counter' => 1
+                ];
+            } else {
+                $response = [
+                    'status' => 'info',
+                    'counter' => 0
+                ];
+            }
         } else {
 
             // Sino se obtienen todas las notificaciones no leídas
@@ -92,9 +103,14 @@ class NotificationController extends Controller
                 // Se actualiza el registro
                 $value->save();
             }
+
+            $response = [
+                'status' => 'success',
+                'counter' => count($notifications)
+            ];
         }
 
-        return response()->json(['done'], 200);
+        return response()->json($response, 200);
     }
 
     /**

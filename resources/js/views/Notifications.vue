@@ -20,7 +20,7 @@
                     <table class="table table-centered table-nowrap table-hover mb-0">
                         <tbody>
                             <tr v-for="(notification, key) in notifications" :key="notification.id" :class="notification.read ? '' : 'not-read'" class="cursor-pointer">
-                                <td @click="delivery(notification.delivery)">
+                                <td @click="toDeliveryView(notification.delivery, notification.id)">
                                     <div class="d-flex align-items-left">
                                         <img class="me-2 rounded-circle" :src="/storage/+notification.avatar" width="40" alt="Generic placeholder image">
                                         <div>
@@ -29,7 +29,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td @click="delivery(notification.delivery)">
+                                <td @click="toDeliveryView(notification.delivery, notification.id)">
                                     <span class="text-muted font-13">Envío ID #</span> <br>
                                     <p class="mb-0">{{ notification.delivery }}</p>
                                 </td>
@@ -42,7 +42,7 @@
                                             <!-- item-->
                                             <a v-if="!notification.read" href="javascript:void(0);" @click="markAsRead(notification.id)" class="dropdown-item">Marcar como leída</a>
                                             <!-- item-->
-                                            <a href="javascript:void(0);" @click="destroy(notification.id, key)" class="dropdown-item">Eliminar</a>
+                                            <a href="javascript:void(0);" @click="deleteItem(notification.id, key)" class="dropdown-item">Eliminar</a>
                                         </div>
                                     </div>
                                 </td>
@@ -66,12 +66,14 @@
     let auth_user = document.head.querySelector('meta[name="user"]').content;
 
     import InfiniteLoading from 'vue-infinite-loading';
+    import { mapMutations } from 'vuex';
 
     export default {
         components: {
             InfiniteLoading
         },
         mounted() {
+            // Envento de escucha de pusher
             window.Echo.channel('notification-status')
                 .listen('NotificationsPushEvent', (notification) => {
                     
@@ -106,7 +108,6 @@
             }
         },
         methods: {
-
             //Cargo los datos inicialmente usando scroll infinito
             infiniteHandler($state) {
                 this.state = $state;
@@ -143,16 +144,16 @@
                     this.state.error();
                 });
             },
-
+            // Recargar pagina
             reload() {
                 window.location.reload();
             },
-
+            // Marcar una o mas notificaciones como leídas
             markAsRead(id = null) {
-
+                let vm = this;
                 let fullURL = this.baseURL + 'mark-as-read/';
 
-                if(id) {
+                if (id) {
                     fullURL = fullURL + id;
                 }
 
@@ -160,7 +161,7 @@
                     solve => {
                         let response = solve.data;
 
-                        if(response == 'done') {
+                        if(response.status == 'success') {
                             $.each(this.notifications, function(key, value) {
                                 if(id && id == value.id) {                                    
                                     value.read = 1;
@@ -168,23 +169,32 @@
                                     value.read = 1;
                                 }
                             });
-
+                            vm.decrement(response.counter);
                         }
                     }
-                )
+                );
             },
-            destroy(id, index) {
+            // Eliminar notificación específica
+            deleteItem(id, index) {
                 axios.delete(this.baseURL + 'delete/' + id).then(
                     solve => {
                         if(solve.data.message == 'deleted') {
                             this.notifications.splice(index, 1);
+                            this.decrement(1);
                         }
                     }
                 )
             },
-            delivery(id) {
+            // Redireccionar a vista de Delivery
+            toDeliveryView(id, notification) {
+                // Llamado a función encargada de marcar como leída
+                this.markAsRead(notification);
+
+                // Se hace push a la ruta de vista de envío
                 this.$router.push({ name: 'delivery.show', params: { id: id } });
-            }
+            },
+            // Se importan las mutaciones...
+            ...mapMutations(['decrement', 'setCountNotifications'])
         }
     };
 </script>

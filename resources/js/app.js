@@ -14,6 +14,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
 import Vue from 'vue'
 import vSelect from 'vue-select'
+import Vuex from 'vuex';
 
 // Components style
 import 'vue-select/dist/vue-select.css';
@@ -21,6 +22,7 @@ import 'vue-select/dist/vue-select.css';
 // Components name
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
+Vue.use(Vuex);
 
 /**
  * The following block of code may be used to automatically register your
@@ -43,10 +45,25 @@ Vue.component('v-select', vSelect)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+const store = new Vuex.Store({
+	state: {
+		count_notifications: 0
+	},
+	mutations: {
+		increment(state) {
+			state.count_notifications++
+		},
+		decrement(state, n) {
+			state.count_notifications -= n
+		},
+		setCountNotifications(state, data) {
+			state.count_notifications = data
+		}
+	}
+});
+
 const app = new Vue({
 	router,
 	el: '#app',
-	mounted() {
-		let auth_user = document.head.querySelector('meta[name="user"]').content;
-	}
+	store
 });

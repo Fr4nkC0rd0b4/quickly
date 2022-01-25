@@ -2,7 +2,7 @@
     <li class="dropdown notification-list">
         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
             <i class="mt-3 fa fa-bell-o fa-2x"></i>
-            <span class="badge badge-danger" v-if="count > 0">{{ count }}</span>
+            <span class="badge badge-danger" v-if="count_notifications > 0">{{ count_notifications }}</span>
         </a>
     	<div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">
             <!-- item-->
@@ -12,7 +12,8 @@
                         <a href="javascript:void(0);" @click="markAsRead()" class="text-dark">
                             <small>Marcar como leídas</small>
                         </a>
-                    </span>Notificaciones
+                    </span>
+                    Notificaciones
                 </h5>
             </div>
 
@@ -28,17 +29,19 @@
                                 <div class="simplebar-content" style="padding: 0px;">
                                     
                                     <!-- item-->
-                                    <router-link v-for="notification in notifications" :key="notification.id" :to="notification.url" class="dropdown-item notify-item" :class="notification.read ? '' : 'not-read'">
-                                        <div v-if="notification.avatar" class="notify-icon">
-                                            <img :src="/storage/+notification.avatar" class="img-fluid rounded-circle" alt="profile-image">
-                                        </div>
-                                        <div v-else class="notify-icon bg-primary">
-                                            <i class="mdi mdi-comment-account-outline"></i>
-                                        </div>
-                                        <p class="notify-details">{{ notification.title +' '+ notification.text }}
-                                            <small class="text-muted">{{ notification.time }}</small>
-                                        </p>
-                                    </router-link>
+                                    <div v-for="(notification, i) in notifications" :key="i"> 
+                                        <a href="javascript:void(0);" @click="toDeliveryView(notification.delivery, notification.id)" class="dropdown-item notify-item" :class="notification.read ? '' : 'not-read'">
+                                            <div v-if="notification.avatar" class="notify-icon">
+                                                <img :src="/storage/+notification.avatar" class="img-fluid rounded-circle" alt="profile-image">
+                                            </div>
+                                            <div v-else class="notify-icon bg-primary">
+                                                <i class="mdi mdi-comment-account-outline"></i>
+                                            </div>
+                                            <p class="notify-details">{{ notification.title +' '+ notification.text }}
+                                                <small class="text-muted">{{ notification.time }}</small>
+                                            </p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -56,19 +59,7 @@
     </li>
 </template>
 <script>
-
-    import VueTimeago from 'vue-timeago'
-
-    Vue.use(VueTimeago, {
-        name: 'Timeago', // Component name, `Timeago` by default
-        locale: 'en', // Default locale
-        // We use `date-fns` under the hood
-        // So you can use all locales from it
-        locales: {
-            'zh-CN': require('date-fns/locale/zh_cn'),
-            ja: require('date-fns/locale/ja')
-        }
-    })
+    import { mapMutations, mapState } from 'vuex';
 
     export default {
         props: ['user_id'],
@@ -76,14 +67,15 @@
         data() {
             return {
                 baseURL: '/notifications/',
-                notifications: [],
-                count: 0,
+                notifications: []
             }
         },
 
         mounted() {
+            // Llamado a método de obtener notificaciones
             this.getNotifications();
 
+            // Envento de escucha de pusher
             window.Echo.channel('notification-status')
                 .listen('NotificationsPushEvent', (notification) => {
                     
@@ -92,6 +84,9 @@
 
                     // Se verifica si el id del usuario logueado es el mismo del receptor de la notificación
                     if (this.user_id == detail.receipter_id) {
+
+                        // Se llama mutador que incrementa el número de las notificaciones no leídas
+                        this.increment();
 
                         // Se agrega la nueva notificación al modelo notifications
                         this.notifications.unshift({
@@ -116,6 +111,7 @@
         },
 
         methods: {
+            // Metodo encargado de obtener las notificaciones específicas de un usuario
             getNotifications() {
                 let vm = this;
                 axios.get(this.baseURL + 'get').then(
@@ -127,9 +123,11 @@
 
                             // Se agrega la nueva notificación al modelo notifications
                             vm.notifications.push({
+                                id: value.id,
                                 title: detail.title,
                                 text: detail.description,
                                 url: '/spa/delivery/' + value.notifiable_id,
+                                delivery: value.notifiable_id,
                                 time: value.time,
                                 read: value.read_at,
                                 avatar: detail.sender_avatar
@@ -137,26 +135,49 @@
 
                         });
                     
-                        this.count = solve.data.not_reads;
+                        this.setCountNotifications(solve.data.not_reads);
                     }
                 );
             },
+            // Marcar una o mas notificaciones como leídas
+            markAsRead(id = null) {
+                let vm = this;
+                let fullURL = this.baseURL + 'mark-as-read/';
 
-            markAsRead() {
-                axios.get(this.baseURL + 'mark-as-read').then(
+                if (id) {
+                    fullURL = fullURL + id;
+                }
+
+                axios.get(fullURL).then(
                     solve => {
                         let response = solve.data;
 
-                        if(response == 'done') {
+                        if(response.status == 'success') {
                             $.each(this.notifications, function(key, value) {
-                                value.read = 1;
+                                if(id && id == value.id) {                                    
+                                    value.read = 1;
+                                } else if(!id) {
+                                    value.read = 1;
+                                }
                             });
-
-                            this.count = 0;
-                        } 
+                            vm.decrement(response.counter);
+                        }
                     }
-                )
-            }
+                );
+            },
+            // Redirecciona a vista de Delivery
+            toDeliveryView(id, notification) {
+                // Llamado a función encargada de marcar como leída
+                this.markAsRead(notification);
+
+                // Se hace push a la ruta de vista de envío
+                this.$router.push({ name: 'delivery.show', params: { id: id } }).catch(()=>{});
+            },
+            // Se importan las mutaciones...
+            ...mapMutations(['increment', 'decrement', 'setCountNotifications'])
+        },
+        computed: {
+            ...mapState(['count_notifications'])
         }
     };
 </script>
