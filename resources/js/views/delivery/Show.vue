@@ -3,17 +3,17 @@
         <header-component title="Detalle de solicitud de envío"></header-component>
         <div class="row">
             <div class="col">
-                <div class="card" v-if="loadingItem">
-                    <scale-loader :size="'50px'"></scale-loader>
-                </div>
-                <div class="card" v-else>
+                <div class="card">
                     <div class="card-header">
-                        <h5>Solicitud: {{ getDelivery }}</h5>
+                        <div class="d-flex justify-content-between">
+                            <h5>Solicitud: {{ getDelivery }}</h5>
+                            <scale-loader v-if="loadingItem" :size="'50px'"></scale-loader>
+                        </div>
                     </div>
                     <div class="card-body">
 
                         <!-- Delivery Component -->
-                        <delivery-component v-if="!loadingItem" ref="accept" :delivery="delivery" @loading="loading = $event"></delivery-component>
+                        <delivery-component ref="accept" :delivery="delivery" :status="loadingItem" @loading="loading = $event"></delivery-component>
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -46,7 +46,7 @@
                 baseURL: '/delivery/',
                 delivery: {},
                 loading: false,
-                loadingItem: false,
+                loadingItem: true,
                 counter: 0,
                 total: 0
             }

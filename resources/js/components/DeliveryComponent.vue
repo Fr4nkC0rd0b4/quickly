@@ -4,10 +4,13 @@
         <div class="row">
             <div class="col">Solicitante:</div>
             <div class="col-sm">
-                <span class="account-user-avatar"> 
+                <span v-if="!status" class="account-user-avatar"> 
                     <img :src="delivery.user ? /storage/+delivery.user.avatar: ''" :alt="delivery.user ? delivery.user.avatar: ''" class="rounded-circle" style="height: 50px;">
                 </span>
-                <div class="badge text-light rounded-pill bg-success">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-7"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-success">
                     {{ delivery.user ? delivery.user.name: '' }}
                 </div>
             </div>
@@ -16,7 +19,10 @@
         <div class="row">
             <div class="col">Origen:</div>
             <div class="col-sm">
-                <div class="badge text-light rounded-pill bg-info">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-10"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-info">
                     {{ delivery.origin }}
                 </div>
             </div>
@@ -24,7 +30,10 @@
         <div class="row">
             <div class="col">Punto de recogida:</div>
             <div class="col-sm">
-                <div class="badge text-light rounded-pill bg-info">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-7"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-info">
                     {{ delivery.pick_up_point }}
                 </div>
             </div>
@@ -32,7 +41,10 @@
         <div class="row">
             <div class="col">Destino:</div>
             <div class="col-sm">
-                <div class="badge text-light rounded-pill bg-info">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-12"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-info">
                     {{ delivery.destination }}
                 </div>
             </div>
@@ -40,7 +52,10 @@
         <div class="row">
             <div class="col">Punto de entrega:</div>
             <div class="col-sm">
-                <div class="badge text-light rounded-pill bg-info">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-7"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-info">
                     {{ delivery.delivery_point }}
                 </div>
             </div>
@@ -49,7 +64,10 @@
         <div class="row">
             <div class="col">Tipo de envío:</div>
             <div class="col-sm">
-                <div class="badge text-light rounded-pill bg-info">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-6"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-info">
                     {{ delivery.type }}
                 </div>
             </div>
@@ -57,7 +75,10 @@
         <div class="row">
             <div class="col">Fecha de registro:</div>
             <div class="col-sm">
-                <div class="badge text-light rounded-pill bg-info">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-7"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-info">
                     {{ delivery.date }}
                 </div>
             </div>
@@ -66,7 +87,10 @@
         <div class="row">
             <div class="col">Oferta inicial:</div>
             <div class="col-sm">
-                <div class="badge text-light rounded-pill bg-info">
+                <div v-if="status" class="placeholder-glow">
+                    <span v-if="status" class="placeholder col-6"></span>
+                </div>
+                <div v-else class="badge text-light rounded-pill bg-info">
                     {{ delivery.detail ? delivery.detail.initial_offer: '' }}
                 </div>
             </div>
@@ -77,7 +101,10 @@
             <div class="row">
                 <div class="col">Contenido:</div>
                 <div class="col-sm">
-                    <div class="badge text-light rounded-pill bg-info">
+                    <div v-if="status" class="placeholder-glow">
+                        <span v-if="status" class="placeholder col-7"></span>
+                    </div>
+                    <div v-else class="badge text-light rounded-pill bg-info">
                         {{ delivery.detail ? delivery.detail.content: '' }}
                     </div>
                 </div>
@@ -86,7 +113,10 @@
             <div class="row">
                 <div class="col">Peso:</div>
                 <div class="col-sm">
-                    <div class="badge text-light rounded-pill bg-info">
+                    <div v-if="status" class="placeholder-glow">
+                        <span v-if="status" class="placeholder col-7"></span>
+                    </div>
+                    <div v-else class="badge text-light rounded-pill bg-info">
                         {{ delivery.detail ? delivery.detail.size: '' }}
                     </div>
                 </div>
@@ -95,7 +125,10 @@
             <div class="row">
                 <div class="col">Alto:</div>
                 <div class="col-sm">
-                    <div class="badge text-light rounded-pill bg-info">
+                    <div v-if="status" class="placeholder-glow">
+                        <span v-if="status" class="placeholder col-7"></span>
+                    </div>
+                    <div v-else class="badge text-light rounded-pill bg-info">
                         {{ delivery.detail ? delivery.detail.hight: '' }}
                     </div>
                 </div>
@@ -104,7 +137,10 @@
             <div class="row">
                 <div class="col">Largo:</div>
                 <div class="col-sm">
-                    <div class="badge text-light rounded-pill bg-info">
+                    <div v-if="status" class="placeholder-glow">
+                        <span v-if="status" class="placeholder col-7"></span>
+                    </div>
+                    <div v-else class="badge text-light rounded-pill bg-info">
                         {{ delivery.detail ? delivery.detail.long: '' }}
                     </div>
                 </div>
@@ -113,7 +149,10 @@
             <div class="row">
                 <div class="col">Ancho:</div>
                 <div class="col-sm">
-                    <div class="badge text-light rounded-pill bg-info">
+                    <div v-if="status" class="placeholder-glow">
+                        <span v-if="status" class="placeholder col-7"></span>
+                    </div>
+                    <div v-else class="badge text-light rounded-pill bg-info">
                         {{ delivery.detail ? delivery.detail.width: '' }}
                     </div>
                 </div>
@@ -151,7 +190,8 @@
 
     export default {
         props: {
-            delivery: {}
+            delivery: {},
+            status: false
         },
         data() {
             return {

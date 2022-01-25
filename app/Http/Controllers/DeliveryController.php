@@ -172,15 +172,19 @@ class DeliveryController extends Controller
     {
         $response = [];
 
-        $delivery_detail = Delivery::find($request->id)->detail;
+        $delivery = Delivery::find($request->id);
 
-        $delivery_detail->final_offer = $request->offer;
+        $delivery->detail->final_offer = $request->offer;
 
-        if ($delivery_detail->save()) {
+        if ($delivery->detail->save()) {
             $response = [
                 'status' => 'success',
                 'message' => 'Oferta envíada con éxito.'
             ];
+
+            $description = ' ha ofertado un precio para llevar tu envío.';
+
+            $this->sendNotification($delivery, $description);
         } else {
             $response = [
                 'status' => 'error',
@@ -199,15 +203,19 @@ class DeliveryController extends Controller
      */
     public function declineShippingRate(Request $request)
     {
-        $delivery_detail = Delivery::find($request->id)->detail;
+        $delivery = Delivery::find($request->id)->detail;
 
-        $delivery_detail->final_offer = $delivery_detail->inital_offer;
+        $delivery->detail->final_offer = $delivery->detail->inital_offer;
 
-        if ($delivery_detail->save()) {
+        if ($delivery->detail->save()) {
             $response = [
                 'status' => 'success',
                 'message' => 'Se declinó la oferta.'
             ];
+
+            $description = ' ha declinado su oferta.';
+
+            $this->sendNotification($delivery, $description);
         } else {
             $response = [
                 'status' => 'error',
