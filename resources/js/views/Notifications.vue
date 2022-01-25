@@ -85,6 +85,7 @@
 
                         // Se agrega la nueva notificación al modelo notifications
                         this.notifications.unshift({
+                            id: notification.id,
                             title: detail.title,
                             text: detail.description,
                             url: '/delivery/' + notification.notifiable_id,

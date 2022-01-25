@@ -90,9 +90,11 @@
 
                         // Se agrega la nueva notificación al modelo notifications
                         this.notifications.unshift({
+                            id: notification.id,
                             title: detail.title,
                             text: detail.description,
                             url: '/spa/delivery/' + notification.notifiable_id,
+                            delivery: notification.notifiable_id,
                             time: notification.time,
                             read: notification.read_at,
                             avatar: detail.sender_avatar

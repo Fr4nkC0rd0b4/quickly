@@ -14,9 +14,11 @@ class NotificationController extends Controller
 
     public function test()
     {
-        $delivery = Delivery::firstOrFail();
+        $delivery = Delivery::inRandomOrder()->first();
 
-        $this->sendNotification($delivery);
+        $description = ' ha ofertado llevar su orden de envío.';
+
+        $this->sendNotification($delivery, $description);
     }
 
     /**
